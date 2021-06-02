@@ -112,21 +112,6 @@ router.post('/login', (req, res) => {
 
 })
 
-<<<<<<< HEAD
-=======
-// @route GET api/users/current
-// @desc Returns current user
-// @access private
-router.get('/current', passport.authenticate('jwt', { session: false }), (req, res) => {
-    res.json({
-        id: req.user.id,
-        email: req.user.email,
-        isAdmin: req.user.isAdmin,
-        firstLogin: req.user.firstLogin
-    });
-});
-
->>>>>>> e38e6d5e3487f14eee32dbc44512e65e2cf43094
 // @route PUT api/users/changepassword
 // @desc Changing of the password
 // @access private

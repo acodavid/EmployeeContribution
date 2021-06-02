@@ -7,28 +7,6 @@
     text-align: center;
 }
 
-.btn {
-    text-decoration: none;
-    background: #185adb;
-    padding: 0.6rem;
-    color: #fff;
-    border-radius: 5px;
-}
-
-.btn:hover {
-    opacity: 0.8;
-}
-
-input, select {
-    margin: 1rem 0;
-    font-size: 26px;
-    padding: 0.6rem;
-    width: 100%;
-    color: var(--light-color);
-    border: #333 2px solid;
-    border-radius: 15px;
-}
-
 .register {
     height: 90vh;
 }
@@ -43,17 +21,8 @@ input, select {
     justify-content: center;
 }
 
-.is-invalid {
-    border: 2px solid red;
-}
-
 .admin-label {
     font-size: 20px;
     margin-right: auto;
     margin-top: 8px;
-}
-
-.invalid-feedback {
-    color: red;
-    font-size: 15px;
 }
