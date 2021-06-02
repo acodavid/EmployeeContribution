@@ -1,0 +1,17 @@
+<nav class="navbar">
+    <div class="navbar-logo-home">
+        <p class="navbar-brand">W7</p>
+        <a *ngIf="userService.loggedIn()" routerLink="/" class="navbar-link">Home</a>
+    </div>
+    <!-- LOGIN - if user is not logged in || LOGOUT - is user is logged in -->
+    <div class="navbar-menu">
+        
+
+            <a *ngIf="userService.loggedIn()" class="navbar-link" (click)="logout()">Logout</a>
+        
+        
+            <a *ngIf="!userService.loggedIn()" routerLink="/login" class="navbar-link">Login</a>
+        
+
+    </div>
+</nav>
