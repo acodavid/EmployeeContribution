@@ -29,6 +29,11 @@ export class RegisterComponent implements OnInit {
   ) { }
 
   ngOnInit(): void {
+    const user = JSON.parse(localStorage.getItem('user'));
+
+    if(!user.isAdmin) {
+      this.router.navigate(['/'])
+    }
   }
 
   registerUser({value}: {value: User}) {

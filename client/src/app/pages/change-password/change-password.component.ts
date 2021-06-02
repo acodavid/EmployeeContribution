@@ -41,8 +41,7 @@ export class ChangePasswordComponent implements OnInit {
 
     this.userService.changePassword(this.data).subscribe(
       result => {
-        console.log(result + ' success');
-        this.router.navigate(['/']);
+        this.userService.setUserData();
       }, error => {
         this.errors = error.error
       }, () => {
