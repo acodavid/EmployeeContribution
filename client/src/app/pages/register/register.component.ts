@@ -1,32 +1,40 @@
-import { Component, OnInit, ViewChild } from '@angular/core';
-import { User } from '../../data/models/User';
+import { Component, OnInit } from '@angular/core';
 import { UserService } from '../../data/services/user.service';
 import { Router } from '@angular/router'
+import { FormGroup, FormControl, Validators } from '@angular/forms'
+import { User } from 'src/app/data/models/User';
 
 @Component({
   selector: 'app-register',
   templateUrl: './register.component.html',
   styleUrls: ['./register.component.css']
 })
+
+
+
 export class RegisterComponent implements OnInit {
+
+  errors = {
+    email: '',
+    password: ''
+  }
 
   user: User = {
     email: '',
     password: '',
     isAdmin: false
   };
-
-  errors = {
-    email: '',
-    password: ''
-  };
-
-  @ViewChild('registerForm') form: any;
+  
+  registerForm: FormGroup;
 
   constructor(
     private userService: UserService,
     private router: Router
-  ) { }
+
+  ) { 
+    this.composeForm();
+   }
+  
 
   ngOnInit(): void {
     const user = JSON.parse(localStorage.getItem('user'));
@@ -36,31 +44,39 @@ export class RegisterComponent implements OnInit {
     }
   }
 
-  registerUser({value}: {value: User}) {
-    // Value is the data from the form
+  composeForm(): void {
 
-  
-      // registration of user
-      this.userService.registerUser(value).subscribe(result => {
-        console.log('Registration succesfull!')
-        
-      }, error => {
-        this.errors = error.error;
-      }, () => {
-        this.user = {
-          email: '',
-          password: '',
-          isAdmin: false
-        }
-
-        this.errors = {
-          email: '',
-          password: ''
-        }
-        this.router.navigate(['/']);
-      })
+    this.registerForm = new FormGroup({
+      email: new FormControl(this.user.email, Validators.required),
+      password: new FormControl(this.user.password, Validators.required),
+      isAdmin: new FormControl(this.user.isAdmin, Validators.required)
+    })
+    
+  }
 
 
+
+  registerUser() {
+
+    this.user = this.registerForm.value;
+
+    this.userService.registerUser(this.user).subscribe(result => {
+      console.log('Registrated!')
+    }, error => {
+      this.errors = error.error
+    }, () => {
+      this.user = {
+        email: '',
+        password: '',
+        isAdmin: false
+      }
+      this.errors = {
+        email: '',
+        password: ''
+      }
+      this.router.navigate(['/']);
+    })
+    
   }
 
 }

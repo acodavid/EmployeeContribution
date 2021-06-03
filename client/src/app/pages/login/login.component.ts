@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { LoginUser } from '../../data/models/LoginUser';
 import { UserService } from '../../data/services/user.service';
 import { Router } from '@angular/router';
+import { FormGroup, FormControl, Validators } from '@angular/forms';
 
 @Component({
   selector: 'app-login',
@@ -21,17 +22,32 @@ export class LoginComponent implements OnInit {
     password: ''
   }
 
+  loginForm: FormGroup;
+
   constructor(
     private userService: UserService,
     private router: Router
-  ) { }
+  ) { 
+    this.composeForm();
+  }
 
   ngOnInit(): void {
   }
 
-  loginUser({value}) {
+  composeForm(): void {
+
+    this.loginForm = new FormGroup({
+      email: new FormControl(this.user.email, Validators.required),
+      password: new FormControl(this.user.password, Validators.required)
+    })
     
-    this.userService.login(value).subscribe(
+  }
+
+  loginUser() {
+
+    this.user = this.loginForm.value;
+    
+    this.userService.login(this.user).subscribe(
       result => {
         this.userService.storeUserData(result.token, result.user);
       }, error => {

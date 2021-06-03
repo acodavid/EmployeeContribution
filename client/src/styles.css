@@ -41,7 +41,7 @@ li {
     opacity: 0.8;
 }
 
-input, select {
+input, select, button {
     margin: 1rem 0;
     font-size: 26px;
     padding: 0.6rem;

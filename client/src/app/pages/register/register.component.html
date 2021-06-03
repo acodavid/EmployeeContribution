@@ -1,46 +1,43 @@
 <div class="register">
-    <form #registerForm="ngForm" (ngSubmit)="registerUser(registerForm)" class="register-form">
+    <form [formGroup]="registerForm" class="register-form">
         <h3 class="register-header">Registration</h3>
 
         <input 
             [ngClass]="{'is-invalid': errors.email}"
-            [(ngModel)]="user.email"
-            #userEmail="ngModel"
-            type="email" 
             class="input-email" 
-            name="email" 
-            id="email" 
+            type="email"  
             placeholder="Email" 
-            
+            formControlName="email"
         >
 
         <div [hidden]="!errors.email" class="invalid-feedback">{{errors.email}}</div>
 
         <input 
             [ngClass]="{'is-invalid': errors.password}"
-            [(ngModel)]="user.password" 
-            #userPassword="ngModel"
-            type="password" 
             class="input-password" 
-            name="password" 
-            id="password" 
+            type="password"  
             placeholder="Password" 
+            name="password"
+            formControlName="password"
         >
 
         <div [hidden]="!errors.password" class="invalid-feedback">{{errors.password}}</div>
 
         <label class="admin-label" for="is-admin">Admin or just an employee?</label>
-        <select 
-            [(ngModel)]="user.isAdmin"
-            #userIsAdmin="ngModel"
+        <select
             class="input-is-admin"
             id="isAdmin"
             name="isAdmin"
+            formControlName="isAdmin"
         >
             <option [ngValue]="false">Employee</option>
             <option [ngValue]="true">Admin</option>
         </select>
 
-        <input type="submit" value="Register" class="btn btn-landing btn-register">
+        <button class="btn btn-landing btn-register"
+                (click)="registerUser()"
+                [hidden]="!registerForm.valid"
+        >
+                 Register</button>
     </form>
 </div>

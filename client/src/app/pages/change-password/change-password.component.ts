@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { UserService } from '../../data/services/user.service';
-import { Router } from '@angular/router';
+import { FormGroup, FormControl, Validators } from '@angular/forms';
 
 @Component({
   selector: 'app-change-password',
@@ -18,25 +18,41 @@ export class ChangePasswordComponent implements OnInit {
     newPassword: '',
     newPasswordConfirmation: ''
   }
+  passwordUpdateForm: FormGroup;
 
   constructor(
-    private userService: UserService,
-    private router: Router
-  ) { }
+    private userService: UserService
+  ) { 
+    this.composeForm();
+  }
 
   ngOnInit(): void {
   }
 
-  changePassword({value}) {
+  composeForm(): void {
+
+    this.passwordUpdateForm = new FormGroup({
+      currentPassword: new FormControl(this.currentPassword, Validators.required),
+      newPassword: new FormControl(this.newPassword, Validators.required),
+      newPasswordConfirmation: new FormControl(this.newPasswordConfirmation, Validators.required)
+    })
+    
+  }
+
+  changePassword() {
 
     const user = JSON.parse(localStorage.getItem('user'))
+
+    console.log(this.passwordUpdateForm.value)
+
+    const {currentPassword, newPassword, newPasswordConfirmation} = this.passwordUpdateForm.value
 
     // DATA
     this.data = {
       id: user.id,
-      currentPassword: value.currentPassword,
-      newPassword: value.newPassword,
-      newPasswordConfirmation: value.newPasswordConfirmation 
+      currentPassword,
+      newPassword,
+      newPasswordConfirmation
     }
 
     this.userService.changePassword(this.data).subscribe(
