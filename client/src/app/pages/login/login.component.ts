@@ -49,7 +49,7 @@ export class LoginComponent implements OnInit {
     
     this.userService.login(this.user).subscribe(
       result => {
-        this.userService.storeUserData(result.token, result.user);
+        this.userService.storeUserToken(result.token);
       }, error => {
         this.errors = error.error;
       }, () => {

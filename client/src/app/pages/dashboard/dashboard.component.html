@@ -1,2 +1,10 @@
-<p>dashboard works!</p>
-<button [hidden]="!user.isAdmin" routerLink="/register">Create user</button>
+
+<div *ngIf="!noUsers">
+    <ul>
+        <li *ngFor="let user of employees">{{user.email}}</li>
+    </ul>
+</div>
+<div>
+    <button [hidden]="!user.isAdmin" routerLink="/register">Create user</button>
+    <button routerLink="/password/change">Change password</button>
+</div>

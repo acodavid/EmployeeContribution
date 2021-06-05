@@ -15,6 +15,37 @@ const validateLogin = require('../../validation/login');
 const validatePass = require('../../validation/changePassword')
 
 
+// @route GET api/users
+// @desc Get all user and sort them by email
+// @access private
+router.get('/', passport.authenticate('jwt', {session: false}), (req, res) => {
+    User.find()
+        .sort({email: 1})
+        .then(users => res.json(users))
+        .catch(err => res.status(404).json({notFound: 'List of users empty'}))
+})
+
+// @route GET api/users/user/:id
+// @desc Get user by id
+// @access private
+router.get('/user/:id', passport.authenticate('jwt', {session: false}), (req, res) => {
+    User.findById(req.params.id)
+        .then(user => res.json(user))
+        .catch(err => res.status(404).json({notFound: 'User not found'}))
+});
+
+// @route GET api/users/current
+// @desc Returns current user
+// @access private
+router.get('/current', passport.authenticate('jwt', { session: false }), (req, res) => {
+    res.json({
+        id: req.user.id,
+        email: req.user.email,
+        isAdmin: req.user.isAdmin,
+        firstLogin: req.user.firstLogin
+    });
+});
+
 // @route POST api/users/register
 // @desc Registration of user
 // @access public

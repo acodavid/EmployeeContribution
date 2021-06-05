@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
+import { User } from 'src/app/data/models/User';
 import { UserService } from '../../data/services/user.service';
 
 @Component({
@@ -9,12 +10,14 @@ import { UserService } from '../../data/services/user.service';
 })
 export class DashboardComponent implements OnInit {
 
-  user = {
-    id: '',
+  user: User = {
     email: '',
-    isAdmin: '',
-    firstLogin: false
-  }
+    isAdmin: false
+  };
+
+  employees: User[];
+
+  noUsers: boolean = true
 
   constructor(
     private userService: UserService,
@@ -23,11 +26,28 @@ export class DashboardComponent implements OnInit {
 
   ngOnInit(): void {
 
-    this.user = this.userService.getUserData();
+    this.userService.getCurrentUser().subscribe(user => {
+      if(user.firstLogin) {
+        this.router.navigate(['/password/change'])
+      }
+      this.user = user;
 
-    if(this.user.firstLogin) {
-      this.router.navigate(['/password/change'])
-    }
+      if(user.isAdmin) {
+
+        this.userService.getUsers().subscribe(users => {
+
+          this.employees = users;
+          this.noUsers = false;
+          
+        }, errors => {
+          this.noUsers = true;
+        })
+
+      }
+      
+    })
+
+    
     
   }
 

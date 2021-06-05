@@ -24,6 +24,13 @@ export class RegisterComponent implements OnInit {
     password: '',
     isAdmin: false
   };
+
+  currentUser = {
+    id: '',
+    email: '',
+    isAdmin: '',
+    firstLogin: false
+  }
   
   registerForm: FormGroup;
 
@@ -37,11 +44,13 @@ export class RegisterComponent implements OnInit {
   
 
   ngOnInit(): void {
-    const user = JSON.parse(localStorage.getItem('user'));
+    // If it is not the admin, navigate to not found
 
-    if(!user.isAdmin) {
-      this.router.navigate(['/'])
-    }
+    this.userService.getCurrentUser().subscribe(user => {
+      if(!user.isAdmin) {
+        this.router.navigate(['/not-found'])
+      }
+    })
   }
 
   composeForm(): void {
