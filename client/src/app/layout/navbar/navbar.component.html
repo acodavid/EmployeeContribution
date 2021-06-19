@@ -1,17 +1,28 @@
 <nav class="navbar">
-    <div class="navbar-logo-home">
-        <p class="navbar-brand">W7</p>
-        <a *ngIf="userService.loggedIn()" routerLink="/" class="navbar-link">Home</a>
+
+    <div class="navbar-brand">
+        <button mat-button routerLink="/">Brand</button>
     </div>
-    <!-- LOGIN - if user is not logged in || LOGOUT - is user is logged in -->
+
     <div class="navbar-menu">
-        
-
-            <a *ngIf="userService.loggedIn()" class="navbar-link" (click)="logout()">Logout</a>
-        
-        
-            <a *ngIf="!userService.loggedIn()" routerLink="/login" class="navbar-link">Login</a>
-        
-
+        <div class="navbar-links">
+            <button mat-button class="navbar-links" *ngIf="userService.checkAdmin()" routerLink="/employees">Employees</button>
+        <button mat-button class="navbar-links" *ngIf="userService.loggedIn()" routerLink="/">Dashboard</button>
+        </div>
+        <button mat-button [matMenuTriggerFor]="menu" *ngIf="userService.loggedIn()">
+            <mat-icon>account_circle</mat-icon>
+        </button>
+        <mat-menu #menu="matMenu">
+            <div class="show-content">
+                <button mat-menu-item *ngIf="userService.loggedIn()" routerLink="/">Dashboard</button>
+                <button mat-menu-item *ngIf="userService.checkAdmin()" routerLink="/employees">Employees</button>
+            </div>
+            
+            <button mat-menu-item routerLink="/password/change">Change password</button>
+            <button mat-menu-item>Profile</button>
+            <button mat-menu-item (click)="logout()">Logout</button>
+        </mat-menu>
+        <button mat-button *ngIf="!userService.loggedIn()" routerLink="/login">Login</button>
     </div>
+    
 </nav>

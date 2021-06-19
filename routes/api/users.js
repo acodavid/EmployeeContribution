@@ -12,7 +12,8 @@ const User = require('../../models/User');
 // Validation
 const validateRegister = require('../../validation/registration');
 const validateLogin = require('../../validation/login');
-const validatePass = require('../../validation/changePassword')
+const validatePass = require('../../validation/changePassword');
+const validateUpdateUser = require('../../validation/updateUser');
 
 
 // @route GET api/users
@@ -30,7 +31,7 @@ router.get('/', passport.authenticate('jwt', {session: false}), (req, res) => {
 // @access private
 router.get('/user/:id', passport.authenticate('jwt', {session: false}), (req, res) => {
     User.findById(req.params.id)
-        .then(user => res.json(user))
+        .then(user => {res.json(user)})
         .catch(err => res.status(404).json({notFound: 'User not found'}))
 });
 
@@ -65,9 +66,19 @@ router.post('/register', (req, res) => {
                 return res.status(400).json(errors);
             } else {
                 const newUser = new User({
+                    name: req.body.name,
                     email: req.body.email,
                     password: req.body.password,
-                    isAdmin: req.body.isAdmin
+                    isAdmin: req.body.isAdmin,
+                    dateOfBirth: req.body.dateOfBirth,
+                    typeOfPosition: req.body.typeOfPosition,
+                    hiredDate: req.body.hiredDate,
+                    contractDuration: req.body.contractDuration,
+                    terminationDate: req.body.terminationDate,
+                    orgLevel: req.body.orgLevel,
+                    status: req.body.status,
+                    durationOfPreviousService: req.body.durationOfPreviousService,
+                    linkToPersonalFolder: req.body.linkToPersonalFolder
                 });
 
                 // sifrovanje password-a pomocu bcrypt biblioteke
@@ -88,6 +99,90 @@ router.post('/register', (req, res) => {
         })
 
 })
+
+// @route PUT api/users/update
+// @desc Edit user
+// @access private
+router.put('/update', passport.authenticate('jwt', {session: false}), (req, res) => {
+
+    const {errors, isValid} = validateUpdateUser(req.body);
+
+    if(!isValid) {
+        return res.status(400).json(errors);
+    }
+
+    const newUser = {}
+
+    if(req.body.name) {
+        newUser.name = req.body.name
+    }
+
+    if(req.body.email) {
+        newUser.email = req.body.email
+    }
+
+    if(req.body.isAdmin) {
+        newUser.isAdmin = req.body.isAdmin
+    }
+
+    if(req.body.dateOfBirth) {
+        newUser.dateOfBirth = req.body.dateOfBirth
+    }
+
+    if(req.body.typeOfPosition) {
+        newUser.typeOfPosition = req.body.typeOfPosition
+    }
+
+    if(req.body.hiredDate) {
+        newUser.hiredDate = req.body.hiredDate
+    }
+
+    if(req.body.contractDuration) {
+        newUser.contractDuration = req.body.contractDuration
+    }
+
+    if(req.body.terminationDate) {
+        newUser.terminationDate = req.body.terminationDate
+    }
+
+    if(req.body.orgLevel) {
+        newUser.orgLevel = req.body.orgLevel
+    }
+
+    if(req.body.status) {
+        newUser.status = req.body.status
+    }
+
+    if(req.body.durationOfPreviousService) {
+        newUser.durationOfPreviousService = req.body.durationOfPreviousService
+    }
+
+    if(req.body.linkToPersonalFolder) {
+        newUser.linkToPersonalFolder = req.body.linkToPersonalFolder
+    }
+
+
+
+
+    User.findByIdAndUpdate({_id: req.body._id}, {$set: newUser}, {new: true, useFindAndModify: false})
+        .then(user => res.json(user))
+        .catch(err => console.log(err))
+
+})
+
+// @route DELETE api/users/:id
+// @desc delete an user
+// @access private
+router.delete('/:id', passport.authenticate('jwt', {session: false}), (req, res) => {
+
+    User.findById(req.params.id)
+        .then(user => {
+            user.remove().then(() => res.json({success: true}));
+        })
+        .catch(err => res.status(404).json({error: 'Ne postoji taj korisnik'}))
+
+})
+
 
 // @route POST api/users/login
 // @desc Login user, returns JWT token

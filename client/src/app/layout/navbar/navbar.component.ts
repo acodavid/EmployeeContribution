@@ -5,7 +5,7 @@ import { UserService } from '../../data/services/user.service';
 @Component({
   selector: 'app-navbar',
   templateUrl: './navbar.component.html',
-  styleUrls: ['./navbar.component.css']
+  styleUrls: ['./navbar.component.scss']
 })
 export class NavbarComponent implements OnInit {
 
@@ -15,7 +15,6 @@ export class NavbarComponent implements OnInit {
   ) { }
 
   ngOnInit(): void {
-
     
   }
 

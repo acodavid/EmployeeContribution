@@ -7,9 +7,14 @@ import { Router } from '@angular/router';
 @Component({
   selector: 'app-change-password',
   templateUrl: './change-password.component.html',
-  styleUrls: ['./change-password.component.css']
+  styleUrls: ['./change-password.component.scss']
 })
 export class ChangePasswordComponent implements OnInit {
+
+  // password field changers
+  hide1: boolean = true;
+  hide2: boolean = true;
+  hide3: boolean = true;
 
   currentPassword: string = '';
   newPassword: string = '';
@@ -63,6 +68,19 @@ export class ChangePasswordComponent implements OnInit {
           result => {
             this.router.navigate(['/']);
           }, error => {
+
+            if(error.error.currentPassword) {
+              this.passwordUpdateForm.get('currentPassword').setErrors({'valid': false});
+            }
+
+            if(error.error.newPassword) {
+              this.passwordUpdateForm.get('newPassword').setErrors({'valid': false});
+            }
+
+            if(error.error.newPasswordConfirmation) {
+              this.passwordUpdateForm.get('newPasswordConfirmation').setErrors({'valid': false});
+            }
+
             this.errors = error.error
           }, () => {
             this.currentPassword = '';

@@ -1,31 +1,28 @@
 <div class="login">
     <form [formGroup]="loginForm" class="login-form">
-        <h3 class="login-header">Login</h3>
+        <h3 class="form-header">Login</h3>
 
-        <input 
-            [ngClass]="{'is-invalid': errors.email}"
-            class="input-email" 
-            type="email"  
-            placeholder="Email" 
-            formControlName="email"
-        >
+        <div class="form-group">
+            <mat-form-field class="full-width">
+                <mat-label>Email</mat-label>
+                <input matInput formControlName="email" required>
+                <mat-error *ngIf="errors.email">{{errors.email}}</mat-error>
+            </mat-form-field>   
+        </div>
 
-        <div [hidden]="!errors.email" class="invalid-feedback">{{errors.email}}</div>
-
-        <input 
-            [ngClass]="{'is-invalid': errors.password}"
-            class="input-password" 
-            type="password"  
-            placeholder="Password" 
-            name="password"
-            formControlName="password"
-        >
-
-        <div [hidden]="!errors.password" class="invalid-feedback">{{errors.password}}</div>
-
-        <button class="btn btn-landing btn-register"
+        <div class="form-group">
+            <mat-form-field class="full-width">
+                <mat-label>Password</mat-label>
+                <input matInput formControlName="password" [type]="hide ? 'password' : 'text'" required>
+                <button mat-icon-button matSuffix (click)="hide = !hide" [attr.aria-label]="'Hide password'" [attr.aria-pressed]="hide">
+                    <mat-icon>{{hide ? 'visibility_off' : 'visibility'}}</mat-icon>
+                  </button>
+                <mat-error *ngIf="errors.password">{{errors.password}}</mat-error>
+            </mat-form-field>
+        </div>
+        <button mat-raised-button color="primary"
                 (click)="loginUser()"
-                [hidden]="!loginForm.valid"
+                [disabled]="!loginForm.valid"
         >
                  Login</button>
     </form>

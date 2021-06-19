@@ -13,6 +13,11 @@ import { NotFoundComponent } from './pages/not-found/not-found.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { HttpClientModule } from '@angular/common/http';
 import { ChangePasswordComponent } from './pages/change-password/change-password.component';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import {MaterialModule} from './material/material.module';
+import { AdminBoardComponent } from './pages/admin-board/admin-board.component';
+import { UpdateUserComponent } from './pages/update-user/update-user.component'
+
 @NgModule({
   declarations: [
     AppComponent,
@@ -22,14 +27,18 @@ import { ChangePasswordComponent } from './pages/change-password/change-password
     FooterComponent,
     DashboardComponent,
     NotFoundComponent,
-    ChangePasswordComponent
+    ChangePasswordComponent,
+    AdminBoardComponent,
+    UpdateUserComponent
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
     FormsModule,
     HttpClientModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    BrowserAnimationsModule,
+    MaterialModule
   ],
   providers: [],
   bootstrap: [AppComponent]

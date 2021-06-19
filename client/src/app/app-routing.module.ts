@@ -7,6 +7,8 @@ import { NotFoundComponent } from './pages/not-found/not-found.component';
 import { RegisterComponent } from './pages/register/register.component';
 import { ChangePasswordComponent } from './pages/change-password/change-password.component';
 import { AuthGuard } from './data/guards/auth.guard';
+import { AdminBoardComponent } from './pages/admin-board/admin-board.component';
+import { UpdateUserComponent } from './pages/update-user/update-user.component';
 
 
 const routes: Routes = [
@@ -14,6 +16,8 @@ const routes: Routes = [
   {path: 'password/change', component: ChangePasswordComponent, canActivate:[AuthGuard]},
   {path: 'register', component: RegisterComponent, canActivate:[AuthGuard]},
   {path: 'login', component: LoginComponent},
+  {path: 'employees', component: AdminBoardComponent, canActivate:[AuthGuard]},
+  {path: 'user/edit/:id', component: UpdateUserComponent, canActivate:[AuthGuard]},
   {path: '**', component: NotFoundComponent}
 ];
 
