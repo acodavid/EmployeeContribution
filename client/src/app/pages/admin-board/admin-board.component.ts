@@ -40,4 +40,9 @@ export class AdminBoardComponent implements OnInit {
 
   }
 
+  filterByName(event: Event) {
+    const filterValue = (event.target as HTMLInputElement).value;
+    // Filter 
+  }
+
 }

@@ -269,7 +269,7 @@ router.put('/changepassword', passport.authenticate('jwt', {session: false}), (r
                                         user.password = hash;
                                         user.firstLogin = false;
                                         
-                                        User.findByIdAndUpdate({_id: req.body.id }, {$set: user}, {new: true})
+                                        User.findByIdAndUpdate({_id: req.body.id }, {$set: user}, {new: true, useFindAndModify: false})
                                             .then(user => res.json(user));
                                     })
                                 })

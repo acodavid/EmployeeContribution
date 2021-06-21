@@ -11,12 +11,15 @@ import { RegisterComponent } from './pages/register/register.component';
 import { DashboardComponent } from './pages/dashboard/dashboard.component';
 import { NotFoundComponent } from './pages/not-found/not-found.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
-import { HttpClientModule } from '@angular/common/http';
+import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { ChangePasswordComponent } from './pages/change-password/change-password.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import {MaterialModule} from './material/material.module';
 import { AdminBoardComponent } from './pages/admin-board/admin-board.component';
-import { UpdateUserComponent } from './pages/update-user/update-user.component'
+import { UpdateUserComponent } from './pages/update-user/update-user.component';
+
+import { UserInterceptor } from './data/services/user.interceptor';
+import { UserProfileComponent } from './pages/user-profile/user-profile.component';
 
 @NgModule({
   declarations: [
@@ -29,7 +32,8 @@ import { UpdateUserComponent } from './pages/update-user/update-user.component'
     NotFoundComponent,
     ChangePasswordComponent,
     AdminBoardComponent,
-    UpdateUserComponent
+    UpdateUserComponent,
+    UserProfileComponent
   ],
   imports: [
     BrowserModule,
@@ -40,7 +44,9 @@ import { UpdateUserComponent } from './pages/update-user/update-user.component'
     BrowserAnimationsModule,
     MaterialModule
   ],
-  providers: [],
+  providers: [
+    { provide: HTTP_INTERCEPTORS, useClass: UserInterceptor, multi: true }
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

@@ -25,22 +25,11 @@ export class UserService {
   }
 
   updateUser(user: UserRegister): Observable<any> {
-
-    const httpsOptions = {
-      headers: new HttpHeaders({
-        Authorization: localStorage.getItem('jwtToken')
-      })
-    }
-    return this.httpClient.put(`${environment.apiUrl}/api/users/update`, user, httpsOptions)
+    return this.httpClient.put(`${environment.apiUrl}/api/users/update`, user)
   }
 
   getUserById(id): Observable<UserRegister> {
-    const httpsOptions = {
-      headers: new HttpHeaders({
-        Authorization: localStorage.getItem('jwtToken')
-      })
-    }
-    return this.httpClient.get<UserRegister>(`${environment.apiUrl}/api/users/user/${id}`, httpsOptions)
+    return this.httpClient.get<UserRegister>(`${environment.apiUrl}/api/users/user/${id}`)
   }
 
   login(user: LoginUser): Observable<any> {
@@ -48,22 +37,11 @@ export class UserService {
   }
 
   getCurrentUser() : Observable<User> {
-    const httpsOptions = {
-      headers: new HttpHeaders({
-        Authorization: localStorage.getItem('jwtToken')
-      })
-    }
-
-    return this.httpClient.get<User>(`${environment.apiUrl}/api/users/current`, httpsOptions)
+    return this.httpClient.get<User>(`${environment.apiUrl}/api/users/current`)
   }
 
   getUsers() : Observable<UserRegister[]> {
-    const httpsOptions = {
-      headers: new HttpHeaders({
-        Authorization: localStorage.getItem('jwtToken')
-      })
-    }
-    return this.httpClient.get<UserRegister[]>(`${environment.apiUrl}/api/users`, httpsOptions)
+    return this.httpClient.get<UserRegister[]>(`${environment.apiUrl}/api/users`)
   }
 
   storeUserToken(token, user) {
@@ -91,21 +69,11 @@ export class UserService {
   }
 
   changePassword(data): Observable<any> {
-    const httpsOptions = {
-      headers: new HttpHeaders({
-        Authorization: localStorage.getItem('jwtToken')
-      })
-    }
-    return this.httpClient.put(`${environment.apiUrl}/api/users/changepassword`, data, httpsOptions)
+    return this.httpClient.put(`${environment.apiUrl}/api/users/changepassword`, data)
   }
 
   deleteUser(id): Observable<any> {
-    const httpsOptions = {
-      headers: new HttpHeaders({
-        Authorization: localStorage.getItem('jwtToken')
-      })
-    }
-    return this.httpClient.delete(`${environment.apiUrl}/api/users/${id}`, httpsOptions)
+    return this.httpClient.delete(`${environment.apiUrl}/api/users/${id}`)
   }
 
 }

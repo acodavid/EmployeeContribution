@@ -155,6 +155,14 @@ table {
     height: 85vh;
 }
 
+.profile-table {
+    width: 80%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+}
+
 @media(max-width: 1600px) {
     .buttons-inline {
         display: block;

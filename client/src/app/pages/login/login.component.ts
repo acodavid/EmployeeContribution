@@ -51,9 +51,12 @@ export class LoginComponent implements OnInit {
     this.user = this.loginForm.value;
     
     this.userService.login(this.user).subscribe(
-      result => {
-        this.userService.storeUserToken(result.token, result.user);
+      data => {
+        console.log(data)
+        this.userService.storeUserToken(data.token, data.user);
       }, error => {
+
+        console.log(error)
 
         if(error.error.email) {
           this.loginForm.get('email').setErrors({'valid': false});
@@ -66,7 +69,8 @@ export class LoginComponent implements OnInit {
         
         this.errors = error.error;
 
-      }, () => {
+      }
+, () => {
         this.user = {
           email: '',
           password: ''

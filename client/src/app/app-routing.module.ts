@@ -9,6 +9,7 @@ import { ChangePasswordComponent } from './pages/change-password/change-password
 import { AuthGuard } from './data/guards/auth.guard';
 import { AdminBoardComponent } from './pages/admin-board/admin-board.component';
 import { UpdateUserComponent } from './pages/update-user/update-user.component';
+import { UserProfileComponent } from './pages/user-profile/user-profile.component';
 
 
 const routes: Routes = [
@@ -18,7 +19,8 @@ const routes: Routes = [
   {path: 'login', component: LoginComponent},
   {path: 'employees', component: AdminBoardComponent, canActivate:[AuthGuard]},
   {path: 'user/edit/:id', component: UpdateUserComponent, canActivate:[AuthGuard]},
-  {path: '**', component: NotFoundComponent}
+  {path: 'user/profile/:id', component: UserProfileComponent, canActivate:[AuthGuard]},
+  {path: '**', component: NotFoundComponent}, 
 ];
 
 @NgModule({
