@@ -45,7 +45,7 @@ export class AdminBoardComponent implements OnInit {
 
       this.userService.getUsers().subscribe(users => {
         this.dataSource = users;
-        this.dataSource = this.dataSource.filter(user => user.name.toLowerCase().includes(filterValue));
+        this.dataSource = this.dataSource.filter(user => user.name.toLowerCase().includes(filterValue.toLowerCase()));
       })
     
 
