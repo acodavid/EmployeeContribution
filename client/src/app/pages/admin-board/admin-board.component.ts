@@ -42,7 +42,14 @@ export class AdminBoardComponent implements OnInit {
 
   filterByName(event: Event) {
     const filterValue = (event.target as HTMLInputElement).value;
-    // Filter 
+
+      this.userService.getUsers().subscribe(users => {
+        this.dataSource = users;
+        this.dataSource = this.dataSource.filter(user => user.name.toLowerCase().includes(filterValue));
+      })
+    
+
+    
   }
 
 }
