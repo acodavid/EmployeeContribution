@@ -5,7 +5,8 @@ const passport = require('passport');
 const cors = require('cors');
 
 // routes
-const users = require('./routes/api/users')
+const users = require('./routes/api/users');
+const preferences = require('./routes/api/preferences');
 
 
 const app = express();
@@ -39,6 +40,7 @@ require('./config/passport')(passport);
 
 // use routes
 app.use('/api/users', users);
+app.use('/api/preferences', preferences);
 
 app.listen(PORT, () => {
     console.log(`Server started at port ${PORT}`);

@@ -112,11 +112,19 @@ body {
 
 .first-row, .second-row {
     display: flex;
-    justify-content: space-between;
     align-items: center;
     text-align: center;
-    gap: 10px;
+    gap: 5px;
 }
+
+.first-row {
+    justify-content: start
+}
+
+.second-row {
+    justify-content: flex-end
+}
+
 
 .buttons-inline {
     display: flex;
@@ -163,12 +171,12 @@ table {
     text-align: center;
 }
 
-@media(max-width: 1600px) {
+@media(max-width: 1500px) {
     .buttons-inline {
         display: block;
 
         p {
-            font-size: 12px;
+            font-size: 14px;
         }
     }
 }
