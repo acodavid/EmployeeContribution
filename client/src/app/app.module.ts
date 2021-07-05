@@ -16,7 +16,6 @@ import { ChangePasswordComponent } from './pages/change-password/change-password
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import {MaterialModule} from './material/material.module';
 import { AdminBoardComponent } from './pages/admin-board/admin-board.component';
-import { UpdateUserComponent } from './pages/update-user/update-user.component';
 
 import { UserInterceptor } from './data/services/user.interceptor';
 import { UserProfileComponent } from './pages/user-profile/user-profile.component';
@@ -33,7 +32,6 @@ import { DeleteDialogComponent } from './data/dialogs/delete-dialog/delete-dialo
     NotFoundComponent,
     ChangePasswordComponent,
     AdminBoardComponent,
-    UpdateUserComponent,
     UserProfileComponent,
     DeleteDialogComponent
   ],

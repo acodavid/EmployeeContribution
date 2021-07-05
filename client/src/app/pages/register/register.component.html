@@ -1,6 +1,6 @@
 <div class="register">
     <form [formGroup]="registerForm" class="register-form">
-        <h3 class="form-header">Create User</h3>
+        <h3 class="form-header">{{param === 'register' ? 'Create User' : 'Update User'}}</h3>
 
         <div class="form-group">
             <mat-form-field class="full-width">
@@ -12,7 +12,7 @@
             <div class="full-width">
                 <mat-form-field class="full-width">
                     <mat-label [ngStyle]="{'color': errors.dateOfBirth ? '#f44336' : null }">Date of Birth</mat-label>
-                    <input matInput [matDatepicker]="picker" datePickerFormat="YYYY/MM/DD" formControlname="dateOfBirth" (dateChange)="date($event, 'dateOfBirth')" required>
+                    <input matInput [value]="dateOfBirth" [matDatepicker]="picker" datePickerFormat="YYYY/MM/DD" formControlname="dateOfBirth" (dateChange)="date($event, 'dateOfBirth')" required>
                     <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
                     <mat-datepicker #picker></mat-datepicker>
                     <mat-hint [ngStyle]="{color: '#f44336'}" *ngIf="errors.dateOfBirth">{{errors.dateOfBirth}}</mat-hint>
@@ -28,7 +28,7 @@
                 <mat-error *ngIf="errors.email">{{errors.email}}</mat-error>
             </mat-form-field>
 
-            <mat-form-field class="full-width">
+            <mat-form-field *ngIf="param === 'register'" class="full-width">
                 <mat-label>Password</mat-label>
                 <input matInput formControlName="password" [type]="hide ? 'password' : 'text'" required>
                 <button mat-icon-button matSuffix (click)="hide = !hide" [attr.aria-label]="'Hide password'" [attr.aria-pressed]="hide">
@@ -57,7 +57,7 @@
         <div class="form-group">
             <mat-form-field class="full-width">
                 <mat-label [ngStyle]="{'color': errors.hiredDate ? '#f44336' : null }">Hired Date</mat-label>
-                <input matInput [matDatepicker]="picker1" formControlname="hiredDate" (dateChange)="date($event, 'hiredDate')" required>
+                <input matInput [value]="dateOfBirth" [matDatepicker]="picker1" formControlname="hiredDate" (dateChange)="date($event, 'hiredDate')" required>
                 <mat-datepicker-toggle matSuffix [for]="picker1"></mat-datepicker-toggle>
                 <mat-datepicker [ngStyle]="{'border-color': errors.hiredDate ? '#f44336' : null }" #picker1></mat-datepicker>
                 <mat-hint [ngStyle]="{color: '#f44336'}" *ngIf="errors.hiredDate">{{errors.hiredDate}}</mat-hint>
@@ -73,7 +73,7 @@
 
             <mat-form-field class="full-width">
                 <mat-label [ngStyle]="{'color': errors.terminationDate ? '#f44336' : null }">Termination Date</mat-label>
-                <input matInput [matDatepicker]="picker2" formControlname="terminationDate" (dateChange)="date($event, 'terminationDate')">
+                <input matInput [value]="dateOfBirth" [matDatepicker]="picker2" formControlname="terminationDate" (dateChange)="date($event, 'terminationDate')">
                 <mat-datepicker-toggle matSuffix [for]="picker2"></mat-datepicker-toggle>
                 <mat-datepicker #picker2></mat-datepicker>
                 <mat-hint [ngStyle]="{color: '#f44336'}" *ngIf="errors.terminationDate">{{errors.terminationDate}}</mat-hint>
@@ -117,11 +117,17 @@
         </div>
         
 
-        <button mat-raised-button color="primary"
+        <button *ngIf="param === 'register'" mat-raised-button color="primary"
                 (click)="registerUser()"
                 class="btn"
                 [disabled]="!registerForm.valid"
         >
                  Register</button>
+        <button *ngIf="param !== 'register'" mat-raised-button color="primary"
+                 (click)="updateUser()"
+                 class="btn"
+                 [disabled]="!registerForm.valid"
+         >
+                  Update User</button>
     </form>
 </div>

@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { UserService } from '../../data/services/user.service';
-import { Router } from '@angular/router'
+import { Router, ActivatedRoute } from '@angular/router'
 import { FormGroup, FormControl, Validators } from '@angular/forms'
 import { UserRegister } from 'src/app/data/models/UserRegister';
 import * as moment from 'moment';
@@ -17,6 +17,9 @@ export class RegisterComponent implements OnInit {
 
   // password field changer
   hide: boolean = true
+
+  // param
+  param: string;
 
   errors = {
     email: '',
@@ -47,17 +50,24 @@ export class RegisterComponent implements OnInit {
     durationOfPreviousService: '',
     linkToPersonalFolder: ''
   };
+
+  dateOfBirth;
+  hiredDate;
+  terminationDate;
   
   registerForm: FormGroup;
 
   private sub1: any;
   private sub2: any;
+  private sub3: any;
+  private sub4: any;
 
   
 
   constructor(
     private userService: UserService,
-    private router: Router
+    private router: Router,
+    private activatedRoute: ActivatedRoute
 
   ) { 
     this.composeForm();
@@ -66,12 +76,59 @@ export class RegisterComponent implements OnInit {
 
   ngOnInit(): void {
     // If it is not the admin, navigate to not found
+   
+    this.sub3 = this.activatedRoute.params.subscribe(params => {
 
-    this.sub1 = this.userService.getCurrentUser().subscribe(user => {
-      if(!user.isAdmin) {
-        this.router.navigate(['/not-found'])
+      const id = params['id'];
+      this.param = id;
+
+      if(this.param === 'register') {
+        
+        this.sub1 = this.userService.getCurrentUser().subscribe(user => {
+          if(!user.isAdmin) {
+            this.router.navigate(['/not-found'])
+          }
+        })
+      } else {
+
+        // for update user
+        this.sub4 = this.userService.getUserById(this.param).subscribe(user => {
+
+          const {name, email, isAdmin, password, dateOfBirth, typeOfPosition, hiredDate,
+            contractDuration, terminationDate, orgLevel, status, durationOfPreviousService,
+          linkToPersonalFolder} = user;
+
+          this.dateOfBirth = moment(dateOfBirth);
+      
+
+          this.hiredDate = moment(hiredDate);
+      
+
+          this.terminationDate = moment(terminationDate);
+
+          this.registerForm.setValue({
+            name,
+            email,
+            isAdmin,
+            password,
+            dateOfBirth,
+            hiredDate,
+            terminationDate,
+            typeOfPosition,
+            contractDuration,
+            orgLevel,
+            status, 
+            durationOfPreviousService, 
+            linkToPersonalFolder
+          })
+
+        })
       }
+
     })
+
+
+    
   }
 
   ngOnDestroy() {
@@ -81,6 +138,14 @@ export class RegisterComponent implements OnInit {
 
     if(this.sub2) {
       this.sub2.unsubscribe();
+    }
+
+    if(this.sub3) {
+      this.sub3.unsubscribe();
+    }
+
+    if(this.sub4) {
+      this.sub4.unsubscribe();
     }
     
   } 
@@ -209,6 +274,90 @@ export class RegisterComponent implements OnInit {
       this.router.navigate(['/employees']);
     })
     
+  }
+
+  updateUser() {
+    this.user = this.registerForm.value;
+    this.user.durationOfPreviousService = this.user.durationOfPreviousService.toString();
+
+    this.user._id = this.param;
+
+    this.sub3 = this.userService.updateUser(this.user).subscribe(result => {
+      console.log('Updated');
+    }, error => {
+      if(error.error.name) {
+        this.registerForm.get('name').setErrors({'valid': false});
+      }
+
+      if(error.error.email) {
+        this.registerForm.get('email').setErrors({'valid': false});
+      }
+
+      if(error.error.dateOfBirth) {
+        this.registerForm.get('dateOfBirth').setErrors({'valid': false});
+      }
+
+      if(error.error.typeOfPosition) {
+        this.registerForm.get('typeOfPosition').setErrors({'valid': false});
+      }
+
+      if(error.error.hiredDate) {
+        this.registerForm.get('hiredDate').setErrors({'valid': false});
+      }
+
+      if(error.error.contractDuration) {
+        this.registerForm.get('contractDuration').setErrors({'valid': false});
+      }
+
+      if(error.error.terminationDate) {
+        this.registerForm.get('terminationDate').setErrors({'valid': false});
+      }
+
+      if(error.error.orgLevel) {
+        this.registerForm.get('orgLevel').setErrors({'valid': false});
+      }
+
+      if(error.error.status) {
+        this.registerForm.get('status').setErrors({'valid': false});
+      }
+
+      if(error.error.durationOfPreviousService) {
+        this.registerForm.get('durationOfPreviousService').setErrors({'valid': false});
+      }
+
+      this.errors = error.error;
+
+    }, () => {
+      this.user = {
+        name: '',
+        email: '',
+        password: '',
+        isAdmin: false,
+        dateOfBirth: '',
+        typeOfPosition: '',
+        hiredDate: '',
+        contractDuration: '',
+        terminationDate: '',
+        orgLevel: '',
+        status: '',
+        durationOfPreviousService: '',
+        linkToPersonalFolder: ''
+      }
+      this.errors = {
+        email: '',
+        password: '',
+        name: '',
+        dateOfBirth: '',
+        typeOfPosition: '',
+        hiredDate: '',
+        contractDuration: '',
+        terminationDate: '',
+        orgLevel: '',
+        status: '',
+        durationOfPreviousService: ''
+      }
+      this.router.navigate(['/employees']);
+    })
   }
 
 }
