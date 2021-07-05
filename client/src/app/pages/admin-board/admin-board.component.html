@@ -2,9 +2,9 @@
   <div class="buttons-inline">
 
     <div class="first-row">
-      <button mat-button>Download all data <mat-icon>get_app</mat-icon></button>
-      <button mat-button>Download selected <mat-icon>get_app</mat-icon></button>
-      <button mat-button routerLink="/register">Create User</button>
+      <button class="smaller-button" mat-button>Download all data <mat-icon>get_app</mat-icon></button>
+      <button class="smaller-button" mat-button>Download selected <mat-icon>get_app</mat-icon></button>
+      <button class="smaller-button" mat-button routerLink="/register">Create User</button>
     </div>
 
     <div class="second-row">
@@ -41,7 +41,7 @@
    
   </div>
   
-  <table mat-table [dataSource]="dataSource" class="mat-elevation-z8">
+  <table *ngIf="!loading" mat-table [dataSource]="dataSource" class="mat-elevation-z8">
       
       <ng-container matColumnDef="checkbox">
           <th mat-header-cell *matHeaderCellDef></th>
@@ -85,6 +85,11 @@
         </tr>
   
   </table>
+
+
+  <div class="spinner-container">
+    <mat-spinner *ngIf="loading"></mat-spinner>
+  </div>
   
 </div>
 

@@ -27,6 +27,8 @@ export class LoginComponent implements OnInit {
 
   loginForm: FormGroup;
 
+  private sub: any;
+
   constructor(
     private userService: UserService,
     private router: Router
@@ -37,11 +39,17 @@ export class LoginComponent implements OnInit {
   ngOnInit(): void {
   }
 
+  ngOnDestroy() {
+    if(this.sub){
+      this.sub.unsubscribe();
+    }  
+  } 
+
   composeForm(): void {
 
     this.loginForm = new FormGroup({
-      email: new FormControl(this.user.email, Validators.required),
-      password: new FormControl(this.user.password, Validators.required)
+      email: new FormControl('', Validators.required),
+      password: new FormControl('', Validators.required)
     })
     
   }
@@ -50,13 +58,13 @@ export class LoginComponent implements OnInit {
 
     this.user = this.loginForm.value;
     
-    this.userService.login(this.user).subscribe(
+    this.sub = this.userService.login(this.user).subscribe(
       data => {
-        console.log(data)
+        // console.log(data)
         this.userService.storeUserToken(data.token, data.user);
       }, error => {
 
-        console.log(error)
+        // console.log(error)
 
         if(error.error.email) {
           this.loginForm.get('email').setErrors({'valid': false});
@@ -69,8 +77,7 @@ export class LoginComponent implements OnInit {
         
         this.errors = error.error;
 
-      }
-, () => {
+      }, () => {
         this.user = {
           email: '',
           password: ''

@@ -12,6 +12,8 @@ import { MatNativeDateModule, MAT_DATE_FORMATS } from '@angular/material/core';
 import {MatTableModule} from '@angular/material/table';
 import {MatCheckboxModule} from '@angular/material/checkbox';
 import { MomentDateModule } from '@angular/material-moment-adapter';
+import {MatProgressSpinnerModule} from '@angular/material/progress-spinner';
+import {MatDialogModule} from '@angular/material/dialog';
 
 
 @NgModule({
@@ -28,7 +30,9 @@ import { MomentDateModule } from '@angular/material-moment-adapter';
     MatNativeDateModule,
     MatTableModule,
     MatCheckboxModule,
-    MomentDateModule
+    MomentDateModule,
+    MatProgressSpinnerModule,
+    MatDialogModule
   ],
   exports: [
     MatButtonModule,
@@ -41,7 +45,9 @@ import { MomentDateModule } from '@angular/material-moment-adapter';
     MatNativeDateModule,
     MatTableModule,
     MatCheckboxModule,
-    MomentDateModule
+    MomentDateModule,
+    MatProgressSpinnerModule,
+    MatDialogModule
   ],
   providers: [
     {

@@ -171,17 +171,37 @@ table {
     text-align: center;
 }
 
-@media(max-width: 1500px) {
-    .buttons-inline {
-        display: block;
+.spinner-container {
+    height: 95vh;
+}
 
-        p {
-            font-size: 14px;
-        }
+.mat-spinner {
+    margin: auto;
+}
+
+@media(max-width: 1500px) {
+    
+
+    .smaller-button {
+        width: 130px!important;
+        min-width: unset!important;
+        font-size: 11px;
+    }
+
+    .buttons-inline p {
+        font-size: 14px;
     }
 }
 
 @media(max-width: $tablet-width) {
+
+    .buttons-inline {
+        display: block;
+
+        p {
+            font-size: 12px;
+        }
+    }
 
     .form-group {
         display: inline-block;

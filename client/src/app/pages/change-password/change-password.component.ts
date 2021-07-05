@@ -16,9 +16,6 @@ export class ChangePasswordComponent implements OnInit {
   hide2: boolean = true;
   hide3: boolean = true;
 
-  currentPassword: string = '';
-  newPassword: string = '';
-  newPasswordConfirmation: string = '';
   data: any;
   errors: any = {
     currentPassword: '',
@@ -27,6 +24,9 @@ export class ChangePasswordComponent implements OnInit {
   }
   passwordUpdateForm: FormGroup;
   user: User;
+
+  private sub1: any;
+  private sub2: any;
 
   constructor(
     private userService: UserService,
@@ -39,19 +39,30 @@ export class ChangePasswordComponent implements OnInit {
     
   }
 
+  ngOnDestroy() {
+    if(this.sub1){
+      this.sub1.unsubscribe();
+    }
+
+    if(this.sub2) {
+      this.sub2.unsubscribe();
+    }
+    
+  } 
+
   composeForm(): void {
 
     this.passwordUpdateForm = new FormGroup({
-      currentPassword: new FormControl(this.currentPassword, Validators.required),
-      newPassword: new FormControl(this.newPassword, Validators.required),
-      newPasswordConfirmation: new FormControl(this.newPasswordConfirmation, Validators.required)
+      currentPassword: new FormControl('', Validators.required),
+      newPassword: new FormControl('', Validators.required),
+      newPasswordConfirmation: new FormControl('', Validators.required)
     })
     
   }
 
   changePassword() {
 
-    this.userService.getCurrentUser().subscribe(user => {
+    this.sub1 = this.userService.getCurrentUser().subscribe(user => {
       this.user = user;
 
       const {currentPassword, newPassword, newPasswordConfirmation} = this.passwordUpdateForm.value
@@ -64,7 +75,7 @@ export class ChangePasswordComponent implements OnInit {
           newPasswordConfirmation
         }
 
-        this.userService.changePassword(this.data).subscribe(
+        this.sub2 = this.userService.changePassword(this.data).subscribe(
           result => {
             this.router.navigate(['/']);
           }, error => {
@@ -83,9 +94,6 @@ export class ChangePasswordComponent implements OnInit {
 
             this.errors = error.error
           }, () => {
-            this.currentPassword = '';
-            this.newPassword = '';
-            this.newPasswordConfirmation = '';
             this.errors = {
               currentPassword: '',
               newPassword: '',

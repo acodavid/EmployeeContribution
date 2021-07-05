@@ -15,6 +15,9 @@ export class UserProfileComponent implements OnInit {
 
   idFromParam: string;
 
+  private sub1: any;
+  private sub2: any;
+
   constructor(
     private router: Router,
     private activatedRoute: ActivatedRoute,
@@ -23,7 +26,7 @@ export class UserProfileComponent implements OnInit {
 
   ngOnInit(): void {
 
-    this.userService.getCurrentUser().subscribe(user => {
+    this.sub1 = this.userService.getCurrentUser().subscribe(user => {
       if(!user.isAdmin) {
         this.router.navigate(['/not-found'])
       }
@@ -34,7 +37,7 @@ export class UserProfileComponent implements OnInit {
       const id = params['id'];
       this.idFromParam = id;
 
-      this.userService.getUserById(this.idFromParam).subscribe(user => {
+      this.sub2 = this.userService.getUserById(this.idFromParam).subscribe(user => {
 
         this.user = user;
 
@@ -46,5 +49,16 @@ export class UserProfileComponent implements OnInit {
 
     })
   }
+
+  ngOnDestroy() {
+    if(this.sub1){
+      this.sub1.unsubscribe();
+    }
+
+    if(this.sub2) {
+      this.sub2.unsubscribe();
+    }
+    
+  } 
 
 }

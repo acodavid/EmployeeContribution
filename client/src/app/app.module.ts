@@ -20,6 +20,7 @@ import { UpdateUserComponent } from './pages/update-user/update-user.component';
 
 import { UserInterceptor } from './data/services/user.interceptor';
 import { UserProfileComponent } from './pages/user-profile/user-profile.component';
+import { DeleteDialogComponent } from './data/dialogs/delete-dialog/delete-dialog.component';
 
 @NgModule({
   declarations: [
@@ -33,7 +34,8 @@ import { UserProfileComponent } from './pages/user-profile/user-profile.componen
     ChangePasswordComponent,
     AdminBoardComponent,
     UpdateUserComponent,
-    UserProfileComponent
+    UserProfileComponent,
+    DeleteDialogComponent
   ],
   imports: [
     BrowserModule,

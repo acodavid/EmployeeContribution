@@ -5,13 +5,6 @@ import { FormGroup, FormControl, Validators } from '@angular/forms'
 import { UserRegister } from 'src/app/data/models/UserRegister';
 import * as moment from 'moment';
 
-// import { MAT_MOMENT_DATE_FORMATS, MomentDateAdapter } from '@angular/material-moment-adapter';
-// import { DateAdapter, MAT_DATE_FORMATS, MAT_DATE_LOCALE } from '@angular/material/core';
-
-// import * as _moment from 'moment';
-
-// const moment = _moment;
-
 @Component({
   selector: 'app-register',
   templateUrl: './register.component.html',
@@ -57,6 +50,9 @@ export class RegisterComponent implements OnInit {
   
   registerForm: FormGroup;
 
+  private sub1: any;
+  private sub2: any;
+
   
 
   constructor(
@@ -71,12 +67,23 @@ export class RegisterComponent implements OnInit {
   ngOnInit(): void {
     // If it is not the admin, navigate to not found
 
-    this.userService.getCurrentUser().subscribe(user => {
+    this.sub1 = this.userService.getCurrentUser().subscribe(user => {
       if(!user.isAdmin) {
         this.router.navigate(['/not-found'])
       }
     })
   }
+
+  ngOnDestroy() {
+    if(this.sub1){
+      this.sub1.unsubscribe();
+    }
+
+    if(this.sub2) {
+      this.sub2.unsubscribe();
+    }
+    
+  } 
 
   composeForm(): void {
     
@@ -121,7 +128,7 @@ export class RegisterComponent implements OnInit {
     
     this.user.durationOfPreviousService = this.user.durationOfPreviousService.toString();
 
-    this.userService.registerUser(this.user).subscribe(result => {
+    this.sub2 = this.userService.registerUser(this.user).subscribe(result => {
       console.log('Registrated!')
     }, error => {
 

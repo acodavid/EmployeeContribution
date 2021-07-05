@@ -36,6 +36,10 @@ export class UpdateUserComponent implements OnInit {
 
   updateUserForm: FormGroup;
 
+  private sub1: any;
+  private sub2: any;
+  private sub3: any;
+
   constructor(
     private userService: UserService,
     private router: Router,
@@ -46,11 +50,11 @@ export class UpdateUserComponent implements OnInit {
 
   ngOnInit(): void {
 
-    this.activatedRoute.params.subscribe(params => {
+    this.sub1 = this.activatedRoute.params.subscribe(params => {
       const id = params['id'];
       this.idFromParam = id;
 
-      this.userService.getUserById(this.idFromParam).subscribe(user => {
+      this.sub2 = this.userService.getUserById(this.idFromParam).subscribe(user => {
       
         const {name, email, isAdmin, dateOfBirth, typeOfPosition, hiredDate,
         contractDuration, terminationDate, orgLevel, status, durationOfPreviousService,
@@ -86,6 +90,20 @@ export class UpdateUserComponent implements OnInit {
 
     
   }
+
+  ngOnDestroy() {
+    if(this.sub1){
+      this.sub1.unsubscribe();
+    }
+
+    if(this.sub2) {
+      this.sub2.unsubscribe();
+    }
+    
+    if(this.sub3) {
+      this.sub3.unsubscribe();
+    }
+  } 
 
   composeForm(): void {
 
@@ -125,7 +143,7 @@ export class UpdateUserComponent implements OnInit {
 
     this.user._id = this.idFromParam;
 
-    this.userService.updateUser(this.user).subscribe(result => {
+    this.sub3 = this.userService.updateUser(this.user).subscribe(result => {
       console.log('Updated');
     }, error => {
       if(error.error.name) {
