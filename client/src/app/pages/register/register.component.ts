@@ -75,6 +75,7 @@ export class RegisterComponent implements OnInit {
   
 
   ngOnInit(): void {
+    
     // If it is not the admin, navigate to not found
    
     this.sub3 = this.activatedRoute.params.subscribe(params => {

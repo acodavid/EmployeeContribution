@@ -13,5 +13,6 @@ export interface UserRegister {
     status: string,
     durationOfPreviousService: string,
     linkToPersonalFolder: string,
-    firstLogin?: boolean
+    firstLogin?: boolean,
+    preferenceCreated?: boolean
 }

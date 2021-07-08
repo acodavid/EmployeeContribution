@@ -5,6 +5,7 @@ import { Router } from '@angular/router';
 
 import { MatDialog } from '@angular/material/dialog';
 import { DeleteDialogComponent } from 'src/app/data/dialogs/delete-dialog/delete-dialog.component';
+import * as moment from 'moment';
 
 @Component({
   selector: 'app-admin-board',
@@ -21,6 +22,9 @@ export class AdminBoardComponent implements OnInit {
   private sub1: any;
   private sub2: any;
   private sub3: any;
+
+  // todays date
+  today: Date = new Date();
 
   constructor(
     private userService: UserService,

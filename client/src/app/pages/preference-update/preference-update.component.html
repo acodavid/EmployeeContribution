@@ -1,0 +1,51 @@
+<div class="preference-create">
+    <form [formGroup]="preferenceUpdateForm" class="preference-form">
+
+        <h3 class="form-header">Update Daily Contribution Preference</h3>
+
+        <mat-form-field class="full-width">
+            <mat-label>Remote or Office</mat-label>
+                <mat-select matInput formControlName="remoteOrOffice" required>
+                    <mat-option value="remote">Remote</mat-option>
+                    <mat-option value="office">Office</mat-option>
+                </mat-select>
+          </mat-form-field>
+
+            <div class="form-group">
+                <mat-form-field class="full-width">
+                    <input matInput formControlName="workingFrom" placeholder="Working From (HH:MM)" [ngxTimepicker]="workingFrom" [format]="24" required>
+                    <ngx-material-timepicker #workingFrom></ngx-material-timepicker>
+                    <mat-error *ngIf="errors.workingFrom">{{errors.workingFrom}}</mat-error>
+                </mat-form-field>
+    
+                <mat-form-field class="full-width"> 
+                    <input matInput formControlName="workingTo" placeholder="Working To (HH:MM)" [ngxTimepicker]="workingTo" [format]="24" required>
+                    <ngx-material-timepicker #workingTo></ngx-material-timepicker>
+                    <mat-error *ngIf="errors.workingTo">{{errors.workingTo}}</mat-error>
+                </mat-form-field>
+            </div>
+
+            <div class="form-group">
+                <mat-form-field class="full-width">
+                    <input matInput formControlName="onPauseFrom" placeholder="On Pause From (HH:MM)" [ngxTimepicker]="onPauseFrom" [format]="24" required>
+                    <ngx-material-timepicker #onPauseFrom></ngx-material-timepicker>
+                    <mat-error *ngIf="errors.onPauseFrom">{{errors.onPauseFrom}}</mat-error>
+                </mat-form-field>
+
+                <mat-form-field class="full-width">
+                    <input matInput formControlName="onPauseTo" placeholder="On Pause To (HH:MM)" [ngxTimepicker]="onPauseTo" [format]="24" required>
+                    <ngx-material-timepicker #onPauseTo></ngx-material-timepicker>
+                    <mat-error *ngIf="errors.onPauseTo">{{errors.onPauseTo}}</mat-error>
+                </mat-form-field>
+            </div>
+           
+          
+
+        <button mat-raised-button color="primary"
+                [disabled]="!preferenceUpdateForm.valid"
+                (click)="updatePreference()"
+        >
+                 Update Preference</button>
+
+    </form>
+</div>

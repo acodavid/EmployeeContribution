@@ -1,8 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { UserService } from '../../data/services/user.service';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
-import { User } from 'src/app/data/models/User';
 import { Router } from '@angular/router';
+import { UserRegister } from 'src/app/data/models/UserRegister';
 
 @Component({
   selector: 'app-change-password',
@@ -23,7 +23,7 @@ export class ChangePasswordComponent implements OnInit {
     newPasswordConfirmation: ''
   }
   passwordUpdateForm: FormGroup;
-  user: User;
+  user: UserRegister;
 
   private sub1: any;
   private sub2: any;
@@ -69,7 +69,7 @@ export class ChangePasswordComponent implements OnInit {
 
         // DATA
         this.data = {
-          id: this.user.id,
+          id: this.user._id,
           currentPassword,
           newPassword,
           newPasswordConfirmation
@@ -77,7 +77,13 @@ export class ChangePasswordComponent implements OnInit {
 
         this.sub2 = this.userService.changePassword(this.data).subscribe(
           result => {
-            this.router.navigate(['/']);
+            
+
+            if(this.user.preferenceCreated) {
+              this.router.navigate(['/']);
+            } else {
+              this.router.navigate(['/preference/create']);
+            }
           }, error => {
 
             if(error.error.currentPassword) {

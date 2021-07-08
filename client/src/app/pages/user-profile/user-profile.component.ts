@@ -15,8 +15,12 @@ export class UserProfileComponent implements OnInit {
 
   idFromParam: string;
 
+  loading: boolean = true;
+
   private sub1: any;
   private sub2: any;
+  private sub3: any;
+  private sub4: any;
 
   constructor(
     private router: Router,
@@ -26,26 +30,42 @@ export class UserProfileComponent implements OnInit {
 
   ngOnInit(): void {
 
-    this.sub1 = this.userService.getCurrentUser().subscribe(user => {
-      if(!user.isAdmin) {
-        this.router.navigate(['/not-found'])
-      }
-    })
-
     this.activatedRoute.params.subscribe(params => {
 
       const id = params['id'];
       this.idFromParam = id;
 
-      this.sub2 = this.userService.getUserById(this.idFromParam).subscribe(user => {
+      if(this.idFromParam !== 'current') {
 
-        this.user = user;
+        this.sub1 = this.userService.getCurrentUser().subscribe(user => {
+          if(!user.isAdmin) {
+            this.router.navigate(['/not-found'])
+          }
+        })
+        
+        this.sub2 = this.userService.getUserById(this.idFromParam).subscribe(user => {
 
-        this.user.dateOfBirth = this.user.dateOfBirth.slice(8, 10) + '.' + this.user.dateOfBirth.slice(5, 7) + '.' + this.user.dateOfBirth.slice(0, 4)
-        this.user.hiredDate = this.user.hiredDate.slice(8, 10) + '.' + this.user.hiredDate.slice(5, 7) + '.' + this.user.hiredDate.slice(0, 4)
-        this.user.terminationDate = this.user.terminationDate.slice(8, 10) + '.' + this.user.terminationDate.slice(5, 7) + '.' + this.user.terminationDate.slice(0, 4)
+          this.user = user;
+  
+          this.user.dateOfBirth = this.user.dateOfBirth.slice(8, 10) + '.' + this.user.dateOfBirth.slice(5, 7) + '.' + this.user.dateOfBirth.slice(0, 4)
+          this.user.hiredDate = this.user.hiredDate.slice(8, 10) + '.' + this.user.hiredDate.slice(5, 7) + '.' + this.user.hiredDate.slice(0, 4)
+          this.user.terminationDate = this.user.terminationDate.slice(8, 10) + '.' + this.user.terminationDate.slice(5, 7) + '.' + this.user.terminationDate.slice(0, 4)
+  
+          this.loading = false;
 
-      })
+        })
+
+      } else {
+        this.sub4 = this.userService.getCurrentUser().subscribe(user => {
+          this.user = user;
+          this.user.dateOfBirth = this.user.dateOfBirth.slice(8, 10) + '.' + this.user.dateOfBirth.slice(5, 7) + '.' + this.user.dateOfBirth.slice(0, 4)
+          this.user.hiredDate = this.user.hiredDate.slice(8, 10) + '.' + this.user.hiredDate.slice(5, 7) + '.' + this.user.hiredDate.slice(0, 4)
+          this.user.terminationDate = this.user.terminationDate.slice(8, 10) + '.' + this.user.terminationDate.slice(5, 7) + '.' + this.user.terminationDate.slice(0, 4)
+          
+          this.loading = false;
+        
+        })
+      }
 
     })
   }
@@ -57,6 +77,14 @@ export class UserProfileComponent implements OnInit {
 
     if(this.sub2) {
       this.sub2.unsubscribe();
+    }
+
+    if(this.sub3) {
+      this.sub3.unsubscribe();
+    }
+
+    if(this.sub4) {
+      this.sub4.unsubscribe();
     }
     
   } 

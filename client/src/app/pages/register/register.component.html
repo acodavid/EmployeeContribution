@@ -57,7 +57,7 @@
         <div class="form-group">
             <mat-form-field class="full-width">
                 <mat-label [ngStyle]="{'color': errors.hiredDate ? '#f44336' : null }">Hired Date</mat-label>
-                <input matInput [value]="dateOfBirth" [matDatepicker]="picker1" formControlname="hiredDate" (dateChange)="date($event, 'hiredDate')" required>
+                <input matInput [value]="hiredDate" [matDatepicker]="picker1" formControlname="hiredDate" (dateChange)="date($event, 'hiredDate')" required>
                 <mat-datepicker-toggle matSuffix [for]="picker1"></mat-datepicker-toggle>
                 <mat-datepicker [ngStyle]="{'border-color': errors.hiredDate ? '#f44336' : null }" #picker1></mat-datepicker>
                 <mat-hint [ngStyle]="{color: '#f44336'}" *ngIf="errors.hiredDate">{{errors.hiredDate}}</mat-hint>
@@ -73,7 +73,7 @@
 
             <mat-form-field class="full-width">
                 <mat-label [ngStyle]="{'color': errors.terminationDate ? '#f44336' : null }">Termination Date</mat-label>
-                <input matInput [value]="dateOfBirth" [matDatepicker]="picker2" formControlname="terminationDate" (dateChange)="date($event, 'terminationDate')">
+                <input matInput [value]="terminationDate" [matDatepicker]="picker2" formControlname="terminationDate" (dateChange)="date($event, 'terminationDate')">
                 <mat-datepicker-toggle matSuffix [for]="picker2"></mat-datepicker-toggle>
                 <mat-datepicker #picker2></mat-datepicker>
                 <mat-hint [ngStyle]="{color: '#f44336'}" *ngIf="errors.terminationDate">{{errors.terminationDate}}</mat-hint>

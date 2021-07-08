@@ -14,6 +14,9 @@ import {MatCheckboxModule} from '@angular/material/checkbox';
 import { MomentDateModule } from '@angular/material-moment-adapter';
 import {MatProgressSpinnerModule} from '@angular/material/progress-spinner';
 import {MatDialogModule} from '@angular/material/dialog';
+import {MatDividerModule} from '@angular/material/divider';
+import {MatListModule} from '@angular/material/list';
+import {MatCardModule} from '@angular/material/card';
 
 
 @NgModule({
@@ -32,7 +35,10 @@ import {MatDialogModule} from '@angular/material/dialog';
     MatCheckboxModule,
     MomentDateModule,
     MatProgressSpinnerModule,
-    MatDialogModule
+    MatDialogModule,
+    MatDividerModule,
+    MatListModule,
+    MatCardModule
   ],
   exports: [
     MatButtonModule,
@@ -47,7 +53,10 @@ import {MatDialogModule} from '@angular/material/dialog';
     MatCheckboxModule,
     MomentDateModule,
     MatProgressSpinnerModule,
-    MatDialogModule
+    MatDialogModule,
+    MatDividerModule,
+    MatListModule,
+    MatCardModule
   ],
   providers: [
     {

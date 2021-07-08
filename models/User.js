@@ -21,6 +21,10 @@ const UserSchema = new Schema({
         type: Boolean,
         default: true
     },
+    preferenceCreated: {
+        type: Boolean,
+        default: false
+    },
     dateOfBirth: {
         type: Date,
         required: true

@@ -20,6 +20,11 @@ import { AdminBoardComponent } from './pages/admin-board/admin-board.component';
 import { UserInterceptor } from './data/services/user.interceptor';
 import { UserProfileComponent } from './pages/user-profile/user-profile.component';
 import { DeleteDialogComponent } from './data/dialogs/delete-dialog/delete-dialog.component';
+import { PreferenceCreateComponent } from './pages/preference-create/preference-create.component';
+
+import {NgxMaterialTimepickerModule} from 'ngx-material-timepicker';
+import { PreferenceDetailsComponent } from './pages/preference-details/preference-details.component';
+import { PreferenceUpdateComponent } from './pages/preference-update/preference-update.component'
 
 @NgModule({
   declarations: [
@@ -33,7 +38,10 @@ import { DeleteDialogComponent } from './data/dialogs/delete-dialog/delete-dialo
     ChangePasswordComponent,
     AdminBoardComponent,
     UserProfileComponent,
-    DeleteDialogComponent
+    DeleteDialogComponent,
+    PreferenceCreateComponent,
+    PreferenceDetailsComponent,
+    PreferenceUpdateComponent
   ],
   imports: [
     BrowserModule,
@@ -42,7 +50,8 @@ import { DeleteDialogComponent } from './data/dialogs/delete-dialog/delete-dialo
     HttpClientModule,
     ReactiveFormsModule,
     BrowserAnimationsModule,
-    MaterialModule
+    MaterialModule,
+    NgxMaterialTimepickerModule
   ],
   providers: [
     { provide: HTTP_INTERCEPTORS, useClass: UserInterceptor, multi: true }

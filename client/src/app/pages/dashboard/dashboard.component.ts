@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { User } from 'src/app/data/models/User';
+import { UserRegister } from 'src/app/data/models/UserRegister';
 import { UserService } from '../../data/services/user.service';
 
 @Component({
@@ -10,10 +11,7 @@ import { UserService } from '../../data/services/user.service';
 })
 export class DashboardComponent implements OnInit {
 
-  user: User = {
-    email: '',
-    isAdmin: false
-  };
+  user: UserRegister;
 
   employees: User[];
 
@@ -29,6 +27,8 @@ export class DashboardComponent implements OnInit {
     this.userService.getCurrentUser().subscribe(user => {
       if(user.firstLogin) {
         this.router.navigate(['/password/change'])
+      } else if(!user.preferenceCreated) {
+        this.router.navigate(['/preference/create'])
       }
       this.user = user;
 

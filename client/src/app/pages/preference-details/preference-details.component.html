@@ -1,0 +1,47 @@
+<div class="preferences">
+    <p class="preference-header">My Daily Contribution Preference</p>
+
+      
+    <mat-card *ngIf="!loading" class="preference-card">
+        
+        <mat-list class="preference-group">
+            <mat-list-item class="preference-list-item">
+                <p class="preference-def">Remote or Office: </p>
+                <p>{{preference.remoteOrOffice}}</p>
+            </mat-list-item>
+            <mat-divider></mat-divider>
+           
+        </mat-list>
+        <mat-list class="preference-group">
+            <mat-list-item class="preference-list-item">
+                <p class="preference-def">Working From: </p>
+                <p>{{preference.workingFrom}}</p>
+            </mat-list-item>
+            <mat-list-item class="preference-list-item">
+                <p class="preference-def">Working To: </p>
+                <p>{{preference.workingTo}}</p>
+            </mat-list-item>
+            <mat-divider></mat-divider>
+        </mat-list>
+        <mat-list class="preference-group">
+            <mat-list-item class="preference-list-item">
+                <p class="preference-def">On Pause From: </p>
+                <p>{{preference.onPauseFrom}}</p>
+            </mat-list-item>
+            <mat-list-item class="preference-list-item">
+                <p class="preference-def">On Pause To: </p>
+                <p>{{preference.onPauseTo}}</p>
+            </mat-list-item>
+        </mat-list>
+
+        <button 
+            mat-raised-button color="primary"
+            class="btn btn-preference"
+            [routerLink]="['/preference/update', preference._id]"
+            >
+            Edit Preference
+        </button>
+    
+    </mat-card>
+</div>
+

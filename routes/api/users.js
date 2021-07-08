@@ -39,12 +39,7 @@ router.get('/user/:id', passport.authenticate('jwt', {session: false}), (req, re
 // @desc Returns current user
 // @access private
 router.get('/current', passport.authenticate('jwt', { session: false }), (req, res) => {
-    res.json({
-        id: req.user.id,
-        email: req.user.email,
-        isAdmin: req.user.isAdmin,
-        firstLogin: req.user.firstLogin
-    });
+    res.json(req.user);
 });
 
 // @route POST api/users/register

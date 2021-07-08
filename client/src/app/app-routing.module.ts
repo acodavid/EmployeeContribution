@@ -9,6 +9,9 @@ import { ChangePasswordComponent } from './pages/change-password/change-password
 import { AuthGuard } from './data/guards/auth.guard';
 import { AdminBoardComponent } from './pages/admin-board/admin-board.component';
 import { UserProfileComponent } from './pages/user-profile/user-profile.component';
+import { PreferenceCreateComponent } from './pages/preference-create/preference-create.component';
+import { PreferenceDetailsComponent } from './pages/preference-details/preference-details.component';
+import { PreferenceUpdateComponent } from './pages/preference-update/preference-update.component';
 
 
 const routes: Routes = [
@@ -18,7 +21,10 @@ const routes: Routes = [
   {path: 'login', component: LoginComponent},
   {path: 'employees', component: AdminBoardComponent, canActivate:[AuthGuard]},
   {path: 'user/profile/:id', component: UserProfileComponent, canActivate:[AuthGuard]},
-  {path: '**', component: NotFoundComponent}, 
+  {path: 'preference/create', component: PreferenceCreateComponent, canActivate:[AuthGuard]},
+  {path: 'preference/details', component: PreferenceDetailsComponent, canActivate:[AuthGuard]},
+  {path: 'preference/update/:id', component: PreferenceUpdateComponent, canActivate:[AuthGuard]},
+  {path: '**', component: NotFoundComponent}
 ];
 
 @NgModule({

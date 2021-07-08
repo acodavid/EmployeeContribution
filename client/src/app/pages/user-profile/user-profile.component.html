@@ -1,56 +1,88 @@
 
+<div class="profile">
 
-<table class="profile-table">
-    <tr>
-        <th><button mat-stroked-button routerLink="/employees">Back</button></th>
-        <td><button mat-stroked-button color="primary" [routerLink]="['/user/action', user._id]">Edit User</button></td>
-    </tr>
-    <tr>
-        <th>Name:</th>
-        <td>{{user.name}}</td>
-    </tr>
-    <tr>
-        <th>Email:</th>
-        <td>{{user.email}}</td>
-    </tr>
-    <tr>
-        <th>Date of Birth:</th>
-        <td>{{user.dateOfBirth}}</td>
-    </tr>
-    <tr>
-        <th>Admin/Employee?</th>
-        <td>{{user.isAdmin ? 'Admin' : 'Employee'}}</td>
-    </tr>
-    <tr>
-        <th>Type of position</th>
-        <td>{{user.typeOfPosition}}</td>
-    </tr>
-    <tr>
-        <th>Hired date:</th>
-        <td>{{user.hiredDate}}</td>
-    </tr>
-    <tr>
-        <th>Contract duration:</th>
-        <td>{{user.contractDuration}}</td>
-    </tr>
-    <tr>
-        <th>Termination Date:</th>
-        <td>{{user.terminationDate}}</td>
-    </tr>
-    <tr>
-        <th>Organization level:</th>
-        <td>{{user.orgLevel}}</td>
-    </tr>
-    <tr>
-        <th>Status:</th>
-        <td>{{user.status}}</td>
-    </tr>
-    <tr>
-        <th>Duration of previous service:</th>
-        <td>{{user.durationOfPreviousService}}</td>
-    </tr>
-    <tr>
-        <th>Link to peronal folder:</th>
-        <td>{{user.linkToPersonalFolder}}</td>
-    </tr>
-</table>
+    <p class="profile-header">Profile: {{user.name}}</p>
+
+    <mat-card class="profile-card">
+        <mat-list class="preference-list-item">
+            <p class="profile-def">Name:</p>
+            <p>{{user.name}}</p>
+        </mat-list>
+        <mat-divider></mat-divider>
+
+        <mat-list class="preference-list-item">
+            <p class="profile-def">Email:</p>
+            <p>{{user.email}}</p>
+        </mat-list>
+        <mat-divider></mat-divider>
+
+        <mat-list class="preference-list-item">
+            <p class="profile-def">Date Of Birth:</p>
+            <p>{{user.dateOfBirth}}</p>
+        </mat-list>
+        <mat-divider></mat-divider>
+
+        <mat-list class="preference-list-item">
+            <p class="profile-def">Admin/Employee:</p>
+            <p>{{user.isAdmin ? 'Admin' : 'Employee'}}</p>
+        </mat-list>
+        <mat-divider></mat-divider>
+
+        <mat-list class="preference-list-item">
+            <p class="profile-def">Type Of Position:</p>
+            <p>{{user.typeOfPosition}}</p>
+        </mat-list>
+        <mat-divider></mat-divider>
+
+        <mat-list class="preference-list-item">
+            <p class="profile-def">Hired Date:</p>
+            <p>{{user.hiredDate}}</p>
+        </mat-list>
+        <mat-divider></mat-divider>
+
+        <mat-list class="preference-list-item">
+            <p class="profile-def">Contract Duration:</p>
+            <p>{{user.contractDuration}}</p>
+        </mat-list>
+        <mat-divider></mat-divider>
+
+        <mat-list class="preference-list-item">
+            <p class="profile-def">Termination Date:</p>
+            <p>{{user.terminationDate}}</p>
+        </mat-list>
+        <mat-divider></mat-divider>
+
+        <mat-list class="preference-list-item">
+            <p class="profile-def">Organization Level:</p>
+            <p>{{user.orgLevel}}</p>
+        </mat-list>
+        <mat-divider></mat-divider>
+
+        <mat-list class="preference-list-item">
+            <p class="profile-def">Status:</p>
+            <p>{{user.status}}</p>
+        </mat-list>
+        <mat-divider></mat-divider>
+
+        <mat-list class="preference-list-item">
+            <p class="profile-def">Duration of Previous Service:</p>
+            <p>{{user.durationOfPreviousService}}</p>
+        </mat-list>
+        <mat-divider></mat-divider>
+
+        <mat-list class="preference-list-item">
+            <p class="profile-def">Link to personal folder:</p>
+            <p>{{user.linkToPersonalFolder}}</p>
+        </mat-list>
+    </mat-card>
+
+    <div class="buttons-inlines">
+
+        <button *ngIf="idFromParam !== 'current'" class="button-profile" mat-stroked-button routerLink="/employees">Back</button>
+        <button class="button-profile" mat-stroked-button color="primary" [routerLink]="['/user/action', user._id]">Edit User</button>
+
+    </div>
+    
+        
+</div>
+
