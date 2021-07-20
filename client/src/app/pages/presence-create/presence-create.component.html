@@ -14,7 +14,7 @@
               </mat-form-field>
 
               <mat-form-field class="full-width">
-                <mat-label [ngStyle]="{'color': errors.date ? '#f44336' : null }">Date of Birth</mat-label>
+                <mat-label [ngStyle]="{'color': errors.date ? '#f44336' : null }">Date</mat-label>
                 <input matInput [value]="dateInput" [matDatepicker]="picker" formControlname="date" disabled>
                 <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
                 <mat-datepicker #picker></mat-datepicker>
