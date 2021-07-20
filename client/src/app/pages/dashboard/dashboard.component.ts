@@ -1,8 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
-import { User } from 'src/app/data/models/User';
-import { UserRegister } from 'src/app/data/models/UserRegister';
 import { UserService } from '../../data/services/user.service';
+import { AbsencePresenceService } from '../../data/services/absence-presence.service'
+import { PresenceAbsence } from 'src/app/data/models/PresenceAbsence';
 
 @Component({
   selector: 'app-dashboard',
@@ -11,44 +11,53 @@ import { UserService } from '../../data/services/user.service';
 })
 export class DashboardComponent implements OnInit {
 
-  user: UserRegister;
+  private sub1: any;
+  private sub2: any;
 
-  employees: User[];
+  loading: boolean = true;
 
-  noUsers: boolean = true
+  data: PresenceAbsence;
 
   constructor(
     public userService: UserService,
-    private router: Router
+    private router: Router,
+    private absencePresenceService: AbsencePresenceService
   ) { }
 
   ngOnInit(): void {
 
-    this.userService.getCurrentUser().subscribe(user => {
+    this.sub1 = this.userService.getCurrentUser().subscribe(user => {
+
+
       if(user.firstLogin) {
         this.router.navigate(['/password/change'])
       } else if(!user.preferenceCreated) {
         this.router.navigate(['/preference/create'])
-      }
-      this.user = user;
+      } else {
 
-      if(user.isAdmin) {
+        this.sub2 = this.absencePresenceService.getAbsencePresenceBusinessTrip(user._id, new Date()).subscribe(data => {
+          this.data = data[0];
 
-        this.userService.getUsers().subscribe(users => {
-
-          this.employees = users;
-          this.noUsers = false;
-          
-        }, errors => {
-          this.noUsers = true;
+          this.data.date = this.data.date.slice(8, 10) + '.' + this.data.date.slice(5, 7) + '.' + this.data.date.slice(0, 4)
+          this.loading = false
         })
 
       }
       
+      
     })
-
-    
     
   }
+
+  ngOnDestroy() {
+    if(this.sub1){
+      this.sub1.unsubscribe();
+    }
+
+    if(this.sub2) {
+      this.sub2.unsubscribe();
+    }
+    
+  } 
 
 }

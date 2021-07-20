@@ -104,24 +104,43 @@ export class RegisterComponent implements OnInit {
 
           this.hiredDate = moment(hiredDate);
       
+          if(user.terminationDate) {
+            this.terminationDate = moment(terminationDate);
 
-          this.terminationDate = moment(terminationDate);
+            this.registerForm.setValue({
+              name,
+              email,
+              isAdmin,
+              password,
+              dateOfBirth,
+              hiredDate,
+              terminationDate,
+              typeOfPosition,
+              contractDuration,
+              orgLevel,
+              status, 
+              durationOfPreviousService, 
+              linkToPersonalFolder
+            })
+          } else {
+            this.terminationDate = '';
 
-          this.registerForm.setValue({
-            name,
-            email,
-            isAdmin,
-            password,
-            dateOfBirth,
-            hiredDate,
-            terminationDate,
-            typeOfPosition,
-            contractDuration,
-            orgLevel,
-            status, 
-            durationOfPreviousService, 
-            linkToPersonalFolder
-          })
+            this.registerForm.setValue({
+              name,
+              email,
+              isAdmin,
+              password,
+              dateOfBirth,
+              hiredDate,
+              terminationDate: '',
+              typeOfPosition,
+              contractDuration,
+              orgLevel,
+              status, 
+              durationOfPreviousService, 
+              linkToPersonalFolder
+            })
+          }
 
         })
       }
@@ -163,7 +182,7 @@ export class RegisterComponent implements OnInit {
       typeOfPosition: new FormControl('', Validators.required),
       hiredDate: new FormControl('', Validators.required),
       contractDuration: new FormControl('', Validators.required),
-      terminationDate: new FormControl('', Validators.required),
+      terminationDate: new FormControl(''),
       orgLevel: new FormControl('', Validators.required),
       status: new FormControl('', Validators.required),
       durationOfPreviousService: new FormControl('', Validators.required),

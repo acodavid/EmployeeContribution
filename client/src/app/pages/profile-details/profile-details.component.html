@@ -3,14 +3,7 @@
 
     <p class="profile-header">Profile: {{user.name}}</p>
 
-    <div class="buttons-inlines">
-
-        <button *ngIf="idFromParam !== 'current'" class="button-profile" mat-stroked-button routerLink="/employees">Back</button>
-        <button *ngIf="currentUser.isAdmin" class="button-profile" mat-stroked-button color="primary" [routerLink]="['/user/action', user._id]">Edit User</button>
-
-    </div>
-
-    <mat-card class="profile-card">
+    <mat-card *ngIf="!loading" class="profile-card">
         <mat-list class="preference-list-item">
             <p class="profile-def">Name:</p>
             <p>{{user.name}}</p>
@@ -22,6 +15,42 @@
             <p>{{user.dateOfBirth}}</p>
         </mat-list>
         <mat-divider></mat-divider>
+
+        <!-- Form for changing personal data -->
+        <div class="buttons-div">
+            <button class="button-change-personal-data" mat-stroked-button (click)="changeShowForm()">Change Personal Details</button>
+        </div>
+
+        <div>
+            <form *ngIf="showForm" [formGroup]="profileForm" class="form-personal-data">
+            
+                <mat-form-field class="full-width">
+                    <mat-label>Name</mat-label>
+                    <input matInput formControlName="name" required>
+                    <mat-error *ngIf="errors.name">{{errors.name}}</mat-error>
+                </mat-form-field>
+    
+                <div class="full-width">
+                    <mat-form-field class="full-width">
+                        <mat-label [ngStyle]="{'color': errors.dateOfBirth ? '#f44336' : null }">Date of Birth</mat-label>
+                        <input matInput [value]="dateOfBirth" [matDatepicker]="picker" formControlname="dateOfBirth" (dateChange)="date($event, 'dateOfBirth')" required>
+                        <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+                        <mat-datepicker #picker></mat-datepicker>
+                        <mat-hint [ngStyle]="{color: '#f44336'}" *ngIf="errors.dateOfBirth">{{errors.dateOfBirth}}</mat-hint>
+                    </mat-form-field>
+                </div>
+    
+                <button mat-raised-button color="primary"
+                        (click)="changeData()"
+                        [disabled]="!profileForm.valid"
+                >
+                    Submit
+                </button>
+            </form>
+        </div>
+        
+        
+        <!-- END -->
 
         <mat-list class="preference-list-item">
             <p class="profile-def">Email:</p>
@@ -85,4 +114,5 @@
  
         
 </div>
+
 

@@ -7,7 +7,7 @@ const cors = require('cors');
 // routes
 const users = require('./routes/api/users');
 const preferences = require('./routes/api/preferences');
-
+const presenceAbsenceBusinessTrip = require('./routes/api/presenceAbsenceBusinessTrip');
 
 const app = express();
 
@@ -41,6 +41,7 @@ require('./config/passport')(passport);
 // use routes
 app.use('/api/users', users);
 app.use('/api/preferences', preferences);
+app.use('/api/presence/absence', presenceAbsenceBusinessTrip)
 
 app.listen(PORT, () => {
     console.log(`Server started at port ${PORT}`);

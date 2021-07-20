@@ -1,0 +1,45 @@
+<div class="preference-create">
+    <form [formGroup]="absenceForm" class="preference-form">
+        <h3 class="form-header">
+            Adding Absence Details
+        </h3>
+
+        <div class="form-group">
+            <mat-form-field class="full-width">
+                <mat-label>Type</mat-label>
+                    <mat-select matInput formControlName="type" required>
+                        <mat-option value="one">Absence Type One</mat-option>
+                        <mat-option value="two">Absence Type Two</mat-option>
+                        <mat-option value="three">Absence Type Three</mat-option>
+                        <mat-option value="four">Absence Type Four</mat-option>
+                    </mat-select>
+              </mat-form-field>
+        </div>
+
+        <div class="form-group">
+            <mat-form-field class="full-width">
+                <mat-label [ngStyle]="{'color': errors.dateFrom ? '#f44336' : null }">From:</mat-label>
+                <input matInput [matDatepicker]="picker" datePickerFormat="YYYY/MM/DD" formControlname="dateFrom" (dateChange)="date($event, 'dateFrom')" required>
+                <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+                <mat-datepicker #picker></mat-datepicker>
+                <mat-hint [ngStyle]="{color: '#f44336'}" *ngIf="errors.dateFrom">{{errors.dateFrom}}</mat-hint>
+            </mat-form-field>
+
+            <mat-form-field class="full-width">
+                <mat-label [ngStyle]="{'color': errors.dateTo ? '#f44336' : null }">To:</mat-label>
+                <input matInput [matDatepicker]="picker1" datePickerFormat="YYYY/MM/DD" formControlname="dateTo" (dateChange)="date($event, 'dateTo')" required>
+                <mat-datepicker-toggle matSuffix [for]="picker1"></mat-datepicker-toggle>
+                <mat-datepicker #picker1></mat-datepicker>
+                <mat-hint [ngStyle]="{color: '#f44336'}" *ngIf="errors.dateTo">{{errors.dateTo}}</mat-hint>
+            </mat-form-field>
+        </div>
+
+        <p class="error-message">{{errorMessage}}</p>
+
+        <button mat-raised-button color="primary"
+                [disabled]="!absenceForm.valid"
+                (click)="addAbsence()"
+        >
+                 Add Absence</button>
+    </form>
+</div>

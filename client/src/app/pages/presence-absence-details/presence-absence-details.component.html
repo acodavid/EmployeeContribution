@@ -1,0 +1,131 @@
+<div class="preference-create">
+    
+    <form [formGroup]="myForm" class="preference-form">
+        
+        <h3 class="form-header">
+            Search For Presence / Absence / Business Trip Details for Specific Day
+        </h3>
+        
+        <mat-form-field class="full-width">
+            <mat-label>Date of Birth</mat-label>
+            <input matInput [value]="date1" [matDatepicker]="picker" formControlname="date" (dateChange)="date($event, 'date')" required>
+            <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+            <mat-datepicker #picker></mat-datepicker>
+        </mat-form-field>
+
+        <button 
+                        class="full-width"
+                        mat-raised-button color="primary"
+                        (click)="searchData()"
+                        [disabled]="!myForm.valid"
+                >
+                    Submit
+                </button>
+
+        <div class="search-content">
+            <p *ngIf="errorMessage" class="error-message">{{errorMessage}}</p>
+                   
+            <div *ngIf="data && !errorMessage" class="contribution">
+            
+                <mat-card class="preference-card">
+            
+                    <mat-list class="preference-group">
+            
+                        <mat-list-item class="preference-list-item">
+                            <p class="preference-def">Type of contribution: </p>
+                            <p>{{data.type}}</p>
+                        </mat-list-item>
+                        <mat-divider></mat-divider>
+            
+                    </mat-list>
+            
+                    <mat-list class="preference-group">
+            
+                        <mat-list-item class="preference-list-item">
+                            <p class="preference-def">Date: </p>
+                            <p>{{data.date}}</p>
+                        </mat-list-item>
+                        <mat-divider></mat-divider>
+            
+                    </mat-list>
+            
+                    <mat-list *ngIf="data.remoteOffice" class="preference-group">
+            
+                        <mat-list-item class="preference-list-item">
+                            <p class="preference-def">Remote or Office: </p>
+                            <p>{{data.remoteOffice}}</p>
+                        </mat-list-item>
+                        <mat-divider></mat-divider>
+            
+                    </mat-list>
+            
+                    <mat-list *ngIf="data.workingFrom" class="preference-group">
+            
+                        <mat-list-item class="preference-list-item">
+                            <p class="preference-def">Working From: </p>
+                            <p>{{data.workingFrom}}</p>
+                        </mat-list-item>
+                        <mat-divider></mat-divider>
+            
+                    </mat-list>
+            
+                    <mat-list  *ngIf="data.workingTo" class="preference-group">
+            
+                        <mat-list-item class="preference-list-item">
+                            <p class="preference-def">Working To: </p>
+                            <p>{{data.workingTo}}</p>
+                        </mat-list-item>
+                        <mat-divider></mat-divider>
+            
+                    </mat-list>
+            
+                    <mat-list *ngIf="data.onPauseFrom" class="preference-group">
+            
+                        <mat-list-item class="preference-list-item">
+                            <p class="preference-def">On Pause From: </p>
+                            <p>{{data.onPauseFrom}}</p>
+                        </mat-list-item>
+                        <mat-divider></mat-divider>
+            
+                    </mat-list>
+            
+                    <mat-list *ngIf="data.onPauseTo" class="preference-group">
+            
+                        <mat-list-item class="preference-list-item">
+                            <p class="preference-def">On Pause To: </p>
+                            <p>{{data.onPauseTo}}</p>
+                        </mat-list-item>
+                        <mat-divider></mat-divider>
+            
+                    </mat-list>
+            
+                    <mat-list *ngIf="data.typeOfAbsence" class="preference-group">
+            
+                        <mat-list-item class="preference-list-item">
+                            <p class="preference-def">Type of Absence: </p>
+                            <p>{{data.typeOfAbsence}}</p>
+                        </mat-list-item>
+                        <mat-divider></mat-divider>
+            
+                    </mat-list>
+            
+                    <mat-list *ngIf="data.placeOfBusinessTrip" class="preference-group">
+            
+                        <mat-list-item class="preference-list-item">
+                            <p class="preference-def">Place of Business Trip: </p>
+                            <p>{{data.placeOfBusinessTrip}}</p>
+                        </mat-list-item>
+                        <mat-divider></mat-divider>
+            
+                    </mat-list>
+                    
+                </mat-card>
+            
+                
+            </div>
+        </div>
+    </form>
+
+    
+
+</div>

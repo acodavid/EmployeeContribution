@@ -18,9 +18,10 @@
                 <button mat-menu-item *ngIf="userService.checkAdmin()" routerLink="/employees">Employees</button>
             </div>
             
-            <button mat-menu-item routerLink="/user/profile/current">Profile</button>
+            <button mat-menu-item routerLink="/user/profile/current/details">Profile</button>
             <button mat-menu-item routerLink="/preference/details">My Preferences</button>
             <button mat-menu-item routerLink="/password/change">Change password</button>
+            <button mat-menu-item routerLink="/presence/absence/business/search">Search My Contribution</button>
             <mat-divider></mat-divider>
             <button mat-menu-item (click)="logout()">Logout</button>
         </mat-menu>

@@ -41,10 +41,6 @@ module.exports = function validateUpdateUser(data) {
         errors.contractDuration = 'Contract duration is required';
     }
 
-    if (Validator.isEmpty(data.terminationDate)) {
-        errors.terminationDate = 'Termination date is required';
-    }
-
     if (Validator.isEmpty(data.orgLevel)) {
         errors.orgLevel = 'Organization level is required';
     }

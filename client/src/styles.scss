@@ -75,7 +75,7 @@ body {
     align-items: center;
 }
 
-.register-form, .login-form, .change-password-form, .preference-form {
+.register-form, .login-form, .change-password-form, .preference-form, .form-personal-data {
     display: flex;
     flex-direction: column;
     
@@ -160,6 +160,7 @@ table {
     align-items: center;
     justify-content: center;
     text-align: center;
+    flex-direction: column;
     height: 85vh;
 }
 
@@ -180,7 +181,7 @@ table {
 }
 
 // preferences
-.preferences, .profile {
+.preferences, .profile, .contribution {
     
     display: flex;
     flex-direction: column;
@@ -218,10 +219,53 @@ table {
     text-align: center;
     width: 60%;
     margin-top: 10px;
+    margin-bottom: 10px;
 
     .button-profile {
         width: 100%;
     }
+}
+
+.buttons-div {
+    width: 100%;
+   
+
+    .button-change-personal-data {
+        width: 100%;
+        margin-top: 10px;
+    }
+}
+
+.profile-details-form {
+    margin-top: 10px;
+}
+
+.form-personal-data {
+    margin-top: 10px;
+}
+
+.three-buttons {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    gap: 10px;
+}
+
+.contribution {
+    height: 100%;
+}
+
+.search-content {
+    margin-top: 20px;
+}
+
+.error-message {
+    color: red;
+    margin-top: 20px;
+}
+
+.mt-10 {
+    margin-top: 10px;
 }
 
 @media(max-width: 1500px) {
@@ -275,6 +319,10 @@ table {
 
     .navbar-links {
         display: none;
+    }
+
+    .three-buttons {
+        flex-direction: column;
     }
 
 }

@@ -42,8 +42,7 @@ const UserSchema = new Schema({
         required: true
     },
     terminationDate: {
-        type: Date,
-        required: true
+        type: Date
     },
     orgLevel: {
         type: String,

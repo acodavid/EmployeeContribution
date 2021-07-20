@@ -24,7 +24,13 @@ import { PreferenceCreateComponent } from './pages/preference-create/preference-
 
 import {NgxMaterialTimepickerModule} from 'ngx-material-timepicker';
 import { PreferenceDetailsComponent } from './pages/preference-details/preference-details.component';
-import { PreferenceUpdateComponent } from './pages/preference-update/preference-update.component'
+import { PreferenceUpdateComponent } from './pages/preference-update/preference-update.component';
+import { ProfileDetailsComponent } from './pages/profile-details/profile-details.component';
+import { PresenceCreateComponent } from './pages/presence-create/presence-create.component';
+import { AbsenceCreateComponent } from './pages/absence-create/absence-create.component';
+import { BusinessTripCreateComponent } from './pages/business-trip-create/business-trip-create.component';
+import { PresenceAbsenceDetailsComponent } from './pages/presence-absence-details/presence-absence-details.component';
+import { AbsenceUpdateComponent } from './pages/absence-update/absence-update.component';
 
 @NgModule({
   declarations: [
@@ -41,7 +47,13 @@ import { PreferenceUpdateComponent } from './pages/preference-update/preference-
     DeleteDialogComponent,
     PreferenceCreateComponent,
     PreferenceDetailsComponent,
-    PreferenceUpdateComponent
+    PreferenceUpdateComponent,
+    ProfileDetailsComponent,
+    PresenceCreateComponent,
+    AbsenceCreateComponent,
+    BusinessTripCreateComponent,
+    PresenceAbsenceDetailsComponent,
+    AbsenceUpdateComponent
   ],
   imports: [
     BrowserModule,

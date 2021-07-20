@@ -14,6 +14,7 @@ const validateRegister = require('../../validation/registration');
 const validateLogin = require('../../validation/login');
 const validatePass = require('../../validation/changePassword');
 const validateUpdateUser = require('../../validation/updateUser');
+const validateProfile = require('../../validation/profileUpdate');
 
 
 // @route GET api/users
@@ -69,12 +70,15 @@ router.post('/register', (req, res) => {
                     typeOfPosition: req.body.typeOfPosition,
                     hiredDate: req.body.hiredDate,
                     contractDuration: req.body.contractDuration,
-                    terminationDate: req.body.terminationDate,
                     orgLevel: req.body.orgLevel,
                     status: req.body.status,
                     durationOfPreviousService: req.body.durationOfPreviousService,
                     linkToPersonalFolder: req.body.linkToPersonalFolder
                 });
+
+                if(req.body.terminationDate) {
+                    newUser.terminationDate = req.body.terminationDate
+                }
 
                 // sifrovanje password-a pomocu bcrypt biblioteke
                 bcrypt.genSalt(10, (err, salt) => {
@@ -280,6 +284,30 @@ router.put('/changepassword', passport.authenticate('jwt', {session: false}), (r
         })
         .catch(err => {
             console.log(err)
+        })
+
+})
+
+// @route PUT api/users/profile/update
+// @desc Changing name and date of birth for user
+// @access private
+router.put('/profile/update', passport.authenticate('jwt', {session: false}), (req, res) => {
+
+    const {errors, isValid} = validateProfile(req.body);
+
+    if(!isValid) {
+        return res.status(400).json(errors);
+    }
+
+    const { id, name, dateOfBirth } = req.body;
+
+    User.findById(id)
+        .then(user => {
+            user.name = name;
+            user.dateOfBirth = dateOfBirth;
+
+            User.findByIdAndUpdate({_id: req.body.id }, {$set: user}, {new: true, useFindAndModify: false})
+                .then(user => res.json(user));
         })
 
 })

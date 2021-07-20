@@ -73,4 +73,8 @@ export class UserService {
     return this.httpClient.delete(`${environment.apiUrl}/api/users/${id}`)
   }
 
+  changePersonalData(data): Observable<any> {
+    return this.httpClient.put(`${environment.apiUrl}/api/users/profile/update`, data);
+  }
+
 }

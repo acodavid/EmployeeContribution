@@ -12,6 +12,12 @@ import { UserProfileComponent } from './pages/user-profile/user-profile.componen
 import { PreferenceCreateComponent } from './pages/preference-create/preference-create.component';
 import { PreferenceDetailsComponent } from './pages/preference-details/preference-details.component';
 import { PreferenceUpdateComponent } from './pages/preference-update/preference-update.component';
+import { ProfileDetailsComponent } from './pages/profile-details/profile-details.component';
+import { AbsenceCreateComponent } from './pages/absence-create/absence-create.component';
+import { PresenceCreateComponent } from './pages/presence-create/presence-create.component';
+import { BusinessTripCreateComponent } from './pages/business-trip-create/business-trip-create.component';
+import { PresenceAbsenceDetailsComponent } from './pages/presence-absence-details/presence-absence-details.component';
+import { AbsenceUpdateComponent } from './pages/absence-update/absence-update.component';
 
 
 const routes: Routes = [
@@ -24,6 +30,12 @@ const routes: Routes = [
   {path: 'preference/create', component: PreferenceCreateComponent, canActivate:[AuthGuard]},
   {path: 'preference/details', component: PreferenceDetailsComponent, canActivate:[AuthGuard]},
   {path: 'preference/update/:id', component: PreferenceUpdateComponent, canActivate:[AuthGuard]},
+  {path: 'user/profile/current/details', component: ProfileDetailsComponent, canActivate:[AuthGuard]},
+  {path: 'absence/create', component: AbsenceCreateComponent, canActivate:[AuthGuard]},
+  {path: 'presence/create', component: PresenceCreateComponent, canActivate:[AuthGuard]},
+  {path: 'business/trip/create', component: BusinessTripCreateComponent, canActivate:[AuthGuard]},
+  {path: 'presence/absence/business/search', component: PresenceAbsenceDetailsComponent, canActivate:[AuthGuard]},
+  {path: 'absence/update/:id', component: AbsenceUpdateComponent, canActivate:[AuthGuard]},
   {path: '**', component: NotFoundComponent}
 ];
 
