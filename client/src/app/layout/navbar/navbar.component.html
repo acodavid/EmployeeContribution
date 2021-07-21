@@ -22,6 +22,7 @@
             <button mat-menu-item routerLink="/preference/details">My Preferences</button>
             <button mat-menu-item routerLink="/password/change">Change password</button>
             <button mat-menu-item routerLink="/presence/absence/business/search">Search My Contribution</button>
+            <button mat-menu-item *ngIf="userService.checkAdmin()" routerLink="/contribution/create">Add Contribution</button>
             <mat-divider></mat-divider>
             <button mat-menu-item (click)="logout()">Logout</button>
         </mat-menu>

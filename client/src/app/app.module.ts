@@ -31,6 +31,7 @@ import { AbsenceCreateComponent } from './pages/absence-create/absence-create.co
 import { BusinessTripCreateComponent } from './pages/business-trip-create/business-trip-create.component';
 import { PresenceAbsenceDetailsComponent } from './pages/presence-absence-details/presence-absence-details.component';
 import { AbsenceUpdateComponent } from './pages/absence-update/absence-update.component';
+import { ContributionCreateComponent } from './pages/contribution-create/contribution-create.component';
 
 @NgModule({
   declarations: [
@@ -53,7 +54,8 @@ import { AbsenceUpdateComponent } from './pages/absence-update/absence-update.co
     AbsenceCreateComponent,
     BusinessTripCreateComponent,
     PresenceAbsenceDetailsComponent,
-    AbsenceUpdateComponent
+    AbsenceUpdateComponent,
+    ContributionCreateComponent
   ],
   imports: [
     BrowserModule,

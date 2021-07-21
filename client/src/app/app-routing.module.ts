@@ -18,6 +18,7 @@ import { PresenceCreateComponent } from './pages/presence-create/presence-create
 import { BusinessTripCreateComponent } from './pages/business-trip-create/business-trip-create.component';
 import { PresenceAbsenceDetailsComponent } from './pages/presence-absence-details/presence-absence-details.component';
 import { AbsenceUpdateComponent } from './pages/absence-update/absence-update.component';
+import { ContributionCreateComponent } from './pages/contribution-create/contribution-create.component';
 
 
 const routes: Routes = [
@@ -36,6 +37,7 @@ const routes: Routes = [
   {path: 'business/trip/create', component: BusinessTripCreateComponent, canActivate:[AuthGuard]},
   {path: 'presence/absence/business/search', component: PresenceAbsenceDetailsComponent, canActivate:[AuthGuard]},
   {path: 'absence/update/:id', component: AbsenceUpdateComponent, canActivate:[AuthGuard]},
+  {path: 'contribution/create', component: ContributionCreateComponent, canActivate:[AuthGuard]},
   {path: '**', component: NotFoundComponent}
 ];
 
