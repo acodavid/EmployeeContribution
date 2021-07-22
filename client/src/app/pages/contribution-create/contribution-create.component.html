@@ -1,4 +1,4 @@
-<div class="preference-create" *ngIf="!loading">
+<div class="preference-create" *ngIf="!loading; else spinner">
 
     <form [formGroup]="contributionCreateForm" class="preference-form">
 
@@ -92,3 +92,7 @@
     </form>
 
 </div>
+
+<div #spinner>
+    <mat-spinner *ngIf="loading"></mat-spinner>
+  </div>

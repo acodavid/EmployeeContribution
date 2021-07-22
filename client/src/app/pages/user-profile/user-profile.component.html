@@ -1,5 +1,5 @@
 
-<div class="profile">
+<div *ngIf="!loading; else spinner" class="profile">
 
     <p class="profile-header">Profile: {{user.name}}</p>
 
@@ -85,4 +85,8 @@
  
         
 </div>
+
+<div #spinner>
+    <mat-spinner *ngIf="loading"></mat-spinner>
+  </div>
 

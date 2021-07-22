@@ -2,7 +2,7 @@
     <p class="preference-header">My Daily Contribution Preference</p>
 
       
-    <mat-card *ngIf="!loading" class="preference-card">
+    <mat-card *ngIf="!loading; else spinner" class="preference-card">
         
         <mat-list class="preference-group">
             <mat-list-item class="preference-list-item">
@@ -43,5 +43,9 @@
         </button>
     
     </mat-card>
+
+    <div #spinner>
+        <mat-spinner *ngIf="loading"></mat-spinner>
+      </div>
 </div>
 

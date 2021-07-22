@@ -1,9 +1,9 @@
 
-<div class="profile">
+<div *ngIf="!loading; else spinner" class="profile">
 
     <p class="profile-header">Profile: {{user.name}}</p>
 
-    <mat-card *ngIf="!loading" class="profile-card">
+    <mat-card class="profile-card">
         <mat-list class="preference-list-item">
             <p class="profile-def">Name:</p>
             <p>{{user.name}}</p>
@@ -111,8 +111,14 @@
             <p>{{user.linkToPersonalFolder}}</p>
         </mat-list>
     </mat-card>
+
+    
  
         
 </div>
+
+<div #spinner>
+    <mat-spinner *ngIf="loading"></mat-spinner>
+  </div>
 
 

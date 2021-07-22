@@ -40,6 +40,8 @@ export class DashboardComponent implements OnInit {
 
           this.data.date = this.data.date.slice(8, 10) + '.' + this.data.date.slice(5, 7) + '.' + this.data.date.slice(0, 4)
           this.loading = false
+        }, error => {
+          this.loading = false
         })
 
       }

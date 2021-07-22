@@ -54,13 +54,12 @@ export class ProfileDetailsComponent implements OnInit {
         name: user.name,
         dateOfBirth: this.dateOfBirth
       })
-      
-      // this.profileForm.value.name = user.name;
 
+      this.loading = false
       
     })
 
-    this.loading = false
+    
 
   }
 

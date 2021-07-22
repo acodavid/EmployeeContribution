@@ -1,4 +1,4 @@
-<div *ngIf="loading" class="dashboard">
+<div *ngIf="!loading && !data; else spinner" class="dashboard">
         <h3>Hello, you haven't entered daily contribution for today</h3>
         <p>Select one of options to enter it</p>
         <div class="three-buttons">
@@ -11,7 +11,7 @@
 
 </div>
 
-<div *ngIf="data" class="contribution">
+<div *ngIf="data; else spinner" class="contribution">
 
     <p class="preference-header">My Daily Contribution for Today</p>
 
@@ -117,6 +117,10 @@
 
     
 </div>
+
+<div #spinner>
+    <mat-spinner *ngIf="loading"></mat-spinner>
+  </div>
 
 
 

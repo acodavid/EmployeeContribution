@@ -65,6 +65,7 @@
                         <mat-option value="three">Absence Type Three</mat-option>
                         <mat-option value="four">Absence Type Four</mat-option>
                     </mat-select>
+                    <mat-error *ngIf="errors.onPauseTo">{{errors.onPauseTo}}</mat-error>
               </mat-form-field>
         </div>
 

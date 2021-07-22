@@ -18,8 +18,11 @@ export class AbsenceUpdateComponent implements OnInit {
     workingTo: '',
     onPauseFrom: '',
     onPauseTo: '',
-    place: ''
+    place: '',
+    typeOfAbsence: ''
   }
+
+  error: boolean = false
 
   myForm2: FormGroup;
   dateInput;
@@ -138,18 +141,25 @@ export class AbsenceUpdateComponent implements OnInit {
 
     if(type === 'Absence') {
 
-      data = {
-        _id: this.paramID,
-        type,
-        remoteOffice: '',
-        date,
-        workingFrom: '',
-        workingTo: '',
-        onPauseFrom: '',
-        onPauseTo: '',
-        typeOfAbsence,
-        placeOfBusinessTrip: ''
-      }
+
+      
+        data = {
+          _id: this.paramID,
+          type,
+          remoteOffice: '',
+          date,
+          workingFrom: '',
+          workingTo: '',
+          onPauseFrom: '',
+          onPauseTo: '',
+          typeOfAbsence,
+          placeOfBusinessTrip: ''
+        }
+      
+
+      
+
+      
 
     } else if(type === 'Presence') {
 
@@ -183,11 +193,14 @@ export class AbsenceUpdateComponent implements OnInit {
 
     }
 
+    
+      this.sub3 = this.absencePresenceService.editData(data).subscribe(result => {
+        console.log(result)
+        this.router.navigate(['/']);
+      })
+    
 
-    this.sub3 = this.absencePresenceService.editData(data).subscribe(result => {
-      console.log(result)
-      this.router.navigate(['/']);
-    })
+    
 
     
   }

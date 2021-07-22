@@ -146,7 +146,7 @@ router.post('/create', passport.authenticate('jwt', {session: false}), (req, res
         .then(data => {
             
             if(data.length !== 0) {
-                res.status(400).json({errors: 'You have already create presence/absence/business trip for today'})
+                res.status(400).json({errors: 'You have already create presence/absence/business trip for selected date/dates'})
             } else {
                 // create 
 
