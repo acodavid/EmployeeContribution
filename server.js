@@ -45,6 +45,11 @@ app.use('/api/users', users);
 app.use('/api/preferences', preferences);
 app.use('/api/presence/absence', presenceAbsenceBusinessTrip)
 
+app.get('/', function (req, res) {
+    res.send('working')
+  })
+
+
 app.listen(PORT, () => {
     console.log(`Server started at port ${PORT}`);
 });
