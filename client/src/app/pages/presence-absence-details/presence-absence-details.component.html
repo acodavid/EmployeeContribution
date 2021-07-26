@@ -7,7 +7,7 @@
         </h3>
         
         <mat-form-field class="full-width">
-            <mat-label>Date of Birth</mat-label>
+            <mat-label>Date</mat-label>
             <input matInput [value]="date1" [matDatepicker]="picker" formControlname="date" (dateChange)="date($event, 'date')" required>
             <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
             <mat-datepicker #picker></mat-datepicker>

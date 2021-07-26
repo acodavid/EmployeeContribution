@@ -32,6 +32,8 @@ import { BusinessTripCreateComponent } from './pages/business-trip-create/busine
 import { PresenceAbsenceDetailsComponent } from './pages/presence-absence-details/presence-absence-details.component';
 import { AbsenceUpdateComponent } from './pages/absence-update/absence-update.component';
 import { ContributionCreateComponent } from './pages/contribution-create/contribution-create.component';
+import { SearchContributionsComponent } from './pages/search-contributions/search-contributions.component';
+import { ContributionDetailComponent } from './pages/contribution-detail/contribution-detail.component';
 
 @NgModule({
   declarations: [
@@ -55,7 +57,9 @@ import { ContributionCreateComponent } from './pages/contribution-create/contrib
     BusinessTripCreateComponent,
     PresenceAbsenceDetailsComponent,
     AbsenceUpdateComponent,
-    ContributionCreateComponent
+    ContributionCreateComponent,
+    SearchContributionsComponent,
+    ContributionDetailComponent
   ],
   imports: [
     BrowserModule,

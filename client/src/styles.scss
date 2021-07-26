@@ -25,6 +25,9 @@ body {
     padding: 0;
 }
 
+.mb-15 {
+    margin-bottom: 15px;
+}
 // Navbar
 
 .navbar {
@@ -274,6 +277,10 @@ table {
 
 .mt-10 {
     margin-top: 10px;
+}
+
+.full-height {
+    height: 100%;
 }
 
 @media(max-width: 1500px) {

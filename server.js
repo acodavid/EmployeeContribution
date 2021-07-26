@@ -8,8 +8,7 @@ const cors = require('cors');
 const users = require('./routes/api/users');
 const preferences = require('./routes/api/preferences');
 const presenceAbsenceBusinessTrip = require('./routes/api/presenceAbsenceBusinessTrip');
-
-const path = require('path');
+const holidays = require('./routes/api/holidays')
 
 const app = express();
 
@@ -43,7 +42,8 @@ require('./config/passport')(passport);
 // use routes
 app.use('/api/users', users);
 app.use('/api/preferences', preferences);
-app.use('/api/presence/absence', presenceAbsenceBusinessTrip)
+app.use('/api/presence/absence', presenceAbsenceBusinessTrip);
+app.use('/api/holidays', holidays)
 
 app.get('/', function (req, res) {
     res.send('working')

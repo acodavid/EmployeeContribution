@@ -3,8 +3,6 @@ import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { UserRegister } from 'src/app/data/models/UserRegister';
 import { UserService } from 'src/app/data/services/user.service';
-import { FormControl, FormGroup, Validators } from '@angular/forms';
-import * as moment from 'moment';
 
 @Component({
   selector: 'app-user-profile',

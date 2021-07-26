@@ -1,7 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
+import * as moment from 'moment';
 import { UserRegister } from 'src/app/data/models/UserRegister';
+import { AbsencePresenceService } from 'src/app/data/services/absence-presence.service';
 import { UserService } from 'src/app/data/services/user.service';
 
 @Component({
@@ -17,24 +19,35 @@ export class ContributionCreateComponent implements OnInit {
     workingTo: '',
     onPauseFrom: '',
     onPauseTo: '',
-    place: ''
+    place: '',
+    date2: ''
   }
 
   loading: boolean = true
 
   contributionCreateForm: FormGroup;
-  dateInput;
 
   typeOfForm: string;
 
   users: UserRegister[];
 
+  showError: boolean = false;
+
+  counter: number = 0;
+  counter2: number = 0;
+  hasError: boolean = false;
+  dates = []; 
+  errorMessage: string;
+
   private sub1: any;
+  private sub2: any;
+  private sub3: any;
 
 
   constructor(
     private userService: UserService,
-    private router: Router
+    private router: Router,
+    private absencePresenceService: AbsencePresenceService
   ) { 
     this.composeForm();
    }
@@ -52,6 +65,14 @@ export class ContributionCreateComponent implements OnInit {
     if(this.sub1){
       this.sub1.unsubscribe();
     }
+
+    if(this.sub2){
+      this.sub2.unsubscribe();
+    }
+
+    if(this.sub3){
+      this.sub3.unsubscribe();
+    }
     
   }
 
@@ -61,6 +82,7 @@ export class ContributionCreateComponent implements OnInit {
       type: new FormControl('', Validators.required),
       remoteOrOffice: new FormControl('', Validators.required),
       date: new FormControl('', Validators.required),
+      date2: new FormControl('', Validators.required),
       workingFrom: new FormControl('', Validators.required),
       workingTo: new FormControl('', Validators.required),
       onPauseFrom: new FormControl('', Validators.required),
@@ -70,13 +92,185 @@ export class ContributionCreateComponent implements OnInit {
     })
   }
 
+  date(e, name) {
+
+    let convertDate;
+
+    convertDate = moment(e.target.value._d).add(3, 'hours')
+    
+    this.contributionCreateForm.get(name).setValue(convertDate._d, {
+      onlyself: true
+    })
+
+    
+  }
+
   onChange(e): void {
     this.typeOfForm = e.value;
   }
 
   createContribution(): void {
-    console.log(this.contributionCreateForm.value)
+
+    const {employee, type, remoteOrOffice, date, date2, workingFrom, workingTo,
+      onPauseFrom, onPauseTo, typeOfAbsence, place} = this.contributionCreateForm.value;
+
+    let data;
+
+    if(type === '') {
+
+      this.showError = true
+
+    } else if(type === 'Absence') {
+
+      data = {
+        user: employee,
+        type,
+        remoteOffice: '',
+        date,
+        date2,
+        workingFrom: '',
+        workingTo: '',
+        onPauseFrom: '',
+        onPauseTo: '',
+        typeOfAbsence,
+        placeOfBusinessTrip: ''
+      }
+
+      if(employee === '' || date === '' || date2 === '' || typeOfAbsence === '') {
+        this.showError = true
+      } else {
+        this.create(data);
+      }
+
+  } else if(type === 'Presence') {
+
+    data = {
+      user: employee,
+      type,
+      remoteOffice: remoteOrOffice,
+      date,
+      date2,
+      workingFrom,
+      workingTo,
+      onPauseFrom,
+      onPauseTo,
+      typeOfAbsence: '',
+      placeOfBusinessTrip: ''
+    }
+
+    if(employee === '' || date === '' || date2 === '' || remoteOrOffice === '' || workingFrom === ''
+     || workingTo === '' || onPauseFrom === '' || onPauseTo === '') {
+      this.showError = true
+    } else {
+      this.create(data);
+    }
+
+  } else {
+
+    data = {
+      user: employee,
+      type,
+      remoteOffice: '',
+      date,
+      date2,
+      workingFrom: '',
+      workingTo: '',
+      onPauseFrom: '',
+      onPauseTo: '',
+      typeOfAbsence: '',
+      placeOfBusinessTrip: place
+    }
+
+    if(employee === '' || date === '' || date2 === '' || place === '') {
+      this.showError = true
+    } else {
+      this.create(data);
+    }
+
+  }
+
+  
     
   }
+
+  create(data): void {
+    this.showError = false
+
+    const {user, type, remoteOffice, date, date2, workingFrom, 
+      workingTo, onPauseFrom, onPauseTo, typeOfAbsence, placeOfBusinessTrip} = data;
+
+    const range = this.getDates(date, date2);
+
+    for (let index = 0; index < range.length; index++) {
+      
+      const data2 = {
+        type,
+        user,
+        date: range[index],
+        remoteOffice,
+        workingFrom,
+        workingTo,
+        onPauseFrom,
+        onPauseTo,
+        typeOfAbsence,
+        placeOfBusinessTrip
+      }
+
+      this.sub2 = this.absencePresenceService.addPresenceAbsence(data2).subscribe(result => {
+
+        this.dates.push(data2.date);
+
+        this.counter++;
+        this.counter2++;
+
+        if(this.counter === range.length) {
+          this.router.navigate(['/contribution/create']);
+        } else if(this.counter2 === range.length && this.hasError) {
+
+          for (let index = 0; index < this.dates.length; index++) {
+            
+            this.sub3 = this.absencePresenceService.deleteDataByUserIDAndDate(data2.user, this.dates[index]).subscribe(result => {
+              console.log(result);
+            })
+            
+          }
+        }
+
+      
+      }, error => {
+        this.errorMessage = error.error.errors;
+
+        this.hasError = true
+        this.counter2++;
+
+        if(this.counter2 === range.length && this.hasError) {
+
+           for (let index = 0; index < this.dates.length; index++) {
+            
+            this.sub3 = this.absencePresenceService.deleteDataByUserIDAndDate(data2.user, this.dates[index]).subscribe(result => {
+              console.log(result);
+            })
+            
+          }
+        }
+
+      })
+      
+    }
+
+  }
+
+  getDates(dateFrom: any, dateTo: any) {
+    let dateArray = new Array();
+    let currentDate = new Date(dateFrom);
+
+    while (currentDate <= dateTo) {
+
+      dateArray.push(new Date (currentDate));
+      currentDate.setDate(currentDate.getDate() + 1);
+    }
+    return dateArray;
+  }
+
 
 }

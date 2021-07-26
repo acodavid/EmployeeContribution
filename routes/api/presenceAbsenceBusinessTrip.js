@@ -11,6 +11,7 @@ module.exports = router;
 router.get('/get/:id', passport.authenticate('jwt', {session: false}), (req, res) => {
 
     PresenceAbsenceBusinessTrip.findById(req.params.id)
+        .populate('user', ['name'])
         .then(data => res.json(data))
         .catch(err => res.status(404).json({error: 'Not Found'}))
 
@@ -40,6 +41,33 @@ router.get('/:user/:date', passport.authenticate('jwt', {session: false}), (req,
 
 
 })
+
+// @route GET /api/presence/absence/user/range
+// @desc gET ABSENCE-PRESENCE-BUSINESS TRIP specific date, specific user
+// @access private
+router.get('/user/range/:user/:date1/:date2', passport.authenticate('jwt', {session: false}), (req, res) => {
+
+    const startofDay1 = new Date(req.params.date1);
+    const endofDay2 = new Date(req.params.date2);
+
+    startofDay1.setHours(0, 0, 0, 0);
+    endofDay2.setHours(23, 59, 59, 999);
+
+    PresenceAbsenceBusinessTrip.find({"date": {"$gte": startofDay1, "$lt": endofDay2}, "user": req.params.user})
+        .sort({date: 1})
+        .then(data => {
+            
+            if(data.length !== 0) {
+                res.json(data);
+            } else {
+                res.status(404).json({error: "There is no data for selected date range"})
+            }
+
+        })
+
+
+})
+
 
 // @route PUT /api/presence/absence
 // @desc Update absence-presence-business trip

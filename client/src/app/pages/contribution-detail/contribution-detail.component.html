@@ -1,22 +1,18 @@
-<div *ngIf="!loading && !data; else spinner" class="dashboard">
-        <h3>Hello, you haven't entered daily contribution for today</h3>
-        <p>Select one of options to enter it</p>
-        <div class="three-buttons">
-            <button mat-raised-button color="primary" routerLink="/presence/create">Presence</button>
-            <button mat-raised-button color="warn" routerLink="/absence/create">Absence</button>
-            <button mat-raised-button color="accent" routerLink="/business/trip/create">Business Trip</button>
-        </div>
-
-        
-
-</div>
-
-<div *ngIf="data; else spinner" class="contribution">
-
-    <p class="preference-header">My Daily Contribution for Today</p>
+<div class="contribution" *ngIf="data; else spinner">
+    <p class="preference-header">Details of Contribution</p>
 
 
     <mat-card class="preference-card">
+
+        <mat-list class="preference-group">
+
+            <mat-list-item class="preference-list-item">
+                <p class="preference-def">Name: </p>
+                <p>{{data.user.name}}</p>
+            </mat-list-item>
+            <mat-divider></mat-divider>
+
+        </mat-list>
 
         <mat-list class="preference-group">
 
@@ -32,7 +28,7 @@
 
             <mat-list-item class="preference-list-item">
                 <p class="preference-def">Date: </p>
-                <p>{{data.date}}</p>
+                <p>{{data.date.slice(8, 10) + '.' + data.date.slice(5, 7) + '.' + data.date.slice(0, 4)}}</p>
             </mat-list-item>
             <mat-divider></mat-divider>
 
@@ -109,19 +105,13 @@
         </mat-list>
 
         <div class="preference-group mt-10">
-            <button [routerLink]="['/absence/update', data._id, employee]" mat-raised-button color="primary" class="full-width">Edit</button>
+            <button [routerLink]="['/absence/update', data._id, admin]" mat-raised-button color="primary" class="full-width">Edit</button>
         </div>
-       
-        
+
     </mat-card>
 
-    
 </div>
 
 <ng-template #spinner>
     <mat-spinner *ngIf="loading"></mat-spinner>
   </ng-template>
-
-
-
-

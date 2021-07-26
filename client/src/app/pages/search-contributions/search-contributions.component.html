@@ -1,0 +1,97 @@
+<div class="preference-create full-height" *ngIf="!loading; else spinner">
+
+    <form [formGroup]="searchForm" class="preference-form">
+
+        <h3 class="form-header">
+            Search for Contributions
+        </h3>
+
+        <mat-form-field class="full-width">
+            <mat-label>Name</mat-label>
+                <mat-select matInput formControlName="employee" required>
+                    <mat-option *ngFor="let item of users" [value]="item._id">{{item.name}}</mat-option>
+                </mat-select>
+          </mat-form-field>
+
+        <div class="form-group">
+            <mat-form-field class="full-width">
+                <mat-label>From:</mat-label>
+                <input matInput [matDatepicker]="picker1" formControlname="date1" (dateChange)="date($event, 'date1')" required>
+                <mat-datepicker-toggle matSuffix [for]="picker1"></mat-datepicker-toggle>
+                <mat-datepicker #picker1></mat-datepicker>
+            </mat-form-field>
+
+            <mat-form-field class="full-width">
+                <mat-label>To:</mat-label>
+                <input matInput [matDatepicker]="picker2" formControlname="date2" (dateChange)="date($event, 'date2')" required>
+                <mat-datepicker-toggle matSuffix [for]="picker2"></mat-datepicker-toggle>
+                <mat-datepicker #picker2></mat-datepicker>
+            </mat-form-field>
+        </div>
+
+        <button 
+                        class="full-width mb-15"
+                        mat-raised-button color="primary"
+                        (click)="searchData()"
+                        [disabled]="!searchForm.valid"
+                >
+                    Submit
+                </button>
+
+                <div class="mt-10">
+                    <p class="error-message ">{{errorMessage}}</p>
+                </div>
+
+             
+                <div *ngIf="submited">
+            
+                    <table *ngIf="!loadingTable; else spinner2" mat-table [dataSource]="dataSource" class="mat-elevation-z8 full-height">
+
+                        <ng-container matColumnDef="date">
+                            <th mat-header-cell *matHeaderCellDef>Date</th>
+                            <td mat-cell *matCellDef="let element"> 
+                              {{element.date.slice(8, 10) + '.' + element.date.slice(5, 7) + '.' + element.date.slice(0, 4)}}
+                             </td>
+                          </ng-container>
+
+                        <ng-container matColumnDef="type">
+                            <th mat-header-cell *matHeaderCellDef>Type</th>
+                            <td mat-cell *matCellDef="let element"> 
+                              {{element.type}}
+                             </td>
+                          </ng-container>
+
+                          <ng-container matColumnDef="actions" sticky>
+                            <th mat-header-cell *matHeaderCellDef></th>
+                            <td mat-cell *matCellDef="let element"> 
+                                <button mat-button title="Details" [routerLink]="['/contribution/detail', element._id]"><mat-icon color="primary">description</mat-icon></button> 
+                                <button mat-button title="Delete" (click)="deleteContribution(element._id)"><mat-icon color="warn">delete</mat-icon></button>
+                            </td>
+                          </ng-container>
+
+
+                          <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+                        <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+
+                    </table>
+
+                    
+            
+                </div>
+
+                <ng-template #spinner2>
+                    <mat-spinner></mat-spinner>
+                  </ng-template>
+
+    </form>
+
+    
+
+    
+    
+
+</div>
+
+<ng-template #spinner>
+    <mat-spinner></mat-spinner>
+  </ng-template>

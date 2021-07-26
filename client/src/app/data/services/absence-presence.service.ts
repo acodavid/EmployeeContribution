@@ -36,4 +36,8 @@ export class AbsencePresenceService {
   deleteDataByUserIDAndDate(user, date): Observable<any> {
     return this.httpClient.delete(`${environment.apiUrl}/api/presence/absence/date/${date}/${user}`)
   }
+
+  getDataFromRange(user, date1, date2): Observable<PresenceAbsence[]> {
+    return this.httpClient.get<PresenceAbsence[]>(`${environment.apiUrl}/api/presence/absence/user/range/${user}/${date1}/${date2}`)
+  }
 }

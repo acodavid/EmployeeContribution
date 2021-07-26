@@ -27,6 +27,7 @@ export class AbsenceUpdateComponent implements OnInit {
   myForm2: FormGroup;
   dateInput;
   paramID: string;
+  paramType: string;
 
   typeOfForm: string
 
@@ -47,6 +48,8 @@ export class AbsenceUpdateComponent implements OnInit {
     this.sub1 = this.activatedRoute.params.subscribe(params => {
       const id = params['id'];
       this.paramID = id;
+
+      this.paramType = params['type'];
 
       this.sub2 = this.absencePresenceService.getById(id).subscribe(data => {
         
@@ -195,8 +198,14 @@ export class AbsenceUpdateComponent implements OnInit {
 
     
       this.sub3 = this.absencePresenceService.editData(data).subscribe(result => {
-        console.log(result)
-        this.router.navigate(['/']);
+
+        if(this.paramType === 'employee') {
+          this.router.navigate(['/']);
+        } else if(this.paramType === 'admin') {
+          this.router.navigate([`/contribution/detail/${this.paramID}`]);
+        }
+
+        
       })
     
 

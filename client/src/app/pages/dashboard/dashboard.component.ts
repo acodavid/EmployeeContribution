@@ -18,6 +18,8 @@ export class DashboardComponent implements OnInit {
 
   data: PresenceAbsence;
 
+  employee: string = 'employee'
+
   constructor(
     public userService: UserService,
     private router: Router,
