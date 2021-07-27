@@ -34,6 +34,7 @@ import { AbsenceUpdateComponent } from './pages/absence-update/absence-update.co
 import { ContributionCreateComponent } from './pages/contribution-create/contribution-create.component';
 import { SearchContributionsComponent } from './pages/search-contributions/search-contributions.component';
 import { ContributionDetailComponent } from './pages/contribution-detail/contribution-detail.component';
+import { HolidaysComponent } from './pages/holidays/holidays.component';
 
 @NgModule({
   declarations: [
@@ -59,7 +60,8 @@ import { ContributionDetailComponent } from './pages/contribution-detail/contrib
     AbsenceUpdateComponent,
     ContributionCreateComponent,
     SearchContributionsComponent,
-    ContributionDetailComponent
+    ContributionDetailComponent,
+    HolidaysComponent
   ],
   imports: [
     BrowserModule,

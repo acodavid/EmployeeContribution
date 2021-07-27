@@ -21,6 +21,7 @@ import { AbsenceUpdateComponent } from './pages/absence-update/absence-update.co
 import { ContributionCreateComponent } from './pages/contribution-create/contribution-create.component';
 import { SearchContributionsComponent } from './pages/search-contributions/search-contributions.component';
 import { ContributionDetailComponent } from './pages/contribution-detail/contribution-detail.component';
+import { HolidaysComponent } from './pages/holidays/holidays.component';
 
 
 const routes: Routes = [
@@ -42,6 +43,7 @@ const routes: Routes = [
   {path: 'contribution/create', component: ContributionCreateComponent, canActivate:[AuthGuard]},
   {path: 'contributions/search', component: SearchContributionsComponent, canActivate:[AuthGuard]},
   {path: 'contribution/detail/:id', component: ContributionDetailComponent, canActivate:[AuthGuard]},
+  {path: 'holidays', component: HolidaysComponent, canActivate:[AuthGuard]},
   {path: '**', component: NotFoundComponent}
 ];
 

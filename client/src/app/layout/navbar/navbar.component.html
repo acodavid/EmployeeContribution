@@ -24,6 +24,7 @@
             <button mat-menu-item routerLink="/presence/absence/business/search">Search My Contribution</button>
             <button mat-menu-item *ngIf="userService.checkAdmin()" routerLink="/contributions/search">Search Contributions</button>
             <button mat-menu-item *ngIf="userService.checkAdmin()" routerLink="/contribution/create">Add Contribution</button>
+            <button mat-menu-item *ngIf="userService.checkAdmin()" routerLink="/holidays">Holidays</button>
             <mat-divider></mat-divider>
             <button mat-menu-item (click)="logout()">Logout</button>
         </mat-menu>
