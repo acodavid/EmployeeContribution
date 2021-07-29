@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, OnDestroy } from '@angular/core';
 import { Router } from '@angular/router';
 import { UserService } from '../../data/services/user.service';
 import { AbsencePresenceService } from '../../data/services/absence-presence.service'
@@ -9,7 +9,7 @@ import { PresenceAbsence } from 'src/app/data/models/PresenceAbsence';
   templateUrl: './dashboard.component.html',
   styleUrls: ['./dashboard.component.scss']
 })
-export class DashboardComponent implements OnInit {
+export class DashboardComponent implements OnInit, OnDestroy {
 
   private sub1: any;
   private sub2: any;

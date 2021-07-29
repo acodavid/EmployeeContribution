@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, OnDestroy } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { PresenceAbsence } from 'src/app/data/models/PresenceAbsence';
 import { AbsencePresenceService } from 'src/app/data/services/absence-presence.service';
@@ -8,7 +8,7 @@ import { AbsencePresenceService } from 'src/app/data/services/absence-presence.s
   templateUrl: './contribution-detail.component.html',
   styleUrls: ['./contribution-detail.component.scss']
 })
-export class ContributionDetailComponent implements OnInit {
+export class ContributionDetailComponent implements OnInit, OnDestroy {
 
   private sub1: any;
   private sub2: any;

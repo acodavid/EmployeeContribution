@@ -1,6 +1,7 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, OnDestroy } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { MatDialog } from '@angular/material/dialog';
+import { Router } from '@angular/router';
 import * as moment from 'moment';
 import { DeleteDialogComponent } from 'src/app/data/dialogs/delete-dialog/delete-dialog.component';
 import { PresenceAbsence } from 'src/app/data/models/PresenceAbsence';
@@ -13,7 +14,7 @@ import { UserService } from 'src/app/data/services/user.service';
   templateUrl: './search-contributions.component.html',
   styleUrls: ['./search-contributions.component.scss']
 })
-export class SearchContributionsComponent implements OnInit {
+export class SearchContributionsComponent implements OnInit, OnDestroy {
 
   private sub1: any;
   private sub2: any;
@@ -37,17 +38,24 @@ export class SearchContributionsComponent implements OnInit {
   constructor(
     private userService: UserService,
     private absencePresenceService: AbsencePresenceService,
-    private dialog: MatDialog
+    private dialog: MatDialog,
+    private router: Router
   ) { 
     this.composeForm();
   }
 
   ngOnInit(): void {
 
-    this.sub1 = this.userService.getUsers().subscribe(users => {
-      this.users = users;
-      this.loading = false
-    })
+    if(this.userService.checkAdmin()) {
+      this.sub1 = this.userService.getUsers().subscribe(users => {
+        this.users = users;
+        this.loading = false
+      })
+    } else {
+      this.router.navigate(['/not-found'])
+    }
+
+    
 
   }
 

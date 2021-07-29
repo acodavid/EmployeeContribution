@@ -2,6 +2,7 @@ const express = require('express');
 const router = express.Router();
 const passport = require('passport');
 const PresenceAbsenceBusinessTrip = require('../../models/PresenceAbsenceBusinessTrip');
+const Holiday = require('../../models/Holiday');
 
 module.exports = router;
 
@@ -170,33 +171,46 @@ router.post('/create', passport.authenticate('jwt', {session: false}), (req, res
     startofDay.setHours(0, 0, 0, 0);
     endofDay.setHours(23, 59, 59, 999);
 
-    PresenceAbsenceBusinessTrip.find({"date": {"$gte": startofDay, "$lt": endofDay}, "user": user})
-        .then(data => {
-            
-            if(data.length !== 0) {
-                res.status(400).json({errors: 'You have already create presence/absence/business trip for selected date/dates'})
-            } else {
-                // create 
+    Holiday.findOne({"date": {"$gte": startofDay, "$lt": endofDay}})
+        .then(holiday => {
 
-                const newDay = new PresenceAbsenceBusinessTrip({
-                    type,
-                    remoteOffice,
-                    workingFrom,
-                    workingTo,
-                    onPauseFrom,
-                    onPauseTo,
-                    typeOfAbsence,
-                    date,
-                    placeOfBusinessTrip,
-                    user
+            if(holiday) {
+                res.status(400).json({errors: 'You are not allowed to add anythin on national or religious day!'})
+            } else {
+
+                        PresenceAbsenceBusinessTrip.find({"date": {"$gte": startofDay, "$lt": endofDay}, "user": user})
+                            .then(data => {
+                    
+                                if(data.length !== 0) {
+                                    res.status(400).json({errors: 'You have already create presence/absence/business trip for selected date/dates'})
+                                } else {
+                                    // create 
+
+                                    const newDay = new PresenceAbsenceBusinessTrip({
+                                        type,
+                                        remoteOffice,
+                                        workingFrom,
+                                        workingTo,
+                                        onPauseFrom,
+                                        onPauseTo,
+                                        typeOfAbsence,
+                                        date,
+                                        placeOfBusinessTrip,
+                                        user
+                                    })
+
+                                    newDay.save()
+                                        .then(item => res.json(item))
+                                        .catch(err => console.log(err));
+                                }
+
                 })
 
-                newDay.save()
-                    .then(item => res.json(item))
-                    .catch(err => console.log(err));
             }
 
         })
+
+    
 
 
 

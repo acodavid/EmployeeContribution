@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, OnDestroy } from '@angular/core';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import * as moment from 'moment';
@@ -10,7 +10,7 @@ import { UserService } from 'src/app/data/services/user.service';
   templateUrl: './business-trip-create.component.html',
   styleUrls: ['./business-trip-create.component.scss']
 })
-export class BusinessTripCreateComponent implements OnInit {
+export class BusinessTripCreateComponent implements OnInit, OnDestroy {
 
   businessTripForm: FormGroup;
 

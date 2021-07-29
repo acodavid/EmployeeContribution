@@ -1,17 +1,19 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, OnDestroy } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
+import { MatSnackBar } from '@angular/material/snack-bar';
 import { Router } from '@angular/router';
 import * as moment from 'moment';
 import { UserRegister } from 'src/app/data/models/UserRegister';
 import { AbsencePresenceService } from 'src/app/data/services/absence-presence.service';
 import { UserService } from 'src/app/data/services/user.service';
+import { SnackComponent } from 'src/app/data/snack/snack/snack.component';
 
 @Component({
   selector: 'app-contribution-create',
   templateUrl: './contribution-create.component.html',
   styleUrls: ['./contribution-create.component.scss']
 })
-export class ContributionCreateComponent implements OnInit {
+export class ContributionCreateComponent implements OnInit, OnDestroy {
 
   errors = {
     date: '',
@@ -47,17 +49,24 @@ export class ContributionCreateComponent implements OnInit {
   constructor(
     private userService: UserService,
     private router: Router,
-    private absencePresenceService: AbsencePresenceService
+    private absencePresenceService: AbsencePresenceService,
+    private _snackBar: MatSnackBar
   ) { 
     this.composeForm();
    }
 
   ngOnInit(): void {
 
-    this.sub1 = this.userService.getUsers().subscribe(users => {
-      this.users = users;
-      this.loading = false
-    })
+    if (this.userService.checkAdmin()) {
+      this.sub1 = this.userService.getUsers().subscribe(users => {
+        this.users = users;
+        this.loading = false
+      })
+    } else {
+      this.router.navigate(['/not-found'])
+    }
+
+    
 
   }
 
@@ -202,6 +211,8 @@ export class ContributionCreateComponent implements OnInit {
     const range = this.getDates(date, date2);
 
     for (let index = 0; index < range.length; index++) {
+
+      
       
       const data2 = {
         type,
@@ -224,7 +235,21 @@ export class ContributionCreateComponent implements OnInit {
         this.counter2++;
 
         if(this.counter === range.length) {
-          this.router.navigate(['/contribution/create']);
+
+          
+          // show snack
+          this._snackBar.openFromComponent(SnackComponent, {
+            duration: 4000
+          })
+
+          setTimeout(function() {
+            location.reload();
+          }, 2000)
+
+         
+
+
+
         } else if(this.counter2 === range.length && this.hasError) {
 
           for (let index = 0; index < this.dates.length; index++) {
@@ -271,6 +296,5 @@ export class ContributionCreateComponent implements OnInit {
     }
     return dateArray;
   }
-
 
 }

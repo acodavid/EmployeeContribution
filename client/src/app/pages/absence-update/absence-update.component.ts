@@ -1,3 +1,4 @@
+import { OnDestroy } from '@angular/core';
 import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
@@ -9,7 +10,7 @@ import { AbsencePresenceService } from 'src/app/data/services/absence-presence.s
   templateUrl: './absence-update.component.html',
   styleUrls: ['./absence-update.component.scss']
 })
-export class AbsenceUpdateComponent implements OnInit {
+export class AbsenceUpdateComponent implements OnInit, OnDestroy {
 
 
   errors = {

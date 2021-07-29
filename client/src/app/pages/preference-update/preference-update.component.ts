@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, OnDestroy } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { PreferenceService } from 'src/app/data/services/preference.service';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
@@ -9,7 +9,7 @@ import { Preference } from 'src/app/data/models/Preference';
   templateUrl: './preference-update.component.html',
   styleUrls: ['./preference-update.component.scss']
 })
-export class PreferenceUpdateComponent implements OnInit {
+export class PreferenceUpdateComponent implements OnInit, OnDestroy {
 
   preferenceUpdateForm: FormGroup;
 

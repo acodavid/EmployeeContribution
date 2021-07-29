@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, OnDestroy } from '@angular/core';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import * as moment from 'moment';
@@ -10,7 +10,7 @@ import { UserService } from 'src/app/data/services/user.service';
   templateUrl: './absence-create.component.html',
   styleUrls: ['./absence-create.component.scss']
 })
-export class AbsenceCreateComponent implements OnInit {
+export class AbsenceCreateComponent implements OnInit, OnDestroy {
 
   absenceForm: FormGroup;
 

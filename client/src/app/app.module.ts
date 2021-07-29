@@ -35,6 +35,7 @@ import { ContributionCreateComponent } from './pages/contribution-create/contrib
 import { SearchContributionsComponent } from './pages/search-contributions/search-contributions.component';
 import { ContributionDetailComponent } from './pages/contribution-detail/contribution-detail.component';
 import { HolidaysComponent } from './pages/holidays/holidays.component';
+import { SnackComponent } from './data/snack/snack/snack.component';
 
 @NgModule({
   declarations: [
@@ -61,7 +62,8 @@ import { HolidaysComponent } from './pages/holidays/holidays.component';
     ContributionCreateComponent,
     SearchContributionsComponent,
     ContributionDetailComponent,
-    HolidaysComponent
+    HolidaysComponent,
+    SnackComponent
   ],
   imports: [
     BrowserModule,

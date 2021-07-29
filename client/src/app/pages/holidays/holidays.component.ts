@@ -1,4 +1,4 @@
-import { Component, OnInit, TestabilityRegistry } from '@angular/core';
+import { Component, OnInit, OnDestroy } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { MatDialog } from '@angular/material/dialog';
 import { Router } from '@angular/router';
@@ -13,7 +13,7 @@ import { UserService } from 'src/app/data/services/user.service';
   templateUrl: './holidays.component.html',
   styleUrls: ['./holidays.component.scss']
 })
-export class HolidaysComponent implements OnInit {
+export class HolidaysComponent implements OnInit, OnDestroy {
 
   private sub1: any;
   private sub2: any;
@@ -50,7 +50,7 @@ export class HolidaysComponent implements OnInit {
   ngOnInit(): void {
 
     if(!this.userService.checkAdmin()) {
-      this.router.navigate(['/']);
+      this.router.navigate(['/not-found'])
     } else {
 
       this.sub1 = this.holidayService.getHolidays().subscribe(holidays => {

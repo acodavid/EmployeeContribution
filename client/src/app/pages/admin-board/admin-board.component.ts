@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, OnDestroy } from '@angular/core';
 import { UserRegister } from 'src/app/data/models/UserRegister';
 import { UserService } from 'src/app/data/services/user.service';
 import { Router } from '@angular/router';
@@ -13,7 +13,7 @@ import { AbsencePresenceService } from 'src/app/data/services/absence-presence.s
   templateUrl: './admin-board.component.html',
   styleUrls: ['./admin-board.component.scss']
 })
-export class AdminBoardComponent implements OnInit {
+export class AdminBoardComponent implements OnInit, OnDestroy {
 
   displayedColumns: string[] = ['checkbox', 'status', 'name', 'email', 'work-time', 'actions'];
   dataSource: UserRegister[];

@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, OnDestroy } from '@angular/core';
 import { Preference } from 'src/app/data/models/Preference';
 import { PreferenceService } from 'src/app/data/services/preference.service';
 import { Router } from '@angular/router';
@@ -8,7 +8,7 @@ import { Router } from '@angular/router';
   templateUrl: './preference-details.component.html',
   styleUrls: ['./preference-details.component.scss']
 })
-export class PreferenceDetailsComponent implements OnInit {
+export class PreferenceDetailsComponent implements OnInit, OnDestroy {
 
   private sub1: any;
 

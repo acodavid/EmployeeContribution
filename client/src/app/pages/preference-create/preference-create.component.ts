@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, OnDestroy } from '@angular/core';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
 import { Preference } from 'src/app/data/models/Preference';
 import { UserService } from 'src/app/data/services/user.service';
@@ -10,7 +10,7 @@ import { Router } from '@angular/router';
   templateUrl: './preference-create.component.html',
   styleUrls: ['./preference-create.component.scss']
 })
-export class PreferenceCreateComponent implements OnInit {
+export class PreferenceCreateComponent implements OnInit, OnDestroy {
 
   errors: any = {
     workingFrom: '',

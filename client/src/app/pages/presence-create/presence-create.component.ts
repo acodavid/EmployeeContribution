@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, OnDestroy } from '@angular/core';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { PreferenceService } from '../../data/services/preference.service';
@@ -10,7 +10,7 @@ import * as moment from 'moment';
   templateUrl: './presence-create.component.html',
   styleUrls: ['./presence-create.component.scss']
 })
-export class PresenceCreateComponent implements OnInit {
+export class PresenceCreateComponent implements OnInit, OnDestroy {
 
   presenceForm: FormGroup;
 

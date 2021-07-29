@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, OnDestroy } from '@angular/core';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
 import { UserService } from 'src/app/data/services/user.service';
 import { AbsencePresenceService } from 'src/app/data/services/absence-presence.service';
@@ -10,7 +10,7 @@ import { PresenceAbsence } from 'src/app/data/models/PresenceAbsence';
   templateUrl: './presence-absence-details.component.html',
   styleUrls: ['./presence-absence-details.component.scss']
 })
-export class PresenceAbsenceDetailsComponent implements OnInit {
+export class PresenceAbsenceDetailsComponent implements OnInit, OnDestroy {
 
   myForm: FormGroup;
 

@@ -1,5 +1,5 @@
 import { Router } from '@angular/router';
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, OnDestroy } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { UserRegister } from 'src/app/data/models/UserRegister';
 import { UserService } from 'src/app/data/services/user.service';
@@ -9,7 +9,7 @@ import { UserService } from 'src/app/data/services/user.service';
   templateUrl: './user-profile.component.html',
   styleUrls: ['./user-profile.component.scss']
 })
-export class UserProfileComponent implements OnInit {
+export class UserProfileComponent implements OnInit, OnDestroy {
 
   user: UserRegister;
 
