@@ -175,7 +175,7 @@ router.post('/create', passport.authenticate('jwt', {session: false}), (req, res
         .then(holiday => {
 
             if(holiday) {
-                res.status(400).json({errors: 'You are not allowed to add anythin on national or religious day!'})
+                res.status(400).json({errors: 'You are not allowed to add anything on national or religious day!'})
             } else {
 
                         PresenceAbsenceBusinessTrip.find({"date": {"$gte": startofDay, "$lt": endofDay}, "user": user})
