@@ -29,6 +29,8 @@ export class AbsenceCreateComponent implements OnInit, OnDestroy {
     dateTo: ''
   };
 
+  invalidDateRange: string = '';
+
   private sub1: any;
   private sub2: any;
   private sub3: any;
@@ -77,9 +79,13 @@ export class AbsenceCreateComponent implements OnInit, OnDestroy {
 
   addAbsence(): void {
     const { type, dateFrom, dateTo } = this.absenceForm.value;
-    
 
-    const range = this.getDates(dateFrom, dateTo);
+    if(dateFrom.getTime() > dateTo.getTime()) {
+     
+      this.invalidDateRange = 'Please insert valid dates range!'
+
+    } else {
+      const range = this.getDates(dateFrom, dateTo);
 
     for (let index = 0; index < range.length; index++) {
 
@@ -132,6 +138,10 @@ export class AbsenceCreateComponent implements OnInit, OnDestroy {
     
 
     }
+    }
+    
+
+    
   }
 
   date(e, name) {

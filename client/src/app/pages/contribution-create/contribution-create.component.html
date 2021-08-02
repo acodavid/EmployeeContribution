@@ -44,6 +44,12 @@
                 <mat-datepicker #picker2></mat-datepicker>
                 <mat-hint [ngStyle]="{color: '#f44336'}" *ngIf="errors.date">{{errors.date2}}</mat-hint>
             </mat-form-field>
+
+            
+          </div>
+
+          <div class="form-group">
+            <p class="error-message">{{invalidDateRange}}</p>
           </div>
 
           

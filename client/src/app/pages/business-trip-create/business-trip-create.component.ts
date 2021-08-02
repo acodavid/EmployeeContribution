@@ -29,6 +29,8 @@ export class BusinessTripCreateComponent implements OnInit, OnDestroy {
 
   userId: string;
 
+  invalidDateRange: string = '';
+
   private sub1: any;
   private sub2: any;
   private sub3: any;
@@ -78,7 +80,13 @@ export class BusinessTripCreateComponent implements OnInit, OnDestroy {
   addBusinessTrip(): void {
     const { place, dateFrom, dateTo } = this.businessTripForm.value;
 
-    const range = this.getDates(dateFrom, dateTo);
+    if(dateFrom.getTime() > dateTo.getTime()) {
+
+      this.invalidDateRange = 'Please insert valid dates range!'
+
+    } else {
+
+      const range = this.getDates(dateFrom, dateTo);
 
     for (let index = 0; index < range.length; index++) {
 
@@ -128,6 +136,10 @@ export class BusinessTripCreateComponent implements OnInit, OnDestroy {
       })
       
     }
+
+    }
+
+    
 
     
   }

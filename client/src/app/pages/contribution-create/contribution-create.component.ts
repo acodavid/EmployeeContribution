@@ -41,6 +41,8 @@ export class ContributionCreateComponent implements OnInit, OnDestroy {
   dates = []; 
   errorMessage: string;
 
+  invalidDateRange: string = '';
+
   private sub1: any;
   private sub2: any;
   private sub3: any;
@@ -125,12 +127,65 @@ export class ContributionCreateComponent implements OnInit, OnDestroy {
 
     let data;
 
-    if(type === '') {
+    if(date.getTime() > date2.getTime()) {
+      
+      this.invalidDateRange = 'Please insert valid dates range!'
 
-      this.showError = true
+      
+    } else {
 
-    } else if(type === 'Absence') {
 
+      if(type === '') {
+
+        this.showError = true
+  
+      } else if(type === 'Absence') {
+  
+        data = {
+          user: employee,
+          type,
+          remoteOffice: '',
+          date,
+          date2,
+          workingFrom: '',
+          workingTo: '',
+          onPauseFrom: '',
+          onPauseTo: '',
+          typeOfAbsence,
+          placeOfBusinessTrip: ''
+        }
+  
+        if(employee === '' || date === '' || date2 === '' || typeOfAbsence === '') {
+          this.showError = true
+        } else {
+          this.create(data);
+        }
+  
+    } else if(type === 'Presence') {
+  
+      data = {
+        user: employee,
+        type,
+        remoteOffice: remoteOrOffice,
+        date,
+        date2,
+        workingFrom,
+        workingTo,
+        onPauseFrom,
+        onPauseTo,
+        typeOfAbsence: '',
+        placeOfBusinessTrip: ''
+      }
+  
+      if(employee === '' || date === '' || date2 === '' || remoteOrOffice === '' || workingFrom === ''
+       || workingTo === '' || onPauseFrom === '' || onPauseTo === '') {
+        this.showError = true
+      } else {
+        this.create(data);
+      }
+  
+    } else {
+  
       data = {
         user: employee,
         type,
@@ -141,62 +196,22 @@ export class ContributionCreateComponent implements OnInit, OnDestroy {
         workingTo: '',
         onPauseFrom: '',
         onPauseTo: '',
-        typeOfAbsence,
-        placeOfBusinessTrip: ''
+        typeOfAbsence: '',
+        placeOfBusinessTrip: place
       }
-
-      if(employee === '' || date === '' || date2 === '' || typeOfAbsence === '') {
+  
+      if(employee === '' || date === '' || date2 === '' || place === '') {
         this.showError = true
       } else {
         this.create(data);
       }
-
-  } else if(type === 'Presence') {
-
-    data = {
-      user: employee,
-      type,
-      remoteOffice: remoteOrOffice,
-      date,
-      date2,
-      workingFrom,
-      workingTo,
-      onPauseFrom,
-      onPauseTo,
-      typeOfAbsence: '',
-      placeOfBusinessTrip: ''
+  
     }
 
-    if(employee === '' || date === '' || date2 === '' || remoteOrOffice === '' || workingFrom === ''
-     || workingTo === '' || onPauseFrom === '' || onPauseTo === '') {
-      this.showError = true
-    } else {
-      this.create(data);
+
     }
 
-  } else {
-
-    data = {
-      user: employee,
-      type,
-      remoteOffice: '',
-      date,
-      date2,
-      workingFrom: '',
-      workingTo: '',
-      onPauseFrom: '',
-      onPauseTo: '',
-      typeOfAbsence: '',
-      placeOfBusinessTrip: place
-    }
-
-    if(employee === '' || date === '' || date2 === '' || place === '') {
-      this.showError = true
-    } else {
-      this.create(data);
-    }
-
-  }
+   
 
   
     
