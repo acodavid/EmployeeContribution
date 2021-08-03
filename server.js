@@ -4,10 +4,10 @@ const passport = require('passport');
 
 const cors = require('cors');
 
-const https = require('https');
-const http = require('http');
+// const https = require('https');
+// const http = require('http');
 
-const fs = require('fs');
+// const fs = require('fs');
 
 // routes
 const users = require('./routes/api/users');
@@ -55,29 +55,29 @@ app.get('/', function (req, res) {
   })
 
 
-// Certificate
-const privateKey = fs.readFileSync('/etc/letsencrypt/live/ect.sevenlab.org/privkey.pem', 'utf8');
-const certificate = fs.readFileSync('/etc/letsencrypt/live/ect.sevenlab.org/cert.pem', 'utf8');
-const ca = fs.readFileSync('/etc/letsencrypt/live/ect.sevenlab.org/chain.pem', 'utf8');
+// // Certificate
+// const privateKey = fs.readFileSync('/etc/letsencrypt/live/ect.sevenlab.org/privkey.pem', 'utf8');
+// const certificate = fs.readFileSync('/etc/letsencrypt/live/ect.sevenlab.org/cert.pem', 'utf8');
+// const ca = fs.readFileSync('/etc/letsencrypt/live/ect.sevenlab.org/chain.pem', 'utf8');
 
-const credentials = {
-    key: privateKey,
-    cert: certificate,
-    ca: ca
-};
+// const credentials = {
+//     key: privateKey,
+//     cert: certificate,
+//     ca: ca
+// };
 
-const httpServer = http.createServer(app);
-const httpsServer = https.createServer(credentials, app)
+// const httpServer = http.createServer(app);
+// const httpsServer = https.createServer(credentials, app)
   
-// app.listen(PORT, () => {
-//     console.log(`Server started at port ${PORT}`);
+app.listen(PORT, () => {
+    console.log(`Server started at port ${PORT}`);
+});
+
+// httpServer.listen(5000, () => {
+//     console.log('HTTP Server running on port 5000');
 // });
 
-httpServer.listen(5000, () => {
-    console.log('HTTP Server running on port 5000');
-});
-
-httpsServer.listen(5001, () => {
-    console.log('HTTPS Server running on port 5001');
-});
+// httpsServer.listen(5001, () => {
+//     console.log('HTTPS Server running on port 5001');
+// });
 
