@@ -1,6 +1,6 @@
 
 export const environment = {
   production: false,
-  apiUrl: 'https://ect.sevenlab.org'
+  apiUrl: 'http://192.248.183.40:5000'
 };
 
