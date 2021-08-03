@@ -7,6 +7,8 @@ const cors = require('cors');
 const https = require('https');
 const http = require('http');
 
+const fs = require('fs');
+
 // routes
 const users = require('./routes/api/users');
 const preferences = require('./routes/api/preferences');
