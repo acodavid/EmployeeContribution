@@ -15,7 +15,7 @@ const app = express();
 app.use(cors())
 
 // variables
-const mongoDB = require('./config/keys').atlasKey;
+const mongoDB = require('./config/keys').mongoDBConnectionString;
 const PORT = process.env.PORT || 5000;
 
 // Express v4.16.0 and higher // without body-parser

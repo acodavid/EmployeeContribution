@@ -64,8 +64,8 @@
                           <ng-container matColumnDef="actions" sticky>
                             <th mat-header-cell *matHeaderCellDef></th>
                             <td mat-cell *matCellDef="let element"> 
-                                <button mat-button title="Details" [routerLink]="['/contribution/detail', element._id]"><mat-icon color="primary">description</mat-icon></button> 
-                                <button mat-button title="Delete" (click)="deleteContribution(element._id)"><mat-icon color="warn">delete</mat-icon></button>
+                                <button *ngIf="userService.checkAdmin()" mat-button title="Details" [routerLink]="['/contribution/detail', element._id]"><mat-icon color="primary">description</mat-icon></button> 
+                                <button *ngIf="userService.checkAdmin()" mat-button title="Delete" (click)="deleteContribution(element._id)"><mat-icon color="warn">delete</mat-icon></button>
                             </td>
                           </ng-container>
 
