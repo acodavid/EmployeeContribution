@@ -7,8 +7,8 @@
         </h3>
 
         <mat-form-field class="full-width">
-            <mat-label>Name</mat-label>
-                <mat-select matInput formControlName="employee" required>
+            <mat-label>{{userService.checkAdmin() ? 'Name' : name}}</mat-label>
+                <mat-select [disabled]="!userService.checkAdmin()" matInput formControlName="employee" required>
                     <mat-option *ngFor="let item of users" [value]="item._id">{{item.name}}</mat-option>
                 </mat-select>
           </mat-form-field>

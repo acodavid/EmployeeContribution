@@ -4,11 +4,6 @@ const passport = require('passport');
 
 const cors = require('cors');
 
-// const https = require('https');
-// const http = require('http');
-
-// const fs = require('fs');
-
 // routes
 const users = require('./routes/api/users');
 const preferences = require('./routes/api/preferences');
@@ -20,7 +15,7 @@ const app = express();
 app.use(cors())
 
 // variables
-const mongoDB = require('./config/keys').mongoDBConnectionString;
+const mongoDB = require('./config/keys').atlasKey;
 const PORT = process.env.PORT || 5000;
 
 // Express v4.16.0 and higher // without body-parser
@@ -50,34 +45,19 @@ app.use('/api/preferences', preferences);
 app.use('/api/presence/absence', presenceAbsenceBusinessTrip);
 app.use('/api/holidays', holidays)
 
-app.get('/', function (req, res) {
-    res.send('working')
-  })
+app.enable('trust proxy');
 
-
-// // Certificate
-// const privateKey = fs.readFileSync('/etc/letsencrypt/live/ect.sevenlab.org/privkey.pem', 'utf8');
-// const certificate = fs.readFileSync('/etc/letsencrypt/live/ect.sevenlab.org/cert.pem', 'utf8');
-// const ca = fs.readFileSync('/etc/letsencrypt/live/ect.sevenlab.org/chain.pem', 'utf8');
-
-// const credentials = {
-//     key: privateKey,
-//     cert: certificate,
-//     ca: ca
-// };
-
-// const httpServer = http.createServer(app);
-// const httpsServer = https.createServer(credentials, app)
+app.use (function (req, res, next) {
+    if (req.secure) {
+            // request was via https, so do no special handling
+            next();
+    } else {
+            // request was via http, so redirect to https
+            res.redirect('https://' + req.headers.host + req.url);
+    }
+});
   
 app.listen(PORT, () => {
     console.log(`Server started at port ${PORT}`);
 });
-
-// httpServer.listen(5000, () => {
-//     console.log('HTTP Server running on port 5000');
-// });
-
-// httpsServer.listen(5001, () => {
-//     console.log('HTTPS Server running on port 5001');
-// });
 

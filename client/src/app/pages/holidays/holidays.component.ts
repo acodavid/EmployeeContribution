@@ -3,6 +3,7 @@ import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { MatDialog } from '@angular/material/dialog';
 import { Router } from '@angular/router';
 import * as moment from 'moment';
+import { of } from 'rxjs';
 import { DeleteDialogComponent } from 'src/app/data/dialogs/delete-dialog/delete-dialog.component';
 import { Holiday } from 'src/app/data/models/Holiday';
 import { HolidayService } from 'src/app/data/services/holiday.service';
@@ -38,6 +39,8 @@ export class HolidaysComponent implements OnInit, OnDestroy {
 
   dataForEdit: Holiday;
 
+  arrayYears: number[] = [2021];
+
   constructor(
     private holidayService: HolidayService,
     private userService: UserService,
@@ -45,6 +48,7 @@ export class HolidaysComponent implements OnInit, OnDestroy {
     private dialog: MatDialog
   ) {
     this.composeForm();
+    this.createArrayOfYears();
    }
 
   ngOnInit(): void {
@@ -53,7 +57,9 @@ export class HolidaysComponent implements OnInit, OnDestroy {
       this.router.navigate(['/not-found'])
     } else {
 
-      this.sub1 = this.holidayService.getHolidays().subscribe(holidays => {
+      const currentYear = new Date();
+
+      this.sub1 = this.holidayService.getHolidays(currentYear.getFullYear()).subscribe(holidays => {
         this.dataSource = holidays
         this.loading = false
       }, error => {
@@ -104,7 +110,8 @@ export class HolidaysComponent implements OnInit, OnDestroy {
   composeForm(): void { 
     this.holidayForm = new FormGroup({
       title: new FormControl('', Validators.required),
-      date: new FormControl('', Validators.required)
+      date: new FormControl('', Validators.required),
+      year: new FormControl(new Date().getFullYear())
     })
   }
 
@@ -155,6 +162,30 @@ export class HolidaysComponent implements OnInit, OnDestroy {
         })
       }
     })
+  }
+
+  createArrayOfYears() {
+    
+    const currentDate = new Date();
+
+    for (let index = 1; index < 50; index++) {
+      
+       this.arrayYears.push(currentDate.getFullYear() + index)
+      
+     }
+
+  }
+
+  onChange(e): void {
+    
+    this.holidayService.getHolidays(e.value).subscribe(holidays => {
+      this.dataSource = holidays
+      this.loading = false
+    }, error => {
+      this.errorMessage = error.error.notFound;
+      console.log(this.errorMessage)
+    })
+    
   }
 
 }

@@ -82,7 +82,7 @@
         </mat-list>
         <mat-divider></mat-divider>
 
-        <mat-list class="preference-list-item">
+        <mat-list *ngIf="user.terminationDate" class="preference-list-item">
             <p class="profile-def">Termination Date:</p>
             <p>{{user.terminationDate}}</p>
         </mat-list>

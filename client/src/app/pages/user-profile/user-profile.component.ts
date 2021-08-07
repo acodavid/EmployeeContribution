@@ -3,6 +3,8 @@ import { Component, OnInit, OnDestroy } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { UserRegister } from 'src/app/data/models/UserRegister';
 import { UserService } from 'src/app/data/services/user.service';
+import { DeleteDialogComponent } from 'src/app/data/dialogs/delete-dialog/delete-dialog.component';
+import { MatDialog } from '@angular/material/dialog';
 
 @Component({
   selector: 'app-user-profile',
@@ -33,7 +35,8 @@ export class UserProfileComponent implements OnInit, OnDestroy {
   constructor(
     private router: Router,
     private activatedRoute: ActivatedRoute,
-    private userService: UserService
+    private userService: UserService,
+    private dialog: MatDialog
   ) {
    }
 
@@ -60,7 +63,10 @@ export class UserProfileComponent implements OnInit, OnDestroy {
   
           this.user.dateOfBirth = this.user.dateOfBirth.slice(8, 10) + '.' + this.user.dateOfBirth.slice(5, 7) + '.' + this.user.dateOfBirth.slice(0, 4)
           this.user.hiredDate = this.user.hiredDate.slice(8, 10) + '.' + this.user.hiredDate.slice(5, 7) + '.' + this.user.hiredDate.slice(0, 4)
-          this.user.terminationDate = this.user.terminationDate.slice(8, 10) + '.' + this.user.terminationDate.slice(5, 7) + '.' + this.user.terminationDate.slice(0, 4)
+
+          if(this.user.terminationDate) {
+            this.user.terminationDate = this.user.terminationDate.slice(8, 10) + '.' + this.user.terminationDate.slice(5, 7) + '.' + this.user.terminationDate.slice(0, 4)
+          }
   
           this.loading = false;
 
@@ -85,6 +91,21 @@ export class UserProfileComponent implements OnInit, OnDestroy {
     }
     
   } 
+
+  deleteUser(id) {
+
+    const dialogRef = this.dialog.open(DeleteDialogComponent);
+
+    this.sub2 = dialogRef.afterClosed().subscribe(result => {
+      if(result) {
+        this.userService.deleteUser(id).subscribe(result => {
+         this.router.navigate(['/employees'])
+        })
+      }
+    })
+  
+
+  }
 
 
 }

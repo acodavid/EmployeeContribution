@@ -298,6 +298,8 @@ export class RegisterComponent implements OnInit, OnDestroy {
 
   updateUser() {
     this.user = this.registerForm.value;
+
+    console.log(this.user.isAdmin)
     this.user.durationOfPreviousService = this.user.durationOfPreviousService.toString();
 
     this.user._id = this.param;

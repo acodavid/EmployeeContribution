@@ -35,6 +35,8 @@ export class SearchContributionsComponent implements OnInit, OnDestroy {
 
   errorMessage: string;
 
+  name: string;
+
   constructor(
     private userService: UserService,
     private absencePresenceService: AbsencePresenceService,
@@ -52,7 +54,19 @@ export class SearchContributionsComponent implements OnInit, OnDestroy {
         this.loading = false
       })
     } else {
-      this.router.navigate(['/not-found'])
+      this.userService.getCurrentUser().subscribe(user => {
+
+        this.name = user.name;
+
+        this.searchForm.setValue({
+          employee: user._id,
+          date1: '',
+          date2: ''
+        })
+
+        this.loading = false
+      })
+      
     }
 
     

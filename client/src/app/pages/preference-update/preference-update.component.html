@@ -13,7 +13,7 @@
 
             <div class="form-group">
                 <mat-form-field class="full-width">
-                    <input matInput formControlName="workingFrom" placeholder="Working From (HH:MM)" [ngxTimepicker]="workingFrom" [format]="24" required>
+                    <input matInput formControlName="workingFrom" placeholder="Working From (HH:MM)" [ngxTimepicker]="workingFrom" [format]="24" disabled>
                     <ngx-material-timepicker #workingFrom></ngx-material-timepicker>
                     <mat-error *ngIf="errors.workingFrom">{{errors.workingFrom}}</mat-error>
                 </mat-form-field>

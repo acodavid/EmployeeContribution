@@ -45,6 +45,7 @@ export class UserService {
     localStorage.setItem('jwtToken', token);
     const isAdmin = JSON.stringify(user.isAdmin)
     localStorage.setItem('isAdmin', isAdmin);
+    localStorage.setItem('name', user.name);
   }
 
   checkAdmin(): boolean {
@@ -54,6 +55,10 @@ export class UserService {
       return false;
     }
     
+  }
+
+  getLoggedUserName(): string {
+    return localStorage.getItem('name')
   }
 
   logout(): void {

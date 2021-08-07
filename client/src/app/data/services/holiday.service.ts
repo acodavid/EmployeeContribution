@@ -15,8 +15,8 @@ export class HolidayService {
     
    }
 
-  getHolidays(): Observable<Holiday[]> {
-    return this.httpClient.get<Holiday[]>(`${environment.apiUrl}/api/holidays`)
+  getHolidays(year): Observable<Holiday[]> {
+    return this.httpClient.get<Holiday[]>(`${environment.apiUrl}/api/holidays/${year}`)
   }
 
   addHoliday(holiday: Holiday): Observable<any> {

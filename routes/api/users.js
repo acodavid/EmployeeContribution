@@ -120,9 +120,8 @@ router.put('/update', passport.authenticate('jwt', {session: false}), (req, res)
         newUser.email = req.body.email
     }
 
-    if(req.body.isAdmin) {
-        newUser.isAdmin = req.body.isAdmin
-    }
+    newUser.isAdmin = req.body.isAdmin
+    
 
     if(req.body.dateOfBirth) {
         newUser.dateOfBirth = req.body.dateOfBirth
@@ -159,8 +158,6 @@ router.put('/update', passport.authenticate('jwt', {session: false}), (req, res)
     if(req.body.linkToPersonalFolder) {
         newUser.linkToPersonalFolder = req.body.linkToPersonalFolder
     }
-
-
 
 
     User.findByIdAndUpdate({_id: req.body._id}, {$set: newUser}, {new: true, useFindAndModify: false})
@@ -211,7 +208,8 @@ router.post('/login', (req, res) => {
                             id: user.id,
                             email: user.email,
                             isAdmin: user.isAdmin,
-                            firstLogin: user.firstLogin
+                            firstLogin: user.firstLogin,
+                            name: user.name
                         }
 
                         jwt.sign(payload, keys.secretOrKey, {expiresIn: '8h'}, (err, token) => {
@@ -222,7 +220,8 @@ router.post('/login', (req, res) => {
                                     id: user._id,
                                     email: user.email,
                                     isAdmin: user.isAdmin,
-                                    firstLogin: user.firstLogin
+                                    firstLogin: user.firstLogin,
+                                    name: user.name
                                 }
                             });
                         });

@@ -8,8 +8,24 @@ const Holiday = require('../../models/Holiday');
 // @route GET api/holidays
 // @desc Get all holidays
 // @access private
-router.get('/', passport.authenticate('jwt', {session: false}), (req, res) => {
-    Holiday.find()
+router.get('/:year', passport.authenticate('jwt', {session: false}), (req, res) => {
+
+
+    let startDate = new Date();
+    let endDate = new Date();
+
+    startDate.setDate(1);
+    startDate.setMonth(0);
+    startDate.setFullYear(req.params.year)
+    startDate.setHours(0, 0, 0, 0)
+
+    endDate.setDate(31);
+    endDate.setMonth(11);
+    endDate.setFullYear(req.params.year)
+    endDate.setHours(23, 59, 59, 999)
+
+
+    Holiday.find({"date": {"$gte": startDate, "$lt": endDate}})
         .sort({date: 1})
         .then(holidays => res.json(holidays))
         .catch(err => res.status(404).json({notFound: 'List of Holidays is Empty'}))

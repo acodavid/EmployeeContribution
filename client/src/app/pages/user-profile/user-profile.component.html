@@ -53,7 +53,7 @@
         </mat-list>
         <mat-divider></mat-divider>
 
-        <mat-list class="preference-list-item">
+        <mat-list *ngIf="user.terminationDate" class="preference-list-item">
             <p class="profile-def">Termination Date:</p>
             <p>{{user.terminationDate}}</p>
         </mat-list>
@@ -80,6 +80,10 @@
         <mat-list *ngIf="user.linkToPersonalFolder" class="preference-list-item">
             <p class="profile-def">Link to personal folder:</p>
             <p>{{user.linkToPersonalFolder}}</p>
+        </mat-list>
+
+        <mat-list class="preference-list-item">
+            <button class="full-width" mat-raised-button color="warn" (click)="deleteUser(user._id)">Delete User</button>
         </mat-list>
     </mat-card>
  

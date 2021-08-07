@@ -44,11 +44,16 @@ export class ProfileDetailsComponent implements OnInit, OnDestroy {
       this.user = user;
       this.dateOfBirth = user.dateOfBirth;
 
-      
+      console.log(this.user)
 
       this.user.dateOfBirth = this.user.dateOfBirth.slice(8, 10) + '.' + this.user.dateOfBirth.slice(5, 7) + '.' + this.user.dateOfBirth.slice(0, 4)
       this.user.hiredDate = this.user.hiredDate.slice(8, 10) + '.' + this.user.hiredDate.slice(5, 7) + '.' + this.user.hiredDate.slice(0, 4)
-      this.user.terminationDate = this.user.terminationDate.slice(8, 10) + '.' + this.user.terminationDate.slice(5, 7) + '.' + this.user.terminationDate.slice(0, 4)
+      
+      if(this.user.terminationDate) {
+        this.user.terminationDate = this.user.terminationDate.slice(8, 10) + '.' + this.user.terminationDate.slice(5, 7) + '.' + this.user.terminationDate.slice(0, 4)
+      }
+      
+      
 
       this.profileForm.setValue({
         name: user.name,
@@ -56,6 +61,9 @@ export class ProfileDetailsComponent implements OnInit, OnDestroy {
       })
 
       this.loading = false
+
+      console.log(this.user)
+      console.log(this.loading)
       
     })
 

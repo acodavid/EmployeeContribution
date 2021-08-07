@@ -3,9 +3,6 @@ import { UserRegister } from 'src/app/data/models/UserRegister';
 import { UserService } from 'src/app/data/services/user.service';
 import { Router } from '@angular/router';
 
-import { MatDialog } from '@angular/material/dialog';
-import { DeleteDialogComponent } from 'src/app/data/dialogs/delete-dialog/delete-dialog.component';
-import * as moment from 'moment';
 import { AbsencePresenceService } from 'src/app/data/services/absence-presence.service';
 
 @Component({
@@ -36,7 +33,6 @@ export class AdminBoardComponent implements OnInit, OnDestroy {
   constructor(
     private userService: UserService,
     private router: Router,
-    public dialog: MatDialog,
     private absencePresenceService: AbsencePresenceService
   ) { }
 
@@ -91,21 +87,6 @@ export class AdminBoardComponent implements OnInit, OnDestroy {
       this.sub5.unsubscribe();
     }
   } 
-
-  deleteUser(id) {
-
-    const dialogRef = this.dialog.open(DeleteDialogComponent);
-
-    this.sub2 = dialogRef.afterClosed().subscribe(result => {
-      if(result) {
-        this.sub3 = this.userService.deleteUser(id).subscribe(result => {
-          this.dataSource = this.dataSource.filter(({ _id }) => _id !== id);
-        })
-      }
-    })
-  
-
-  }
 
   filterByName(event: Event) {
     const filterValue = (event.target as HTMLInputElement).value;

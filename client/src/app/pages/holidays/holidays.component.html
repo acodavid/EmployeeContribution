@@ -28,6 +28,13 @@
             Submit
         </button>
 
+
+        <mat-form-field class="full-width mt-10">
+            <mat-label>Year:</mat-label>
+                <mat-select matInput formControlName="year" (selectionChange)="onChange($event)">
+                    <mat-option *ngFor="let item of arrayYears" [value]="item">{{item}}</mat-option>
+                </mat-select>
+          </mat-form-field>
     
         <div>
             <table *ngIf="!loading; else spinner" mat-table [dataSource]="dataSource" class="mat-elevation-z8 full-height mt-10">
