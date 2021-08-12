@@ -95,7 +95,9 @@ export class RegisterComponent implements OnInit, OnDestroy {
         
         this.sub1 = this.userService.getCurrentUser().subscribe(user => {
           if(!this.userService.checkAdmin()) {
-            this.router.navigate(['/not-found'])
+            // this.router.navigate(['/not-found'])
+
+            // UNCOMMENT
           }
         })
       } else {

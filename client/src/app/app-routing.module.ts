@@ -29,7 +29,7 @@ import { AbsenceTypeComponent } from './pages/absence-type/absence-type.componen
 const routes: Routes = [
   {path: '', component: DashboardComponent, canActivate:[AuthGuard]},
   {path: 'password/change', component: ChangePasswordComponent, canActivate:[AuthGuard]},
-  {path: 'user/action/:id', component: RegisterComponent, canActivate:[AuthGuard]},
+  {path: 'user/action/:id', component: RegisterComponent},
   {path: 'login', component: LoginComponent},
   {path: 'employees', component: AdminBoardComponent, canActivate:[AuthGuard]},
   {path: 'user/profile/:id', component: UserProfileComponent, canActivate:[AuthGuard]},
