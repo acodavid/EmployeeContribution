@@ -60,6 +60,7 @@
                 <mat-label>Position</mat-label>
                 <mat-select matInput formControlName="typeOfPosition" required>
                     <mat-option *ngFor="let item of positions" [value]="item.title">{{item.title}}</mat-option>
+                    <mat-option value="admin">Admin</mat-option>
                 </mat-select>
             </mat-form-field>
         </div>
