@@ -4,6 +4,7 @@ import { Router, ActivatedRoute } from '@angular/router'
 import { FormGroup, FormControl, Validators } from '@angular/forms'
 import { UserRegister } from 'src/app/data/models/UserRegister';
 import * as moment from 'moment';
+import { PositionServiceService } from 'src/app/data/services/position-service.service';
 
 @Component({
   selector: 'app-register',
@@ -39,7 +40,7 @@ export class RegisterComponent implements OnInit, OnDestroy {
     name: '',
     email: '',
     password: '',
-    isAdmin: false,
+    type: '',
     dateOfBirth: '',
     typeOfPosition: '',
     hiredDate: '',
@@ -62,12 +63,15 @@ export class RegisterComponent implements OnInit, OnDestroy {
   private sub3: any;
   private sub4: any;
 
+  positions: any;
+
   
 
   constructor(
-    private userService: UserService,
+    public userService: UserService,
     private router: Router,
-    private activatedRoute: ActivatedRoute
+    private activatedRoute: ActivatedRoute,
+    private positionService: PositionServiceService
 
   ) { 
     this.composeForm();
@@ -83,10 +87,14 @@ export class RegisterComponent implements OnInit, OnDestroy {
       const id = params['id'];
       this.param = id;
 
+      this.positionService.getPositions().subscribe(positions => {
+        this.positions = positions;
+      })
+
       if(this.param === 'register') {
         
         this.sub1 = this.userService.getCurrentUser().subscribe(user => {
-          if(!user.isAdmin) {
+          if(!this.userService.checkAdmin()) {
             this.router.navigate(['/not-found'])
           }
         })
@@ -95,7 +103,7 @@ export class RegisterComponent implements OnInit, OnDestroy {
         // for update user
         this.sub4 = this.userService.getUserById(this.param).subscribe(user => {
 
-          const {name, email, isAdmin, password, dateOfBirth, typeOfPosition, hiredDate,
+          const {name, email, type, password, dateOfBirth, typeOfPosition, hiredDate,
             contractDuration, terminationDate, orgLevel, status, durationOfPreviousService,
           linkToPersonalFolder} = user;
 
@@ -110,7 +118,7 @@ export class RegisterComponent implements OnInit, OnDestroy {
             this.registerForm.setValue({
               name,
               email,
-              isAdmin,
+              type,
               password,
               dateOfBirth,
               hiredDate,
@@ -128,7 +136,7 @@ export class RegisterComponent implements OnInit, OnDestroy {
             this.registerForm.setValue({
               name,
               email,
-              isAdmin,
+              type,
               password,
               dateOfBirth,
               hiredDate,
@@ -177,7 +185,7 @@ export class RegisterComponent implements OnInit, OnDestroy {
       name: new FormControl('', Validators.required),
       email: new FormControl('', Validators.required),
       password: new FormControl('', Validators.required),
-      isAdmin: new FormControl(false, Validators.required),
+      type: new FormControl('user', Validators.required),
       dateOfBirth: new FormControl('', Validators.required),
       typeOfPosition: new FormControl('', Validators.required),
       hiredDate: new FormControl('', Validators.required),
@@ -267,7 +275,7 @@ export class RegisterComponent implements OnInit, OnDestroy {
         name: '',
         email: '',
         password: '',
-        isAdmin: false,
+        type: '',
         dateOfBirth: '',
         typeOfPosition: '',
         hiredDate: '',
@@ -299,7 +307,6 @@ export class RegisterComponent implements OnInit, OnDestroy {
   updateUser() {
     this.user = this.registerForm.value;
 
-    console.log(this.user.isAdmin)
     this.user.durationOfPreviousService = this.user.durationOfPreviousService.toString();
 
     this.user._id = this.param;
@@ -354,7 +361,7 @@ export class RegisterComponent implements OnInit, OnDestroy {
         name: '',
         email: '',
         password: '',
-        isAdmin: false,
+        type: '',
         dateOfBirth: '',
         typeOfPosition: '',
         hiredDate: '',

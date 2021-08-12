@@ -3,6 +3,7 @@ import { FormGroup, FormControl, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import * as moment from 'moment';
 import { AbsencePresenceService } from 'src/app/data/services/absence-presence.service';
+import { AbsenceTypeService } from 'src/app/data/services/absence-type.service';
 import { UserService } from 'src/app/data/services/user.service';
 
 @Component({
@@ -17,6 +18,8 @@ export class AbsenceCreateComponent implements OnInit, OnDestroy {
   errorMessage: string;
 
   userId: string;
+
+  absenceTypes: any;
 
   counter: number = 0;
   counter2: number = 0;
@@ -39,7 +42,8 @@ export class AbsenceCreateComponent implements OnInit, OnDestroy {
   constructor(
     private router: Router,
     private userService: UserService,
-    private absencePresenceService: AbsencePresenceService
+    private absencePresenceService: AbsencePresenceService,
+    private absenceTypeService: AbsenceTypeService
   ) { 
     this.composeForm(); 
   }
@@ -47,6 +51,11 @@ export class AbsenceCreateComponent implements OnInit, OnDestroy {
   ngOnInit(): void {
     this.sub1 = this.userService.getCurrentUser().subscribe(user => {
       this.userId = user._id;
+
+      this.absenceTypeService.getAbsenceTypes().subscribe(data => {
+        this.absenceTypes = data;
+      })
+
     })
   }
 

@@ -30,13 +30,13 @@
         <mat-divider></mat-divider>
 
         <mat-list class="preference-list-item">
-            <p class="profile-def">Admin/Employee:</p>
-            <p>{{user.isAdmin ? 'Admin' : 'Employee'}}</p>
+            <p class="profile-def">Type of User:</p>
+            <p>{{typeOfUser}}</p>
         </mat-list>
         <mat-divider></mat-divider>
 
         <mat-list class="preference-list-item">
-            <p class="profile-def">Type Of Position:</p>
+            <p class="profile-def">Position:</p>
             <p>{{user.typeOfPosition}}</p>
         </mat-list>
         <mat-divider></mat-divider>
@@ -79,10 +79,10 @@
 
         <mat-list *ngIf="user.linkToPersonalFolder" class="preference-list-item">
             <p class="profile-def">Link to personal folder:</p>
-            <p>{{user.linkToPersonalFolder}}</p>
+            <a mat-raised-button [href]="user.linkToPersonalFolder" target="_blank">Link to Personal Folder</a>
         </mat-list>
 
-        <mat-list class="preference-list-item">
+        <mat-list *ngIf="currentUser._id !== user._id" class="preference-list-item">
             <button class="full-width" mat-raised-button color="warn" (click)="deleteUser(user._id)">Delete User</button>
         </mat-list>
     </mat-card>

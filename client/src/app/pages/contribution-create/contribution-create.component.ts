@@ -5,6 +5,7 @@ import { Router } from '@angular/router';
 import * as moment from 'moment';
 import { UserRegister } from 'src/app/data/models/UserRegister';
 import { AbsencePresenceService } from 'src/app/data/services/absence-presence.service';
+import { AbsenceTypeService } from 'src/app/data/services/absence-type.service';
 import { UserService } from 'src/app/data/services/user.service';
 import { SnackComponent } from 'src/app/data/snack/snack/snack.component';
 
@@ -46,13 +47,15 @@ export class ContributionCreateComponent implements OnInit, OnDestroy {
   private sub1: any;
   private sub2: any;
   private sub3: any;
+  absenceTypes: any;
 
 
   constructor(
     private userService: UserService,
     private router: Router,
     private absencePresenceService: AbsencePresenceService,
-    private _snackBar: MatSnackBar
+    private _snackBar: MatSnackBar,
+    private absenceTypeService: AbsenceTypeService
   ) { 
     this.composeForm();
    }
@@ -63,6 +66,10 @@ export class ContributionCreateComponent implements OnInit, OnDestroy {
       this.sub1 = this.userService.getUsers().subscribe(users => {
         this.users = users;
         this.loading = false
+      })
+
+      this.absenceTypeService.getAbsenceTypes().subscribe(data => {
+        this.absenceTypes = data;
       })
     } else {
       this.router.navigate(['/not-found'])

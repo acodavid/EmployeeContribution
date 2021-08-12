@@ -8,14 +8,16 @@ const cors = require('cors');
 const users = require('./routes/api/users');
 const preferences = require('./routes/api/preferences');
 const presenceAbsenceBusinessTrip = require('./routes/api/presenceAbsenceBusinessTrip');
-const holidays = require('./routes/api/holidays')
+const holidays = require('./routes/api/holidays');
+const positions = require('./routes/api/positions');
+const absenceType = require('./routes/api/absencesType');
 
 const app = express();
 
 app.use(cors())
 
 // variables
-const mongoDB = require('./config/keys').mongoDBConnectionString;
+const mongoDB = require('./config/keys').atlasKey;
 const PORT = process.env.PORT || 5000;
 
 // Express v4.16.0 and higher // without body-parser
@@ -43,7 +45,9 @@ require('./config/passport')(passport);
 app.use('/api/users', users);
 app.use('/api/preferences', preferences);
 app.use('/api/presence/absence', presenceAbsenceBusinessTrip);
-app.use('/api/holidays', holidays)
+app.use('/api/holidays', holidays);
+app.use('/api/positions', positions);
+app.use('/api/absence/type', absenceType);
 
 app.enable('trust proxy');
 

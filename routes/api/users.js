@@ -65,7 +65,7 @@ router.post('/register', (req, res) => {
                     name: req.body.name,
                     email: req.body.email,
                     password: req.body.password,
-                    isAdmin: req.body.isAdmin,
+                    type: req.body.type,
                     dateOfBirth: req.body.dateOfBirth,
                     typeOfPosition: req.body.typeOfPosition,
                     hiredDate: req.body.hiredDate,
@@ -120,7 +120,7 @@ router.put('/update', passport.authenticate('jwt', {session: false}), (req, res)
         newUser.email = req.body.email
     }
 
-    newUser.isAdmin = req.body.isAdmin
+    newUser.type = req.body.type
     
 
     if(req.body.dateOfBirth) {
@@ -207,7 +207,7 @@ router.post('/login', (req, res) => {
                         const payload = {
                             id: user.id,
                             email: user.email,
-                            isAdmin: user.isAdmin,
+                            type: user.type,
                             firstLogin: user.firstLogin,
                             name: user.name
                         }
@@ -219,7 +219,7 @@ router.post('/login', (req, res) => {
                                 user: {
                                     id: user._id,
                                     email: user.email,
-                                    isAdmin: user.isAdmin,
+                                    type: user.type,
                                     firstLogin: user.firstLogin,
                                     name: user.name
                                 }

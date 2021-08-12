@@ -43,18 +43,27 @@ export class UserService {
 
   storeUserToken(token, user) {
     localStorage.setItem('jwtToken', token);
-    const isAdmin = JSON.stringify(user.isAdmin)
-    localStorage.setItem('isAdmin', isAdmin);
+    const type = JSON.stringify(user.type)
+    localStorage.setItem('type', type);
     localStorage.setItem('name', user.name);
   }
 
   checkAdmin(): boolean {
-    if(localStorage.getItem('isAdmin') === 'true') {
+
+    if(localStorage.getItem('type') === '"globalAdmin"' || localStorage.getItem('type') === '"admin"') {
       return true;
     } else {
       return false;
     }
     
+  }
+
+  checkGlobalAdmin(): boolean {
+    if(localStorage.getItem('type') === '"globalAdmin"') {
+      return true;
+    } else {
+      return false;
+    }
   }
 
   getLoggedUserName(): string {

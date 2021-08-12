@@ -3,7 +3,7 @@ export interface UserRegister {
     name: string,
     email: string,
     password: string,
-    isAdmin: boolean,
+    type: string,
     dateOfBirth: string,
     typeOfPosition: string,
     hiredDate: string,

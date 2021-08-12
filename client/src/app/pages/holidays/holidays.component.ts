@@ -24,7 +24,7 @@ export class HolidaysComponent implements OnInit, OnDestroy {
 
   holidayForm: FormGroup;
 
-  displayedColumns: string[] = ['title', 'date', 'actions'];
+  displayedColumns: string[] = ['title', 'date', 'day', 'actions'];
   dataSource: Holiday[];
 
   errorMessage: string;
@@ -61,6 +61,30 @@ export class HolidaysComponent implements OnInit, OnDestroy {
 
       this.sub1 = this.holidayService.getHolidays(currentYear.getFullYear()).subscribe(holidays => {
         this.dataSource = holidays
+
+        for (let index = 0; index < this.dataSource.length; index++) {
+          
+          let newDate = new Date(this.dataSource[index].date);
+
+          if(newDate.getDay() === 1) {
+            this.dataSource[index].day = 'Monday'
+          } else if (newDate.getDay() === 2){
+            this.dataSource[index].day = 'Tuesday'
+          } else if (newDate.getDay() === 3){
+            this.dataSource[index].day = 'Wednesday'
+          } else if (newDate.getDay() === 4){
+            this.dataSource[index].day = 'Thursday'
+          } else if (newDate.getDay() === 5){
+            this.dataSource[index].day = 'Friday'
+          } else if (newDate.getDay() === 6){
+            this.dataSource[index].day = 'Saturday'
+          } else{
+            this.dataSource[index].day = 'Sunday'
+          }
+          
+          
+        }
+
         this.loading = false
       }, error => {
         this.errorMessage = error.error.notFound;
@@ -144,7 +168,8 @@ export class HolidaysComponent implements OnInit, OnDestroy {
 
     this.holidayForm.setValue({
       title: holiday.title,  
-      date: holiday.date
+      date: holiday.date,
+      year: new Date().getFullYear()
     })
 
     this.dateInput = holiday.date

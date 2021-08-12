@@ -1,0 +1,54 @@
+<div class="preference-create">
+
+    <form [formGroup]="absForm" class="preference-form">
+        <h3 class="form-header">
+            Absence Types
+        </h3>
+
+        <div class="form-group">
+            <mat-form-field class="full-width">
+                <mat-label>Title:</mat-label>
+                <input matInput formControlName="title" required>
+            </mat-form-field>
+        </div>
+
+        <button 
+            class="full-width mb-15"
+            mat-raised-button color="primary"
+            (click)="addAbsenceType()"
+            [disabled]="!absForm.valid"
+        >
+            Submit
+        </button>
+
+        <div>
+            <table *ngIf="!loading; else spinner" mat-table [dataSource]="dataSource" class="mat-elevation-z8 full-height mt-10">
+    
+                <ng-container matColumnDef="title">
+                    <th mat-header-cell *matHeaderCellDef>Title</th>
+                    <td mat-cell *matCellDef="let element"> 
+                      {{element.title}}
+                     </td>
+                  </ng-container>
+    
+                  <ng-container matColumnDef="actions" sticky>
+                    <th mat-header-cell *matHeaderCellDef></th>
+                    <td mat-cell *matCellDef="let element"> 
+                        <button mat-button title="Edit" (click)="changeToEdit(element)"><mat-icon color="primary">edit</mat-icon></button> 
+                    </td>
+                  </ng-container>
+    
+                  <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+                  <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+    
+            </table>
+            
+            <ng-template #spinner>
+                <mat-spinner></mat-spinner>
+            </ng-template>
+        </div>
+
+    </form>
+
+</div>
+

@@ -26,6 +26,8 @@ export class UserProfileComponent implements OnInit, OnDestroy {
     dateOfBirth: ''
   }
 
+  typeOfUser: string = '';
+
   private sub1: any;
   private sub2: any;
   private sub3: any;
@@ -52,7 +54,7 @@ export class UserProfileComponent implements OnInit, OnDestroy {
 
           this.currentUser = user;
 
-          if(!user.isAdmin) {
+          if(!this.userService.checkAdmin()) {
             this.router.navigate(['/not-found'])
           }
         })
@@ -63,6 +65,14 @@ export class UserProfileComponent implements OnInit, OnDestroy {
   
           this.user.dateOfBirth = this.user.dateOfBirth.slice(8, 10) + '.' + this.user.dateOfBirth.slice(5, 7) + '.' + this.user.dateOfBirth.slice(0, 4)
           this.user.hiredDate = this.user.hiredDate.slice(8, 10) + '.' + this.user.hiredDate.slice(5, 7) + '.' + this.user.hiredDate.slice(0, 4)
+
+          if(this.user.type === 'globalAdmin'){
+            this.typeOfUser = "Global Admin"
+          } else if(this.user.type === 'admin'){
+            this.typeOfUser = "Admin"
+          } else {
+            this.typeOfUser = "User"
+          }
 
           if(this.user.terminationDate) {
             this.user.terminationDate = this.user.terminationDate.slice(8, 10) + '.' + this.user.terminationDate.slice(5, 7) + '.' + this.user.terminationDate.slice(0, 4)

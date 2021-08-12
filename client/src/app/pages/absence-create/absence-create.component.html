@@ -8,10 +8,7 @@
             <mat-form-field class="full-width">
                 <mat-label>Type</mat-label>
                     <mat-select matInput formControlName="type" required>
-                        <mat-option value="one">Absence Type One</mat-option>
-                        <mat-option value="two">Absence Type Two</mat-option>
-                        <mat-option value="three">Absence Type Three</mat-option>
-                        <mat-option value="four">Absence Type Four</mat-option>
+                        <mat-option *ngFor="let item of absenceTypes" [value]="item.title">{{item.title}}</mat-option>
                     </mat-select>
               </mat-form-field>
         </div>

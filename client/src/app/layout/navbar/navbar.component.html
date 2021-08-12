@@ -13,12 +13,15 @@
             <mat-icon>account_circle</mat-icon>
         </button>
         <mat-menu #menu="matMenu">
+
+            <p class="menu-name-item" mat-menu-item>{{userService.getLoggedUserName()}}</p>
+            <mat-divider></mat-divider>
+
             <div class="show-content">
                 <button mat-menu-item *ngIf="userService.loggedIn()" routerLink="/">Dashboard</button>
                 <button mat-menu-item *ngIf="userService.checkAdmin()" routerLink="/employees">Employees</button>
             </div>
-            <p class="menu-name-item" mat-menu-item>{{userService.getLoggedUserName()}}</p>
-            <mat-divider></mat-divider>
+            
             <button mat-menu-item routerLink="/user/profile/current/details">Profile</button>
             <button mat-menu-item routerLink="/preference/details">My Preferences</button>
             <button mat-menu-item routerLink="/password/change">Change password</button>
@@ -26,6 +29,8 @@
             <button mat-menu-item routerLink="/contributions/search">Search Contributions</button>
             <button mat-menu-item *ngIf="userService.checkAdmin()" routerLink="/contribution/create">Add Contribution</button>
             <button mat-menu-item *ngIf="userService.checkAdmin()" routerLink="/holidays">Holidays</button>
+            <button mat-menu-item *ngIf="userService.checkAdmin()" routerLink="/positions">Positions</button>
+            <button mat-menu-item *ngIf="userService.checkAdmin()" routerLink="/absence/type">Absence Types</button>
             <mat-divider></mat-divider>
             <button mat-menu-item (click)="logout()">Logout</button>
         </mat-menu>

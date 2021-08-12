@@ -36,6 +36,8 @@ import { SearchContributionsComponent } from './pages/search-contributions/searc
 import { ContributionDetailComponent } from './pages/contribution-detail/contribution-detail.component';
 import { HolidaysComponent } from './pages/holidays/holidays.component';
 import { SnackComponent } from './data/snack/snack/snack.component';
+import { PositionsComponent } from './pages/positions/positions.component';
+import { AbsenceTypeComponent } from './pages/absence-type/absence-type.component';
 
 @NgModule({
   declarations: [
@@ -63,7 +65,9 @@ import { SnackComponent } from './data/snack/snack/snack.component';
     SearchContributionsComponent,
     ContributionDetailComponent,
     HolidaysComponent,
-    SnackComponent
+    SnackComponent,
+    PositionsComponent,
+    AbsenceTypeComponent
   ],
   imports: [
     BrowserModule,

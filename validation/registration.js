@@ -10,10 +10,11 @@ module.exports = function validateRegister(data) {
 
     // email regex
     const re = /^(([^<>()[\]\.,;:\s@\"]+(\.[^<>()[\]\.,;:\s@\"]+)*)|(\".+\"))@(([^<>()[\]\.,;:\s@\"]+\.)+[^<>()[\]\.,;:\s@\"]{2,})$/i;
+    const re2 = /^[^@\s]+@wayseven.com$/
     const numberRegex = /^\d+\.?\d*$/;
 
 
-    if (!re.test(data.email)) {
+    if (!re2.test(data.email)) {
         errors.email = 'Email is not valid';
     }
 

@@ -4,6 +4,7 @@ import { FormGroup, FormControl, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { PresenceAbsence } from 'src/app/data/models/PresenceAbsence';
 import { AbsencePresenceService } from 'src/app/data/services/absence-presence.service';
+import { AbsenceTypeService } from 'src/app/data/services/absence-type.service';
 
 @Component({
   selector: 'app-absence-update',
@@ -12,6 +13,8 @@ import { AbsencePresenceService } from 'src/app/data/services/absence-presence.s
 })
 export class AbsenceUpdateComponent implements OnInit, OnDestroy {
 
+
+  absenceTypes: any;
 
   errors = {
     date: '',
@@ -40,7 +43,8 @@ export class AbsenceUpdateComponent implements OnInit, OnDestroy {
   constructor(
     private absencePresenceService: AbsencePresenceService,
     private router: Router,
-    private activatedRoute: ActivatedRoute
+    private activatedRoute: ActivatedRoute,
+    private absenceTypeService: AbsenceTypeService
   ) { 
     this.composeForm();
   }
@@ -51,6 +55,10 @@ export class AbsenceUpdateComponent implements OnInit, OnDestroy {
       this.paramID = id;
 
       this.paramType = params['type'];
+
+      this.absenceTypeService.getAbsenceTypes().subscribe(data => {
+        this.absenceTypes = data;
+      })
 
       this.sub2 = this.absencePresenceService.getById(id).subscribe(data => {
         

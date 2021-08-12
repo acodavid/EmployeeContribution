@@ -45,17 +45,22 @@
 
         <div class="form-group">
             <mat-form-field class="full-width">
-                <mat-label>Admin or just an employee?</mat-label>
-                <mat-select formControlName="isAdmin" required>
-                    <mat-option [value]="false">Employee</mat-option>
-                    <mat-option [value]="true">Admin</mat-option>
+                <mat-label>Type of User</mat-label>
+                <mat-select formControlName="type" required>
+
+                    <!-- ovo samo da bi se dodali global admini, posle brisem -->
+                    <mat-option *ngIf="userService.checkGlobalAdmin()" value="globalAdmin">Global Admin</mat-option>
+                    
+                    <mat-option *ngIf="userService.checkGlobalAdmin()" value="admin">Admin</mat-option>
+                    <mat-option value="user">User</mat-option>
                 </mat-select>
             </mat-form-field>
 
             <mat-form-field class="full-width">
-                <mat-label>Type of Position</mat-label>
-                <input matInput formControlName="typeOfPosition" required>
-                <mat-error *ngIf="errors.typeOfPosition">{{errors.typeOfPosition}}</mat-error>
+                <mat-label>Position</mat-label>
+                <mat-select matInput formControlName="typeOfPosition" required>
+                    <mat-option *ngFor="let item of positions" [value]="item.title">{{item.title}}</mat-option>
+                </mat-select>
             </mat-form-field>
         </div>
 

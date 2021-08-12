@@ -32,6 +32,8 @@ export class ProfileDetailsComponent implements OnInit, OnDestroy {
   dateOfBirth;
   name: string;
 
+  typeOfUser: string = ''
+
   constructor(
     private userService: UserService
   ) { 
@@ -51,6 +53,14 @@ export class ProfileDetailsComponent implements OnInit, OnDestroy {
       
       if(this.user.terminationDate) {
         this.user.terminationDate = this.user.terminationDate.slice(8, 10) + '.' + this.user.terminationDate.slice(5, 7) + '.' + this.user.terminationDate.slice(0, 4)
+      }
+
+      if(this.user.type === 'globalAdmin'){
+        this.typeOfUser = "Global Admin"
+      } else if(this.user.type === 'admin'){
+        this.typeOfUser = "Admin"
+      } else {
+        this.typeOfUser = "User"
       }
       
       

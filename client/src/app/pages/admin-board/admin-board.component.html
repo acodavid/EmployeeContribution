@@ -44,7 +44,7 @@
    
   </div>
   
-  <table *ngIf="!loading" mat-table [dataSource]="dataSource" class="mat-elevation-z8">
+  <table mat-table [dataSource]="dataSource" matSort class="mat-elevation-z8">
       
       <ng-container matColumnDef="checkbox">
           <th mat-header-cell *matHeaderCellDef></th>
@@ -62,25 +62,42 @@
         </ng-container>
   
         <ng-container matColumnDef="name">
-          <th mat-header-cell *matHeaderCellDef>Name</th>
+          <th mat-header-cell *matHeaderCellDef mat-sort-header>Name</th>
           <td mat-cell *matCellDef="let element"> {{element.name}} </td>
         </ng-container>
 
         <ng-container matColumnDef="email">
-          <th mat-header-cell *matHeaderCellDef>Email</th>
+          <th mat-header-cell *matHeaderCellDef mat-sort-header>Email</th>
           <td mat-cell *matCellDef="let element"> {{element.email}} </td>
         </ng-container>
-  
-        <ng-container matColumnDef="work-time">
-          <th mat-header-cell *matHeaderCellDef>Work time</th>
-          <td mat-cell *matCellDef="let element"> {{element.statusForTable.type === 'Presence' ? (element.statusForTable.workingFrom + '-' + element.statusForTable.workingTo) : '-'}} </td>
+
+        <!-- start -->
+        <ng-container matColumnDef="start">
+          <th mat-header-cell *matHeaderCellDef>Start</th>
+          <td mat-cell *matCellDef="let element"> {{element.statusForTable.type === 'Presence' ? (element.statusForTable.workingFrom) : '-'}} </td>
+        </ng-container>
+
+        <ng-container matColumnDef="end">
+          <th mat-header-cell *matHeaderCellDef>End</th>
+          <td mat-cell *matCellDef="let element"> {{element.statusForTable.type === 'Presence' ? (element.statusForTable.workingTo) : '-'}} </td>
+        </ng-container>
+
+        <ng-container matColumnDef="break">
+          <th mat-header-cell *matHeaderCellDef>Break</th>
+          <td mat-cell *matCellDef="let element"> {{element.statusForTable.type === 'Presence' ? (element.statusForTable.onPauseFrom + '-' + element.statusForTable.onPauseTo) : '-'}} </td>
+        </ng-container>
+        <!-- end -->
+
+        <ng-container matColumnDef="office-remote">
+          <th mat-header-cell *matHeaderCellDef>Office/Remote</th>
+          <td mat-cell *matCellDef="let element"> {{element.statusForTable.type === 'Presence' ? (element.statusForTable.remoteOffice) : '-'}} </td>
         </ng-container>
   
         <ng-container matColumnDef="actions" sticky>
           <th mat-header-cell *matHeaderCellDef></th>
           <td mat-cell *matCellDef="let element"> 
-              <button mat-button title="Profile" [routerLink]="['/user/profile', element._id]"><mat-icon color="primary">description</mat-icon></button> 
-              <button mat-button title="Edit User" [routerLink]="['/user/action', element._id]"><mat-icon class="action-edit-icon">edit</mat-icon></button>
+              <button *ngIf="(element.type !== 'globalAdmin' && element.type !== 'admin') || userType === 'globalAdmin' || element._id === userID" mat-button title="Profile" [routerLink]="['/user/profile', element._id]"><mat-icon color="primary">description</mat-icon></button> 
+              <button *ngIf="(element.type !== 'globalAdmin' && element.type !== 'admin') || userType === 'globalAdmin' || element._id === userID" mat-button title="Edit User" [routerLink]="['/user/action', element._id]"><mat-icon class="action-edit-icon">edit</mat-icon></button>
           </td>
         </ng-container>
   
