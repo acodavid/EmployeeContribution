@@ -217,6 +217,8 @@ export class RegisterComponent implements OnInit, OnDestroy {
 
   registerUser() {
 
+    
+
     this.user = this.registerForm.value;
     
     this.user.durationOfPreviousService = this.user.durationOfPreviousService.toString();

@@ -52,10 +52,6 @@ module.exports = function validateRegister(data) {
         errors.contractDuration = 'Contract duration is required';
     }
 
-    if (Validator.isEmpty(data.orgLevel)) {
-        errors.orgLevel = 'Organization level is required';
-    }
-
     if (Validator.isEmpty(data.status)) {
         errors.status = 'Status is required';
     }

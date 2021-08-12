@@ -9,11 +9,16 @@ export interface UserRegister {
     hiredDate: string,
     contractDuration: string,
     terminationDate: string,
-    orgLevel: string,
+    orgLevel: any,
     status: string,
     durationOfPreviousService: string,
     linkToPersonalFolder: string,
     firstLogin?: boolean,
     preferenceCreated?: boolean,
-    statusForTable?: any
+    statusForTable?: any,
+    status2?: any,
+    start?: any,
+    end?: any,
+    break?: any,
+    officeremote?: any
 }

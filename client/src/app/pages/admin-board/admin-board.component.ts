@@ -5,8 +5,9 @@ import { Router } from '@angular/router';
 
 import { AbsencePresenceService } from 'src/app/data/services/absence-presence.service';
 import { DateAdapter } from '@angular/material/core';
-import { MatSort } from '@angular/material/sort';
+import { MatSort, MatSortable, Sort } from '@angular/material/sort';
 import { MatTableDataSource } from '@angular/material/table';
+import { User } from 'src/app/data/models/User';
 
 @Component({
   selector: 'app-admin-board',
@@ -17,10 +18,13 @@ export class AdminBoardComponent implements OnInit, AfterViewInit, OnDestroy {
 
   @ViewChild(MatSort) sort: MatSort;
 
+  
 
-  displayedColumns: string[] = ['checkbox', 'status', 'name', 'email', 'start', 'end', 'break', 'office-remote', 'actions'];
+  displayedColumns: string[] = ['checkbox', 'status2', 'name', 'email', 'start', 'end', 'break', 'officeremote', 'actions'];
 
   public dataSource = new MatTableDataSource<UserRegister>();
+
+  data: any;
 
 
   loading: boolean = true;
@@ -51,11 +55,14 @@ export class AdminBoardComponent implements OnInit, AfterViewInit, OnDestroy {
 
   ngOnInit(): void {
 
+    
+
     this.dateAdapter.getFirstDayOfWeek = () => {return 1}
 
     if(this.userService.checkAdmin()) {
       this.sub1 = this.userService.getUsers().subscribe(users => {
         this.dataSource.data = users;
+        this.data = users
 
         this.userService.getCurrentUser().subscribe(user => {
           this.userType = user.type;
@@ -67,33 +74,50 @@ export class AdminBoardComponent implements OnInit, AfterViewInit, OnDestroy {
     
           this.sub4 = this.absencePresenceService.getAbsencePresenceBusinessTrip(user._id, this.today).subscribe(data => {
             this.dataSource.data[index].statusForTable = data[0]
+            this.dataSource.data[index].status2 = data[0].type
+            this.dataSource.data[index].start = data[0].workingFrom
+            this.dataSource.data[index].end = data[0].workingTo
+            this.dataSource.data[index].break = data[0].onPauseFrom
+            this.dataSource.data[index].officeremote = data[0].remoteOffice
+            this.data[index].statusForTable = data[0]
           }, error => {
             this.dataSource.data[index].statusForTable = {
               type: 'None'
             }
           })
+
+         
           
         }
 
+        
+
         this.loading = false;
+
+        
         
       })
 
       
 
-
     } else {
       this.router.navigate(['/not-found'])
     }
 
-    // this.dataSource.data = this.dataSource.data.sort((a, b) => a.statusForTable.type - b.statusForTable.type);
+    
     
   }
 
   ngAfterViewInit(): void {
-    if(this.sort){
+
       this.dataSource.sort = this.sort;
-    }    
+
+      const sortState: Sort = {active: 'name', direction: 'asc'};
+      this.sort.active = sortState.active;
+      this.sort.direction = sortState.direction;
+      this.sort.sortChange.emit(sortState);
+
+      console.log(this.sort)
   }
 
   ngOnDestroy() {

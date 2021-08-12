@@ -75,7 +75,7 @@ import { MatSortModule } from '@angular/material/sort';
       provide: MAT_DATE_FORMATS,
       useValue: {
         parse: {
-          dateInput: 'LL',
+          dateInput: 'DD.MM.YYYY',
         },
         display: {
           dateInput: 'DD.MM.YYYY',

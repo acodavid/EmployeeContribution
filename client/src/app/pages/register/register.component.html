@@ -93,10 +93,11 @@
         <div class="form-group">
             <mat-form-field class="full-width">
                 <mat-label>Organisation Level</mat-label>
-                <mat-select formControlName="orgLevel" required>
-                    <mat-option value="Position 1">Position 1</mat-option>
-                    <mat-option value="Position 2">Position 2</mat-option>
-                    <mat-option value="Position 3">Position 3</mat-option>
+                <mat-select formControlName="orgLevel" multiple required>
+                    <mat-option value="Governance">Governance</mat-option>
+                    <mat-option value="Management">Management</mat-option>
+                    <mat-option value="Production and service provision">Production and service provision</mat-option>
+                    <mat-option value="Business support">Business support</mat-option>
                 </mat-select>
                 <mat-error *ngIf="errors.orgLevel">{{errors.orgLevel}}</mat-error>
             </mat-form-field>
