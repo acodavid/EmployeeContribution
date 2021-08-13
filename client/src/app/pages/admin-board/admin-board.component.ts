@@ -225,7 +225,7 @@ export class AdminBoardComponent implements OnInit, AfterViewInit, OnDestroy {
   date(e) {
 
     this.today = e.target.value._d
-    console.log('Datum' + this.today)
+    console.log(this.today)
 
     this.sub1 = this.userService.getUsers().subscribe(users => {
       this.dataSource.data = users;
@@ -246,7 +246,7 @@ export class AdminBoardComponent implements OnInit, AfterViewInit, OnDestroy {
         
       }
 
-      console.log('DatasourceData' + this.dataSource.data)
+      console.log(this.dataSource.data)
 
       this.loading = false;
     })
