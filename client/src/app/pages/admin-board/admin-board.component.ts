@@ -233,6 +233,8 @@ export class AdminBoardComponent implements OnInit, AfterViewInit, OnDestroy {
 
       for (let index = 0; index < this.dataSource.data.length; index++) {
         const user = this.dataSource.data[index];
+
+        console.log('anothet' + ' ' + this.today)
   
         this.sub4 = this.absencePresenceService.getAbsencePresenceBusinessTrip(user._id, this.today).subscribe(data => {
           this.dataSource.data[index].statusForTable = data[0]
