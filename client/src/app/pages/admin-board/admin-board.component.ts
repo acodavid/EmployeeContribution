@@ -226,6 +226,8 @@ export class AdminBoardComponent implements OnInit, AfterViewInit, OnDestroy {
   date(e) {
 
     this.today = e.target.value._d
+
+    this.today.setHours(10, 0, 0, 0)
     console.log(this.today)
 
     this.sub1 = this.userService.getUsers().subscribe(users => {
