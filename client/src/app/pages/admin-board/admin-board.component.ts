@@ -118,7 +118,6 @@ export class AdminBoardComponent implements OnInit, AfterViewInit, OnDestroy {
       this.sort.direction = sortState.direction;
       this.sort.sortChange.emit(sortState);
 
-      //console.log(this.sort)
   }
 
   ngOnDestroy() {
@@ -228,7 +227,6 @@ export class AdminBoardComponent implements OnInit, AfterViewInit, OnDestroy {
     this.today = e.target.value._d
 
     this.today.setHours(10, 0, 0, 0)
-    console.log(this.today)
 
     this.sub1 = this.userService.getUsers().subscribe(users => {
       this.dataSource.data = users;
@@ -236,8 +234,6 @@ export class AdminBoardComponent implements OnInit, AfterViewInit, OnDestroy {
 
       for (let index = 0; index < this.dataSource.data.length; index++) {
         const user = this.dataSource.data[index];
-
-        // console.log('another' + ' ' + this.today)
   
         this.sub4 = this.absencePresenceService.getAbsencePresenceBusinessTrip(user._id, this.today).subscribe(data => {
           this.dataSource.data[index].statusForTable = data[0]
@@ -250,8 +246,6 @@ export class AdminBoardComponent implements OnInit, AfterViewInit, OnDestroy {
         
         
       }
-
-      console.log(this.dataSource.data)
 
       this.loading = false;
     })

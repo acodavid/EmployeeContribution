@@ -29,10 +29,6 @@ router.get('/:user/:date', passport.authenticate('jwt', {session: false}), (req,
     startofDay.setHours(0, 0, 0, 0);
     endofDay.setHours(23, 59, 59, 999);
 
-    console.log(startofDay);
-    console.log(endofDay);
-    console.log('--------------')
-
     PresenceAbsenceBusinessTrip.find({"date": {"$gte": startofDay, "$lt": endofDay}, "user": req.params.user})
         .then(data => {
             
