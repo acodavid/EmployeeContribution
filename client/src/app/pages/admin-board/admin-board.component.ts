@@ -42,6 +42,8 @@ export class AdminBoardComponent implements OnInit, AfterViewInit, OnDestroy {
   userType: string = ''
   userID: string = ''
 
+  forUser: boolean = false
+
   // todays date
   today: Date = new Date();
 
@@ -59,49 +61,48 @@ export class AdminBoardComponent implements OnInit, AfterViewInit, OnDestroy {
 
     this.dateAdapter.getFirstDayOfWeek = () => {return 1}
 
-    if(this.userService.checkAdmin()) {
-      this.sub1 = this.userService.getUsers().subscribe(users => {
-        this.dataSource.data = users;
-        this.data = users
+    this.sub1 = this.userService.getUsers().subscribe(users => {
+      this.dataSource.data = users;
+      this.data = users
 
-        this.userService.getCurrentUser().subscribe(user => {
-          this.userType = user.type;
-          this.userID = user._id;
-        })
-
-        for (let index = 0; index < this.dataSource.data.length; index++) {
-          const user = this.dataSource.data[index];
-    
-          this.sub4 = this.absencePresenceService.getAbsencePresenceBusinessTrip(user._id, this.today).subscribe(data => {
-            this.dataSource.data[index].statusForTable = data[0]
-            this.dataSource.data[index].status2 = data[0].type
-            this.dataSource.data[index].start = data[0].workingFrom
-            this.dataSource.data[index].end = data[0].workingTo
-            this.dataSource.data[index].break = data[0].onPauseFrom
-            this.dataSource.data[index].officeremote = data[0].remoteOffice
-            this.data[index].statusForTable = data[0]
-          }, error => {
-            this.dataSource.data[index].statusForTable = {
-              type: 'None'
-            }
-          })
-
-         
-          
-        }
-
-        
-
-        this.loading = false;
-
-        
-        
+      this.userService.getCurrentUser().subscribe(user => {
+        this.userType = user.type;
+        this.userID = user._id;
       })
 
-      
+      for (let index = 0; index < this.dataSource.data.length; index++) {
+        const user = this.dataSource.data[index];
+  
+        this.sub4 = this.absencePresenceService.getAbsencePresenceBusinessTrip(user._id, this.today).subscribe(data => {
+          this.dataSource.data[index].statusForTable = data[0]
+          this.dataSource.data[index].status2 = data[0].type
+          this.dataSource.data[index].start = data[0].workingFrom
+          this.dataSource.data[index].end = data[0].workingTo
+          this.dataSource.data[index].break = data[0].onPauseFrom
+          this.dataSource.data[index].officeremote = data[0].remoteOffice
+          this.data[index].statusForTable = data[0]
+        }, error => {
+          this.dataSource.data[index].statusForTable = {
+            type: 'None'
+          }
+        })
 
-    } else {
-      this.router.navigate(['/not-found'])
+        if(index === this.dataSource.data.length - 1) {
+          this.loading = false;
+        }
+
+       
+        
+      }
+
+      
+      // this.loading = false;
+      
+      
+    })
+
+    if(!this.userService.checkAdmin()) {
+      this.forUser = true
     }
 
     
@@ -117,7 +118,7 @@ export class AdminBoardComponent implements OnInit, AfterViewInit, OnDestroy {
       this.sort.direction = sortState.direction;
       this.sort.sortChange.emit(sortState);
 
-      console.log(this.sort)
+      //console.log(this.sort)
   }
 
   ngOnDestroy() {
@@ -234,7 +235,7 @@ export class AdminBoardComponent implements OnInit, AfterViewInit, OnDestroy {
       for (let index = 0; index < this.dataSource.data.length; index++) {
         const user = this.dataSource.data[index];
 
-        console.log('anothet' + ' ' + this.today)
+        // console.log('another' + ' ' + this.today)
   
         this.sub4 = this.absencePresenceService.getAbsencePresenceBusinessTrip(user._id, this.today).subscribe(data => {
           this.dataSource.data[index].statusForTable = data[0]

@@ -31,6 +31,7 @@ router.get('/:user/:date', passport.authenticate('jwt', {session: false}), (req,
 
     console.log(startofDay);
     console.log(endofDay);
+    console.log('--------------')
 
     PresenceAbsenceBusinessTrip.find({"date": {"$gte": startofDay, "$lt": endofDay}, "user": req.params.user})
         .then(data => {
@@ -81,6 +82,9 @@ router.put('/update', passport.authenticate('jwt', {session: false}), (req, res)
     const { type, remoteOffice, workingFrom, workingTo, onPauseFrom,
         onPauseTo, typeOfAbsence, date, placeOfBusinessTrip, user} = req.body;
 
+        const dateForReq = new Date(date)
+        dateForReq.setHours(12, 0, 0, 0)
+
     const newData = {};
 
     
@@ -105,7 +109,7 @@ router.put('/update', passport.authenticate('jwt', {session: false}), (req, res)
         newData.typeOfAbsence = typeOfAbsence
     
     
-        newData.date = date
+        newData.date = dateForReq
     
     
         newData.placeOfBusinessTrip = placeOfBusinessTrip
@@ -168,6 +172,9 @@ router.post('/create', passport.authenticate('jwt', {session: false}), (req, res
     const { type, remoteOffice, workingFrom, workingTo, onPauseFrom,
         onPauseTo, typeOfAbsence, date, placeOfBusinessTrip, user} = req.body;
 
+    const dateForReq = new Date(date)
+    dateForReq.setHours(12, 0, 0, 0)
+
     const startofDay = new Date(date);
     const endofDay = new Date(date);
 
@@ -197,7 +204,7 @@ router.post('/create', passport.authenticate('jwt', {session: false}), (req, res
                                         onPauseFrom,
                                         onPauseTo,
                                         typeOfAbsence,
-                                        date,
+                                        date: dateForReq,
                                         placeOfBusinessTrip,
                                         user
                                     })

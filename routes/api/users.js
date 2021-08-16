@@ -15,6 +15,7 @@ const validateLogin = require('../../validation/login');
 const validatePass = require('../../validation/changePassword');
 const validateUpdateUser = require('../../validation/updateUser');
 const validateProfile = require('../../validation/profileUpdate');
+const validatePass2 = require('../../validation/createNewPass')
 
 
 // @route GET api/users
@@ -279,6 +280,50 @@ router.put('/changepassword', passport.authenticate('jwt', {session: false}), (r
                         }
 
                     })
+
+        })
+        .catch(err => {
+            console.log(err)
+        })
+
+})
+
+// @route PUT api/users/changepassword
+// @desc Changing of the password for GLOBAL ADMIN
+// @access private
+router.put('/change/pass', passport.authenticate('jwt', {session: false}), (req, res) => {
+
+    const {errors, isValid} = validatePass2(req.body);
+
+    if(!isValid) {
+        return res.status(400).json(errors);
+    }
+
+    const { id, newPassword, newPasswordConfirmation } = req.body;
+
+    User.findById(id)
+        .then(user => {
+
+            
+            if(newPassword === newPasswordConfirmation) {
+
+                bcrypt.genSalt(10, (err, salt) => {
+                    bcrypt.hash(newPassword, salt, (err, hash) => {
+                        if (err) throw err;
+                        user.password = hash;
+                        
+                        User.findByIdAndUpdate({_id: req.body.id }, {$set: user}, {new: true, useFindAndModify: false})
+                            .then(user => res.json(user));
+                    })
+                })
+                
+            } else {
+
+                errors.newPasswordConfirmation = 'Password are not matching'
+                return res.status(400).json(errors);
+
+            }
+            
 
         })
         .catch(err => {

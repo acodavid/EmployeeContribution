@@ -24,6 +24,7 @@ import { ContributionDetailComponent } from './pages/contribution-detail/contrib
 import { HolidaysComponent } from './pages/holidays/holidays.component';
 import { PositionsComponent } from './pages/positions/positions.component';
 import { AbsenceTypeComponent } from './pages/absence-type/absence-type.component';
+import { UserPasswordChangeComponent } from './pages/user-password-change/user-password-change.component';
 
 
 const routes: Routes = [
@@ -48,6 +49,7 @@ const routes: Routes = [
   {path: 'holidays', component: HolidaysComponent, canActivate:[AuthGuard]},
   {path: 'positions', component: PositionsComponent, canActivate:[AuthGuard]},
   {path: 'absence/type', component: AbsenceTypeComponent, canActivate:[AuthGuard]},
+  {path: 'user/password/change/:id', component: UserPasswordChangeComponent, canActivate:[AuthGuard]},
   {path: '**', component: NotFoundComponent}
 ];
 

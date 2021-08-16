@@ -10,13 +10,15 @@ import { UserService } from '../../data/services/user.service';
 export class NavbarComponent implements OnInit {
 
 
+  imageUrl = 'assets/images/WaySeven_icon_standard.svg'
+
   constructor(
     public userService: UserService,
     private router: Router
   ) { }
 
   ngOnInit(): void {
-    console.log(this.userService.checkGlobalAdmin())
+    // console.log(this.userService.checkGlobalAdmin())
   }
 
   logout(){

@@ -38,6 +38,7 @@ import { HolidaysComponent } from './pages/holidays/holidays.component';
 import { SnackComponent } from './data/snack/snack/snack.component';
 import { PositionsComponent } from './pages/positions/positions.component';
 import { AbsenceTypeComponent } from './pages/absence-type/absence-type.component';
+import { UserPasswordChangeComponent } from './pages/user-password-change/user-password-change.component';
 
 @NgModule({
   declarations: [
@@ -67,7 +68,8 @@ import { AbsenceTypeComponent } from './pages/absence-type/absence-type.componen
     HolidaysComponent,
     SnackComponent,
     PositionsComponent,
-    AbsenceTypeComponent
+    AbsenceTypeComponent,
+    UserPasswordChangeComponent
   ],
   imports: [
     BrowserModule,

@@ -1,8 +1,9 @@
-import { Component, OnInit, OnDestroy } from '@angular/core';
+import { Component, OnInit, OnDestroy, ElementRef } from '@angular/core';
 import { UserService } from '../../data/services/user.service';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { UserRegister } from 'src/app/data/models/UserRegister';
+import { ViewChild } from '@angular/core';
 
 @Component({
   selector: 'app-change-password',
@@ -10,6 +11,7 @@ import { UserRegister } from 'src/app/data/models/UserRegister';
   styleUrls: ['./change-password.component.scss']
 })
 export class ChangePasswordComponent implements OnInit, OnDestroy {
+
 
   // password field changers
   hide1: boolean = true;
@@ -36,7 +38,7 @@ export class ChangePasswordComponent implements OnInit, OnDestroy {
   }
 
   ngOnInit(): void {
-    
+
   }
 
   ngOnDestroy() {

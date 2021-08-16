@@ -42,6 +42,10 @@ body {
 
     .navbar-brand {
         margin-left: $margin;
+
+        .brand-picture {
+            width: 25px;
+        }
     }
 
     .navbar-menu{
@@ -55,6 +59,8 @@ body {
 
     
 }
+
+
 
 .show-content {
     display: none;

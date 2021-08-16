@@ -1,12 +1,12 @@
 <nav class="navbar">
 
     <div class="navbar-brand">
-        <button mat-button routerLink="/">Brand</button>
+        <img class="brand-picture" [src]="imageUrl" alt="brand">
     </div>
 
     <div class="navbar-menu">
         <div class="navbar-links">
-            <button mat-button class="navbar-links" *ngIf="userService.checkAdmin()" routerLink="/employees">Employees</button>
+            <button mat-button class="navbar-links" routerLink="/employees" *ngIf="userService.loggedIn()">Employees</button>
         <button mat-button class="navbar-links" *ngIf="userService.loggedIn()" routerLink="/">Dashboard</button>
         </div>
         <button mat-button [matMenuTriggerFor]="menu" *ngIf="userService.loggedIn()">
@@ -19,13 +19,13 @@
 
             <div class="show-content">
                 <button mat-menu-item *ngIf="userService.loggedIn()" routerLink="/">Dashboard</button>
-                <button mat-menu-item *ngIf="userService.checkAdmin()" routerLink="/employees">Employees</button>
+                <button mat-menu-item *ngIf="userService.loggedIn()" routerLink="/employees">Employees</button>
             </div>
             
             <button mat-menu-item routerLink="/user/profile/current/details">Profile</button>
             <button mat-menu-item routerLink="/preference/details">My Preferences</button>
             <button mat-menu-item routerLink="/password/change">Change password</button>
-            <button mat-menu-item routerLink="/presence/absence/business/search">Search My Contribution</button>
+            <!-- <button mat-menu-item routerLink="/presence/absence/business/search">Search My Contribution</button> -->
             <button mat-menu-item routerLink="/contributions/search">Search Contributions</button>
             <button mat-menu-item *ngIf="userService.checkAdmin()" routerLink="/contribution/create">Add Contribution</button>
             <button mat-menu-item *ngIf="userService.checkAdmin()" routerLink="/holidays">Holidays</button>

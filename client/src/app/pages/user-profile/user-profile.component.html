@@ -82,6 +82,10 @@
             <a mat-raised-button [href]="user.linkToPersonalFolder" target="_blank">Link to Personal Folder</a>
         </mat-list>
 
+        <mat-list *ngIf="userService.checkGlobalAdmin() && currentUser._id !== user._id" class="preference-list-item">
+            <button class="full-width" mat-raised-button [routerLink]="['/user/password/change', user._id]">Change User Password</button>
+        </mat-list>
+
         <mat-list *ngIf="currentUser._id !== user._id" class="preference-list-item">
             <button class="full-width" mat-raised-button color="warn" (click)="deleteUser(user._id)">Delete User</button>
         </mat-list>

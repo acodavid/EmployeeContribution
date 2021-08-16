@@ -37,7 +37,7 @@ export class UserProfileComponent implements OnInit, OnDestroy {
   constructor(
     private router: Router,
     private activatedRoute: ActivatedRoute,
-    private userService: UserService,
+    public userService: UserService,
     private dialog: MatDialog
   ) {
    }

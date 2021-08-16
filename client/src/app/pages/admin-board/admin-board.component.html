@@ -1,7 +1,7 @@
-<div class="dashboard-container">
+<div *ngIf="!loading" class="dashboard-container">
   <div class="buttons-inline">
 
-    <div class="first-row">
+    <div *ngIf="!forUser" class="first-row">
       <button class="smaller-button" mat-button>Download all data <mat-icon>get_app</mat-icon></button>
       <button class="smaller-button" mat-button>Download selected <mat-icon>get_app</mat-icon></button>
       <button class="smaller-button" mat-button routerLink="/user/action/register">Create User</button>
@@ -16,8 +16,8 @@
         
         <mat-form-field>
           <mat-label>Date</mat-label>
-          <input [value]="today" matInput [matDatepicker]="picker"  (dateChange)="date($event)">
-          <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+          <input [value]="today" matInput [matDatepicker]="picker"  (dateChange)="date($event)" [disabled]="forUser">
+          <mat-datepicker-toggle matSuffix [for]="picker" tabindex="-1"></mat-datepicker-toggle>
           <mat-datepicker #picker></mat-datepicker>
         </mat-form-field>
         
@@ -96,8 +96,8 @@
         <ng-container matColumnDef="actions" sticky>
           <th mat-header-cell *matHeaderCellDef></th>
           <td mat-cell *matCellDef="let element"> 
-              <button *ngIf="(element.type !== 'globalAdmin' && element.type !== 'admin') || userType === 'globalAdmin' || element._id === userID" mat-button title="Profile" [routerLink]="['/user/profile', element._id]"><mat-icon color="primary">description</mat-icon></button> 
-              <button *ngIf="(element.type !== 'globalAdmin' && element.type !== 'admin') || userType === 'globalAdmin' || element._id === userID" mat-button title="Edit User" [routerLink]="['/user/action', element._id]"><mat-icon class="action-edit-icon">edit</mat-icon></button>
+              <button *ngIf="(!forUser) && ((element.type !== 'globalAdmin' && element.type !== 'admin') || userType === 'globalAdmin' || element._id === userID)" mat-button title="Profile" [routerLink]="['/user/profile', element._id]"><mat-icon color="primary">description</mat-icon></button> 
+              <button *ngIf="(!forUser) && ((element.type !== 'globalAdmin' && element.type !== 'admin') || userType === 'globalAdmin' || element._id === userID)" mat-button title="Edit User" [routerLink]="['/user/action', element._id]"><mat-icon class="action-edit-icon">edit</mat-icon></button>
           </td>
         </ng-container>
   
@@ -111,9 +111,11 @@
   </table>
 
 
-  <div class="spinner-container">
-    <mat-spinner *ngIf="loading"></mat-spinner>
-  </div>
+ 
   
+</div>
+
+<div class="spinner-container">
+  <mat-spinner *ngIf="loading"></mat-spinner>
 </div>
 

@@ -83,6 +83,10 @@ export class UserService {
     return this.httpClient.put(`${environment.apiUrl}/api/users/changepassword`, data)
   }
 
+  changeUserPassword(data): Observable<any> {
+    return this.httpClient.put(`${environment.apiUrl}/api/users/change/pass`, data)
+  }
+
   deleteUser(id): Observable<any> {
     return this.httpClient.delete(`${environment.apiUrl}/api/users/${id}`)
   }
