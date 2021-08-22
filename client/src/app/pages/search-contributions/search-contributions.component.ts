@@ -130,6 +130,11 @@ export class SearchContributionsComponent implements OnInit, OnDestroy {
       console.log(this.dataSource)
     }, error => {
       this.errorMessage = error.error.error;
+      setTimeout(() => {
+        this.errorMessage = ''
+      }, 2000)
+
+      this.loadingTable = false
     })
   }
 
